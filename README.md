@@ -1,7 +1,3 @@
 JavaSE
 
-https://github.com/Leo101018/leo20220919/JavaSE-index.md
-
-
-
-
+https://leo101018.github.io/leo20220919/JavaSE-index.md
