@@ -1,3 +1,3 @@
 JavaSE
 
-[JavaSE](https://leo101018.github.io/leo20220919/JavaSE-index.md)
+[JavaSE](https://leo101018.github.io/leo20220919/JavaSE-index)
