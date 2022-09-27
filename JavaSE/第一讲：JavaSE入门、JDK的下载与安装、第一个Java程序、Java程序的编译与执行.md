@@ -2,9 +2,9 @@
 
 Java是一种面向对象的程序设计语言，由Sun Microsystems公司的James Gosling等人于20世纪90年代初开发。它最初被命名为Oak，用来开发消费类电子产品，解决诸如电话、电视机等家用电器的控制和通讯问题。后来随着互联网的发展，Sun看到了Oak在计算机网络上的广阔应用前景，于是改造了Oak，在1995年5月正式命名为"Java"，变化历程如下图1.1和1.2所示。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-32-16-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-32-16-image.png)
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-33-02-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-33-02-image.png)
 
 
 
@@ -27,13 +27,13 @@ Java编译器将Java源程序编译成一种与体系结构无关的中间文件
 怎样理解平台无关性呢？JVM
 (java Virtual Machine)起到了主要作用。JVM是运行在平台之上的程序，它能够虚拟出一台目标机，所有字节码就是在虚拟出的目标机上运行。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-34-08-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-34-08-image.png)
 
 **2.半编译半解释**
 
 源程序先编译成字节码，Java解释器(运行系统)能直接对Java字节码进行解释执行。链接程序通常比编译程序所需资源少，Java的编译和解释执行过程如下图1.4所示。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-34-28-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-34-28-image.png)
 
 **3.简单**
 
@@ -75,15 +75,15 @@ Library），如果你只需要运行Java程序,下载并安装它即可。
 
 如果你要自行开发 Java软件，请下载JDK。在JDK中附带有JRE。最新版本下载地址[Java Downloads | Oracle](http://www.oracle.com/technetwork/java/javase/downloads/index.html)。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-35-30-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-35-30-image.png)
 
 
 
 ## 第一个Java程序
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-36-02-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-36-02-image.png)
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-36-18-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-36-18-image.png)
 
 <style>
 </style>
@@ -92,7 +92,7 @@ Library），如果你只需要运行Java程序,下载并安装它即可。
 
 Java程序运行在Java虚拟机上，Java虚拟机就是指JVM (Java Virtual Machine) ，这是一个虚构出来的计算机，通过在实际的计算机上仿真模拟各种计算机功能来实现的。Java虚拟机有自己完善的硬件架构,如处理器、堆栈、寄存器等,还具有相应的指令系统，编辑、编译及运行Java程序的过程如图1.13所示。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-36-41-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-36-41-image.png)
 
 <style>
 </style>
@@ -101,9 +101,9 @@ Java程序运行在Java虚拟机上，Java虚拟机就是指JVM (Java Virtual Ma
 
 一个运行时的Java虚拟机实例的天职就是：负责运行一个Java程序。Java虚拟机的主要任务是装载class文件并且解释执行其中的字节码。当启动一个Java程序时，一个虚拟机实例也就诞生了。当该程序关闭退出，这个虚拟机实例也就随之消亡。如果同一台计算机上同时运行三个Java程序，将得到三个Java虚拟机实例。每个Java程序都运行于它自己的Java虚拟机实例中，如下图1.14所示。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-37-06-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-37-06-image.png)
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-37-20-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-37-20-image.png)
 
 **图 运行时过程**
 
@@ -129,17 +129,17 @@ Java 的注释是被Javac忽略的部分，Java中的注释包含下面三种。
 
 Java的注释如下图1.17所示。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-38-16-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-38-16-image.png)
 
 Java中的修饰符如下图1.19所示，其中public用来修饰类，也可以修饰方法，static用来修饰main方法，void是main方法的返回值类型，表示此方法没有返回值。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-38-43-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-38-43-image.png)
 
 ## 类和主方法
 
 Java中的类和主方法的结构图下图1.20所示，主方法在类的内部，类里包含方法。
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-39-14-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-39-14-image.png)
 
 
 
@@ -213,9 +213,9 @@ demo目录是提供的一些例子程序。
 
 
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-40-22-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-40-22-image.png)
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-40-37-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-40-37-image.png)
 
 JRE (Java Runtime
 Environment) ：是Java程序的运行时环境，包含 JVM 和运行时所需要的 核心类库 。  
@@ -225,7 +225,7 @@ JDK (Java Development Kit)：是Java程序开发工具包，包含 JRE 和开发
 
 三者关系： JDK > JRE>JVM
 
-![](C:\GitHub\GitHub\leo20220919\JavaSE\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-41-14-image.png)
+![](.\第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行\2022-09-27-16-41-14-image.png)
 
 Java程序的执行过程
 
