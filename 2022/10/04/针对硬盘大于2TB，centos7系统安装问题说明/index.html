@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>分类 |  欢迎来到Leo的博客</title>
+      <title>针对硬盘大于2TB，centos7系统安装问题说明 |  欢迎来到Leo的博客</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -52,12 +52,183 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-针对硬盘大于2TB，centos7系统安装问题说明"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  针对硬盘大于2TB，centos7系统安装问题说明
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/" class="article-date">
+  <time datetime="2022-10-04T07:59:45.000Z" itemprop="datePublished">2022-10-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/centos/">centos</a>
+  </div>
   
-    <h1 class="page-type-title">分类</h1>
-    <div class="categories-box">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/centos/">centos</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li></ul>
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">491</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1 分钟</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
   
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="针对硬盘大于2TB，centos7系统安装问题说明"><a href="#针对硬盘大于2TB，centos7系统安装问题说明" class="headerlink" title="针对硬盘大于2TB，centos7系统安装问题说明"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Leo101018/p/13806461.html">针对硬盘大于2TB，centos7系统安装问题说明</a></h1><p>硬盘分区常见类型：</p>
+<p>msdos（mbr分区）</p>
+<p>gpt（gpt分区）</p>
+<p>系统安装默认采用mbr分区。</p>
+<p>MBR分区表(即主引导记录) 最大只支持2TB的分区，最多只支持4个主分区或3个主分区加一个扩展分区，信息只存储在一个区域；GPT（即GUID分区表），是源自EFI标准的一种较新的磁盘分区表结构的标准，是未来磁盘分区的主要形式，与MBR分区方式相比，突破4个主分区限制，每个磁盘最多支持128个分区，支持大于2T的分区，最大卷可达 18EB，信息存储在多个区域，当一部分受损后可修复。</p>
+<p>设置GPT方式有UEFI和BIOS两种方式，UEFI启动是一种新的主板引导项，与传统的Bios方式相比可以提高开机后操作系统的启动速度。如今很多主板已经直接支持UEFI，这种场景下可以直接通过UEFI的方式设置GPT方式，如若主板不支持，那么还得通过传统的Bios方式强制设置GPT方式。</p>
+<p>针对uefi启动，采用gpt分区，需要单独划分一个uefi分区</p>
+<img src="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/970770-20200929110620548-1970820754.png" class="" title="img">
+
+<p>针对bios启动，mbr方式分区大于2TB硬盘会报错，如下</p>
+<img src="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/970770-20200929111340979-1715145746.png" class="" title="img">
+
+<p> 此时bios启动安装时，输入inst.gpt强制采用gpt分区（实际这不不做也没关系）</p>
+<img src="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/970770-20200929111451537-931922777.png" class="" title="img">
+
+<p>进入到分区页面</p>
+<img src="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/970770-20200929111945993-147036960.png" class="" title="img">
+
+<p>关键需要划分bios boot分区，其它分区正常划分即可。</p>
+<p>投机方式：将所有分区删除，点击standard标准分区，点击自动划分分区，就会自动将bios boot分区划分好，之后将其它不用分区删除，按照自己规划进行划分即可。</p>
+<p>注意，bios boot分区必须是标准分区，文件系统为bios boot，否则会报错。</p>
+<p>后续正常安装即可。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/centos-install/" rel="tag">centos-install</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/10/04/windows%E9%85%8D%E7%BD%AE%E4%B8%BAopenssh%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%AF%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">windows配置为openssh服务端可远程登录</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -190,6 +361,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
