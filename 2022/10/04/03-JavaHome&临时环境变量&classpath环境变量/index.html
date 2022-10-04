@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-CN">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>03-JavaHome&amp;临时环境变量&amp;classpath环境变量 |  欢迎来到Leo的博客</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-03-JavaHome&amp;临时环境变量&amp;classpath环境变量"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  03-JavaHome&amp;临时环境变量&amp;classpath环境变量
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" class="article-date">
+  <time datetime="2022-10-04T10:13:09.000Z" itemprop="datePublished">2022-10-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaSE/">JavaSE</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">2.6k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">9 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="1-配置java-home、临时环境变量信息"><a href="#1-配置java-home、临时环境变量信息" class="headerlink" title="1.配置java_home、临时环境变量信息"></a>1.配置java_home、临时环境变量信息</h1><p>PATH环境信息：</p>
+<p>D:;</p>
+<p>D:\JDK\JDK\bin;</p>
+<p>D:\eclipse4.3\adt-bundle-windows-x86-20131030\adt-bundle-windows-x86-20131030\sdk\platform-tools;</p>
+<p>C:\Program Files\Intel\iCLS Client;</p>
+<p>%SystemRoot%\system32;</p>
+<p>%SystemRoot%;</p>
+<p>%SystemRoot%\System32\Wbem;%SYSTEMROOT%\System32\WindowsPowerShell\v1.0;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\OpenCL SDK\2.0\bin\x86;D:\mysql\bin;C:\Program Files\TortoiseSVN\bin;D:\firfox\quicktime\QTSystem\</p>
+<p>目前path环境变量除了保存了我们自己配置的信息以外，还有系统自带的信息，如果一旦不不小心删除了path环境变量信息，那么就可能导致系统部分功能无法使用。</p>
+<p>尽量避免修改的path环境变量信息。</p>
+<p>如果我们需要频繁的更换jdk的版本，那么就需要频繁的去修改path环境变量内容了，就容易出错。</p>
+<p>那么为了尽量避免频繁修改path环境变量，如何做？</p>
+<p>解决办法：新建一个环境变量保存jdk安装目录会发生变化的部分，然后在path环境变量上引用新环境变量所保存的信息。</p>
+<p>即使用java_home，当然这个环境变量不叫java_home也行，但是一般都起名为java_home。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image001.png" class="" title="img">
+
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image002.png" class="" title="img">
+
+<p>当jdk版本有变动的时候，去修改JAVA_HOME的值即可了。path环境变量就不用动了。</p>
+<p>有的时候，某个jdk版本只用一次，那么可以使用临时配置环境变量即可。</p>
+<p>需求： 在现实开发中有时候jdk版本的信息有时候只会使用一次或者几次就不再使用了，那么如果是这种需求，我们一般都是通过set命令配置临时环境变量。</p>
+<p><strong>临时环境变量就是仅对于当前控制台窗口起作用，窗口一旦关闭，那么配置的临时环境变量信息会发生消失。</strong></p>
+<p>set命令的用法：</p>
+<p>​    </p>
+<p>​    set              查看所有的环境变量信息。</p>
+<p>​    set 环境变量的名字      查看指定的环境变量信息。</p>
+<p>​    set 环境变量名字 &#x3D; 路径信息   设置指定的环境变量信息。</p>
+<p>​    set 环境变量名字 &#x3D;       清空指定的环境变量信息。</p>
+<p>​    <strong>set 环境变量名字 &#x3D; 新路径；%环境变量名字%  在原有的基础上添加新的路径信息。</strong></p>
+<p>注意： 以后大家但凡看到是set命令设置的环境变量信息，都是临时环境变量信息。</p>
+<h2 id="helloworld的小细节"><a href="#helloworld的小细节" class="headerlink" title="helloworld的小细节"></a>helloworld的小细节</h2><p>\1.  缺少main方法</p>
+<p>出现提示：缺少一个名称为main的方法。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image004.png" class="" title="img">
+
+<p>\2.  源文件中的大小写要注意。初学者请牢记，第一个hello例子中只有     String和System中两个字符是大写的，其他的都小写。</p>
+<p>\3.  配置path和classpath时，里面的路径是所有查找的目标的父目录，        而不是目标自己。</p>
+<p>\4.  A.java.txt</p>
+<p>​        文本文件默认是txt结尾的，注意要把隐藏已知文件类型扩展名去掉。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image006.png" class="" title="img">
+
+<p>\5.  大小写</p>
+<p>只有类名Demo，String和System中三个个首字母是大写的。</p>
+<p>  <strong>public</strong> <strong>class</strong> <strong>Demo</strong>{    <strong>public</strong> <strong>static</strong> <strong>void</strong>  main(<strong>String</strong>[] args) {      <strong>System</strong>.<em>out</em>.println(“hello  java”);    }  }  </p>
+<p>\6.  path</p>
+<p>看path环境变量配置 ，里面的路径是所有查找的目标的父目录，而不是目标自己。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image008.png" class="" title="img">
+
+<p><strong>7.</strong>  <strong>写错类名</strong>, <strong>源文件名不存在或者写错，或者当前路径错误。</strong></p>
+<p><strong>类文件名写错，或者类文件不在当前路径下，或者不在classpath指定  路径下。</strong></p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image010.png" class="" title="img">
+
+<p><strong>java</strong>命令加载的是类，而不是<strong>class</strong>文件的。因此，如果人为的将<strong>class文件</strong>的文件名改成别的，那么java命令加载的时候，仍然需要写里面的类名，而不应该写<strong>class文件的文件名。</strong></p>
+<p>\8.  javac 生成的.class 文件的名称取决于类名，跟.java名没有关系。</p>
+<p><strong>javac编译源文件，生成的class文件的文件名默认就是类名。</strong></p>
+<p>第一个hello world例子常见 的问题：</p>
+<p>​    </p>
+<p>​    \1. 找不到对应的文件</p>
+<p>​       原因：</p>
+<p>​           1 隐藏了后缀名，你的不是java文件是txt文件。</p>
+<p>​           2.编译 的时候写错了文件名。</p>
+<p>​    \2. 找不到或无法加载主类 Demo1 </p>
+<p>​       原因： 运行的时候写错了类名. 注意： class文件的文件名是对应的类名的。不是对应的java文件名的。</p>
+<p>​    \3. java的代码是严格区分大小写的。</p>
+<p>​    </p>
+<p>​    \4. ‘javac’ 不是内部或外部命令 </p>
+<p>​       原因： 没有配置path环境变量信息，或者是配置错误了。</p>
+<h1 id="2-classpath环境变量信息"><a href="#2-classpath环境变量信息" class="headerlink" title="2.classpath环境变量信息"></a>2.classpath环境变量信息</h1><p><strong>JVM查找类文件的顺序：</strong></p>
+<p>•  <strong>如果没有配置classpath环境变量，JVM只在当前目录下查找要运行的类文件。</strong></p>
+<p>•  <strong>如果配置了classpath环境，JVM会先在classpath环境变量值的目录中查找要运行的类文件。</strong></p>
+<p>•  <strong>值的结尾处如果加上分号，那么JVM在classpath目录下没有找到要指定的类文件，会在当前目录下在查找一次。</strong></p>
+<p>•  <strong>值的结尾出如果没有分号，那么JVM在classpath目录下没有找到要指定的类文件，不会在当前目录下查找，即使当前目录下有，也不会运行。</strong></p>
+<p><strong>建议：配置classpath环境变量时，值的结尾处不要加分号，如果需要访问当前目录可以用 “.”表示。</strong></p>
+<p>classpath 环境变量：</p>
+<p>​    </p>
+<p>​    设置了classpath环境变量的时候，启动jvm(java虚拟机)的时候，那么java虚拟机就会 根据classpath环境变量所保存路径信息下去寻找对应的class文件。</p>
+<p>​    设置classpath环境变量信息的有分号与没有分号的区别： </p>
+<p>​       \1. 如果配置classpath环境变量信息<strong>没有加上分号</strong>,那么java虚拟机仅会在classpath所保存的路径下去搜索对应的class文件，不会在当前路径下去搜索了。</p>
+<p>​       \2. 如果配置classpath环境变量信息<strong>加上分号</strong>，那么java虚拟机除了会在classpath所保存的路径下去搜索对应 的class文件之外,如果能找到对应的class文件那么就马上指定对应的class文件，否则还会去 当前路径下去搜索。</p>
+<p><strong>注意，分号;，就相当于是当前目录，就是那个点.。</strong></p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image011.png" class="" title="img">
+
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image012.png" class="" title="img">
+
+<p>现在E盘和F盘都有同名的Demo1.java文件，并且类名也相同，都是Demo1。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image013.png" class="" title="img">
+
+<p>当前F盘编译了Demo1.java，有对应的class文件。</p>
+<p>此时由于设置了classpath，因此，首先会在classpath设置的目录去搜索Demo1的class文件的。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image014.png" class="" title="img">
+
+<p>如果将F盘的class文件删除了。</p>
+<p>那么在classpath里面指定的f盘里找不到class文件，就在当前目录E盘下找。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image015.png" class="" title="img">
+
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image016.png" class="" title="img">
+
+<p>分号放前面了。分号，就相当于是当前路径。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image017.png" class="" title="img">
+
+<p>注意，不建议将classpath配置成永久环境变量的。</p>
+<p>以前的书籍，都让配置classpath问永久环境变量。</p>
+<p>jdk5官方也不建议配置classpath为永久环境变量了。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image018.png" class="" title="img">
+
+<p>如果这里配置了，然后最后又没有加上分号。</p>
+<p>然后自己可能忘记了。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image019.png" class="" title="img">
+
+<p>在F盘执行，想要执行的是F盘的Demo1的，结果却执行了E盘的，原因就是上面配置了classpath导致的。因此，就会产生误解。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image020.png" class="" title="img">
+
+<p>将E盘的class文件删了。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image021.png" class="" title="img">
+
+<p>这就是由于配置了classpath&#x3D;E:\的原因。</p>
+<p>因此，不推荐配置classpath为永久环境变量的。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image022.png" class="" title="img">
+
+<p>在jdk5.0之前，是必须要配置classpath的。原因是当时的jvm没有那么智能。</p>
+<p><strong>jre&#x3D;jvm+核心类库。也就是jvm的运行要依赖核心类库的。</strong></p>
+<p>jdk5.0之前，安装完的jdk之后，jvm不知道核心类库的位置。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image023.png" class="" title="img">
+
+<p>核心类库在这个目录下的。</p>
+<p>因此，jdk5.0之前的jvm需要这些核心类库支持才能运行，但是又不能够智能的找到它们，因此，就强制要求必须要配置classpath环境变量，指向到这些核心类库的jar包。</p>
+<img src="/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/clip_image024.png" class="" title="img">
+
+<p>即要求要这样来配置。</p>
+<p>而在jdk5.0之后的jvm比较智能了，能够自动的找到这些核心类库的jar包了，因此，不需要配置classpath指向到这些核心类库的jar包了。</p>
+<p><strong>注意，配置classpath的作用，它对jvm有作用，同时它对编译的时候，也会产生作用的，因为编译的时候，遇到import导包的时候，就需要参考classpath指定的路径去找对应的包下的类的class文件。</strong></p>
+<p>classpath环境变量</p>
+<p>\1.  classpath的作用: 作用是<strong>指定类搜索路径</strong>，要使用已经编写好的类，前提当然是能够找到它们了，一旦配置了classpath路径信息的时候，jvm<strong>（java运行命令）</strong>与java编译器都会根据classpath指定的路径去寻找class文件。</p>
+<p>\2.  如何设置当前目录（.）</p>
+<p>set classpath&#x3D;.;设置路径 与 set classpath&#x3D;设置路径;.有什么区别?</p>
+<p>“.”在前面的时候，java虚拟机会先从当前路径去寻找class文件，然后再到指定的路径去需找。如果”.”在后面，java虚拟机则会先寻找指定好的路径,然后再在当前的路径去寻找。</p>
+<p><strong>设置classpath的时候要加上 ; 就会在当前目录下查找。因为分号就相当于是当前路径。</strong></p>
+<p>\1.  简述对JVM,JRE,JDK的理解。</p>
+<p>JVM: JAVA虚拟机</p>
+<p>Jre： java运行环境 jre &#x3D; java虚拟机+ 核心类库</p>
+<p>Jdk : java开发工具集。 Jdk &#x3D; jre + java开发工具。</p>
+<p>\2.    简述环境变量path和java_home \ classpath的作用？</p>
+<p>Path: 为了让控制台在任意路径下都可以找到java的开发工具。</p>
+<p>Java_home : 避免频繁修改path 环境变量信息。</p>
+<p>Classpath : 设置class文件所在的路径信息。</p>
+<p>\3.    独立编写hello world程序，编译并运行。</p>
+<p>\4.    java语言是否区分大小写? class的作用,javac,java的作用？</p>
+<p> 是， class的作用定义一个该类 的关键字，</p>
+<p> java :  启动java虚拟机解释并执行对应的class文件。</p>
+<p>javac： 启动java编译器对指定的java源文件进行编译</p>
+<p>\5. 简述main方法(是什么，什么特点，怎么用，何时用？)</p>
+<p>​    程序的主入口，代码是从住方法上开始执行的。</p>
+<p>​    写法是固定的。</p>
+<p>​    定义一个类中使用。</p>
+<p>​    如果一个类需要独立运行的时候，就需要main方法。</p>
+<hr>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/10/04/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/10/04/02-%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8B%E8%BF%90%E8%A1%8CJava%E4%BB%A3%E7%A0%81/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">02-命令行下运行Java代码</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2015-2022
+        <i class="ri-heart-fill heart_icon"></i> Leo
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="欢迎来到Leo的博客"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    
+
+  </div>
+</body>
+
+</html>
