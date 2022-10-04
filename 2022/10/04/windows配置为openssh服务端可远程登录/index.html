@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>分类 |  欢迎来到Leo的博客</title>
+      <title>windows配置为openssh服务端可远程登录 |  欢迎来到Leo的博客</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -52,12 +52,176 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-windows配置为openssh服务端可远程登录"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  windows配置为openssh服务端可远程登录
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/10/04/windows%E9%85%8D%E7%BD%AE%E4%B8%BAopenssh%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%AF%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="article-date">
+  <time datetime="2022-10-04T07:08:38.000Z" itemprop="datePublished">2022-10-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/windows/">windows</a>
+  </div>
   
-    <h1 class="page-type-title">分类</h1>
-    <div class="categories-box">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaSE/">JavaSE</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/windows/">windows</a><span class="category-list-count">1</span></li></ul>
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">130</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1 分钟</span>
+        </span>
+    </span>
+</div>
+ 
     </div>
+      
+
+
+
   
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>windows的openssh服务端</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/PowerShell/Win32-OpenSSH/releases">https://github.com/PowerShell/Win32-OpenSSH/releases</a></p>
+<p>配置方式如下：</p>
+<p>下载安装包，32位或64位，解压，放置在任意目录。</p>
+<img src="/2022/10/04/windows%E9%85%8D%E7%BD%AE%E4%B8%BAopenssh%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%AF%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/970770-20200922123950524-1846829508.png" class="" title="img">
+
+<p>右键-使用powershell运行</p>
+<img src="/2022/10/04/windows%E9%85%8D%E7%BD%AE%E4%B8%BAopenssh%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%AF%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/970770-20200922124036665-1851354777.png" class="" title="img">
+
+<p>将openssh ssh server设置为自动启动即可。</p>
+<img src="/2022/10/04/windows%E9%85%8D%E7%BD%AE%E4%B8%BAopenssh%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%AF%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/970770-20200922124117194-664861249.png" class="" title="img">
+
+<p>如想卸载，右键-powershell运行uninstall-sshd.ps1即可。</p>
+<p>ps：如右键-powershell运行报错，“无法加载文件….，因为在系统中进制执行脚本”。则执行如下操作即可。</p>
+<p>使用管理员身份打开powershell</p>
+<p>执行set-ExecutionPolicy RemoteSigned</p>
+<p>之后，脚本即可正常运行。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/10/04/windows%E9%85%8D%E7%BD%AE%E4%B8%BAopenssh%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%AF%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/openssh/" rel="tag">openssh</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/09/29/%E7%AC%AC%E4%B8%80%E8%AE%B2%EF%BC%9AJavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">第一讲：JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
       <footer class="footer">
   <div class="outer">
@@ -190,6 +354,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
