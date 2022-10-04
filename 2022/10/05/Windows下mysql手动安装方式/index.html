@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>标签 |  欢迎来到Leo的博客</title>
+      <title>Windows下mysql手动安装方式 |  欢迎来到Leo的博客</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -52,13 +52,195 @@
       
     <main class="content on">
       <section class="outer">
+  <article
+  id="post-Windows下mysql手动安装方式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Windows下mysql手动安装方式
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/10/05/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/" class="article-date">
+  <time datetime="2022-10-04T16:21:53.000Z" itemprop="datePublished">2022-10-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MySQL/">MySQL</a>
+  </div>
   
-    <h1 class="page-type-title">标签</h1>
-    <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL-install/" rel="tag">MySQL-install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/centos-install/" rel="tag">centos-install</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/openssh/" rel="tag">openssh</a></li></ul>
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">391</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1 分钟</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
   
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Windows环境下mysql手动方式安装"><a href="#Windows环境下mysql手动方式安装" class="headerlink" title="Windows环境下mysql手动方式安装"></a>Windows环境下mysql手动方式安装</h1><p><a target="_blank" rel="noopener" href="https://mirrors.huaweicloud.com/mysql/Downloads/MySQL-6.0/">https://mirrors.huaweicloud.com/mysql/Downloads/MySQL-6.0/</a></p>
+<p>下载地址</p>
+<img src="/2022/10/05/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image.png" class="" title="Image">
+
+<p>32位或者64位均可</p>
+<img src="/2022/10/05/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900250792-2.png" class="" title="Image">
+
+<p>解压放在一个非中文目录下</p>
+<img src="/2022/10/05/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900274221-4.png" class="" title="Image">
+
+<p>配置环境变量。</p>
+<p>将配置文件复制到目录中，并且名称必须是my.ini，否则就需要通过参数指定配置文件了。</p>
+<img src="/2022/10/05/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900317498-6.png" class="" title="Image">
+
+<p>my.ini文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port=3306</span><br><span class="line">[mysql]</span><br><span class="line">default-character-set=gbk</span><br><span class="line">[mysqld]</span><br><span class="line">port=3306</span><br><span class="line">basedir=&quot;C:/App/mysql-6.0.11-alpha-win32&quot;</span><br><span class="line">datadir=&quot;C:/App/mysql-6.0.11-alpha-win32/data&quot;</span><br><span class="line">default-character-set=gbk</span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line">sql-mode=&quot;STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&quot;</span><br><span class="line">max_connections=800</span><br><span class="line">query_cache_size=84M</span><br><span class="line">table_cache=1520</span><br><span class="line">tmp_table_size=30M</span><br><span class="line">thread_cache_size=38</span><br><span class="line">myisam_max_sort_file_size=100G</span><br><span class="line">myisam_sort_buffer_size=30M</span><br><span class="line">key_buffer_size=129M</span><br><span class="line">read_buffer_size=64K</span><br><span class="line">read_rnd_buffer_size=256K</span><br><span class="line">sort_buffer_size=256K</span><br><span class="line">innodb_additional_mem_pool_size=6M</span><br><span class="line">innodb_flush_log_at_trx_commit=1</span><br><span class="line">innodb_log_buffer_size=3M</span><br><span class="line">innodb_buffer_pool_size=250M</span><br><span class="line">innodb_log_file_size=50M</span><br><span class="line">innodb_thread_concurrency=10</span><br></pre></td></tr></table></figure>
+
+<p>注意，该配置文件是从图形界面方式安装的mysql之后，从其my.ini配置文件中提取出来的内容。</p>
+<p>之后，可以将mysql安装为Windows服务</p>
+<p>PS C:\Users\Administrator&gt; mysqld –install MySQL –defaults-file&#x3D;”C:\App\mysql-6.0.11-alpha-win32\my.ini”</p>
+<p>Service successfully installed.</p>
+<p>PS C:\Users\Administrator&gt;</p>
+<p>之后，就可以在services.msc中看到MySQL这个名字的Windows服务了。</p>
+<p>这里要注意，上面mysqld命令的参数顺序，不要颠倒了，否则不生效。</p>
+<p>PS C:\Users\Administrator&gt; mysqld –defaults-file&#x3D;”C:\App\mysql-6.0.11-alpha-win32\my.ini” –install MySQL</p>
+<p>PS C:\Users\Administrator&gt;</p>
+<p>这样就不行。</p>
+<p>如果想要安装的Windows服务，不是自动启动的，可以–install-manual参数。</p>
+<p>如果不想安装为Windows服务，想要直接在命令行下运行，并且看到实时输出，可以如下：</p>
+<p>mysqld –defaults-file&#x3D;”C:\App\mysql-6.0.11-alpha-win32\my.ini” –console 即可。</p>
+<p>删除MySQL服务</p>
+<p>mysqld –remove MySQL即可。</p>
+<hr>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <div class="declare">
+      <ul class="post-copyright">
+        <li>
+          <i class="ri-copyright-line"></i>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          
+        </li>
+      </ul>
+    </div>
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/10/05/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL-install/" rel="tag">MySQL-install</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/10/04/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">04-标识符、常量（字面量）、变量和数据类型、运算符</div>
+      </a>
+    
+  </nav>
+
+  
+   
+  
+   
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
 </section>
-
-
       <footer class="footer">
   <div class="outer">
     <ul>
@@ -190,6 +372,22 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
 
 <script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
 <link
