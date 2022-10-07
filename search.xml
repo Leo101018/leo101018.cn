@@ -2055,4 +2055,37 @@
         <tag>JavaSE</tag>
       </tags>
   </entry>
+  <entry>
+    <title>针对硬盘大于2TB，centos7系统安装问题说明</title>
+    <url>/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/</url>
+    <content><![CDATA[<h1 id="针对硬盘大于2TB，centos7系统安装问题说明"><a href="#针对硬盘大于2TB，centos7系统安装问题说明" class="headerlink" title="针对硬盘大于2TB，centos7系统安装问题说明"></a><a href="https://www.cnblogs.com/Leo101018/p/13806461.html">针对硬盘大于2TB，centos7系统安装问题说明</a></h1><p>硬盘分区常见类型：</p>
+<p>msdos（mbr分区）</p>
+<p>gpt（gpt分区）</p>
+<p>系统安装默认采用mbr分区。</p>
+<p>MBR分区表(即主引导记录) 最大只支持2TB的分区，最多只支持4个主分区或3个主分区加一个扩展分区，信息只存储在一个区域；GPT（即GUID分区表），是源自EFI标准的一种较新的磁盘分区表结构的标准，是未来磁盘分区的主要形式，与MBR分区方式相比，突破4个主分区限制，每个磁盘最多支持128个分区，支持大于2T的分区，最大卷可达 18EB，信息存储在多个区域，当一部分受损后可修复。</p>
+<p>设置GPT方式有UEFI和BIOS两种方式，UEFI启动是一种新的主板引导项，与传统的Bios方式相比可以提高开机后操作系统的启动速度。如今很多主板已经直接支持UEFI，这种场景下可以直接通过UEFI的方式设置GPT方式，如若主板不支持，那么还得通过传统的Bios方式强制设置GPT方式。</p>
+<p>针对uefi启动，采用gpt分区，需要单独划分一个uefi分区</p>
+<img src="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/970770-20200929110620548-1970820754.png" class="" title="img">
+
+<p>针对bios启动，mbr方式分区大于2TB硬盘会报错，如下</p>
+<img src="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/970770-20200929111340979-1715145746.png" class="" title="img">
+
+<p> 此时bios启动安装时，输入inst.gpt强制采用gpt分区（实际这不不做也没关系）</p>
+<img src="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/970770-20200929111451537-931922777.png" class="" title="img">
+
+<p>进入到分区页面</p>
+<img src="/2022/10/04/%E9%92%88%E5%AF%B9%E7%A1%AC%E7%9B%98%E5%A4%A7%E4%BA%8E2TB%EF%BC%8Ccentos7%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E9%97%AE%E9%A2%98%E8%AF%B4%E6%98%8E/970770-20200929111945993-147036960.png" class="" title="img">
+
+<p>关键需要划分bios boot分区，其它分区正常划分即可。</p>
+<p>投机方式：将所有分区删除，点击standard标准分区，点击自动划分分区，就会自动将bios boot分区划分好，之后将其它不用分区删除，按照自己规划进行划分即可。</p>
+<p>注意，bios boot分区必须是标准分区，文件系统为bios boot，否则会报错。</p>
+<p>后续正常安装即可。</p>
+]]></content>
+      <categories>
+        <category>centos</category>
+      </categories>
+      <tags>
+        <tag>centos-install</tag>
+      </tags>
+  </entry>
 </search>
