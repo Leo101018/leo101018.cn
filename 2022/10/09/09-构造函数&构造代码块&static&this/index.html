@@ -1,114 +1,434 @@
 <!DOCTYPE html>
-
-
 <html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="构造函数、构造代码块、static、this">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09-构造函数&amp;构造代码块&amp;static&amp;this">
+<meta property="og:url" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="构造函数、构造代码块、static、this">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223157368.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223214714.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223321136.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223351038.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223431202.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223541630.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223620361.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223715627.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223827957.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223915045.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223950508.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224100271.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224331797.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224459119.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224526476.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224659284.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224717257.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224826164.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224926856.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008224950903.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225032500.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225112268.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225135481.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225227432.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225246262.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225305526.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225338504.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225352655.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008225444067.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008230939363.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008230957952.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231101214.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231122789.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231142357.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231444545.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231501001.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231525761.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231545281.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231607939.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231705762.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231722681.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008231745562.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008232149828.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008232445354.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008232534379.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008232610763.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008232656746.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008232713324.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008235846034.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008235923889.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000011237.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000032887.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000058898.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000210096.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000301737.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000656083.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000742938.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000813411.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000826271.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000846322.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000854980.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000918305.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000929774.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000950990.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009000958040.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009093400820.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009093409512.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009093439163.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009093652122.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009093731081.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009094137208.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009094155915.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009094228285.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009094315613.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009094335545.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009094448748.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009113443277.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114045590.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114101087.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114110656.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114749957.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114821015.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114827957.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114852767.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114905586.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009114912860.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009115556575.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009115605514.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009115612541.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009115628783.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009115722878.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009115730293.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009115827918.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009151854088.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009151937976.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009151945059.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009152252882.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009152341917.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009152410391.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009152428080.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009152448872.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009165221048.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009165248764.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009165409600.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009165430128.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009165437098.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009165449324.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009165455342.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009172533239.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009172633328.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009172707352.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009172724350.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009172817051.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009172913661.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009172922014.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009172955579.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009173248959.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009173304330.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009173354111.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009173403493.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174243163.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174332807.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174340841.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174547961.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174607476.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174632110.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174645210.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174721287.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009174745812.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009214657924.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009214722518.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009215144863.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009220716026.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009220933717.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009221525565.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009221831743.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222603907.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222612438.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222622461.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222629942.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222645436.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222801481.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222830815.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222835840.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009222958985.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009223015917.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009223055377.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009224703914.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009225013336.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009225201311.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009225328188.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009225659495.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009225851529.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009225858996.png">
+<meta property="og:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221009230322413.png">
+<meta property="article:published_time" content="2022-10-09T15:10:47.000Z">
+<meta property="article:modified_time" content="2022-10-26T04:59:31.347Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/image-20221008223157368.png">
+
+<link rel="canonical" href="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>09-构造函数&构造代码块&static&this | 欢迎来到Leo的博客</title>
   
 
-    <head>
-      <meta charset="utf-8" />
-        
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1"
-      />
-      <title>09-构造函数&amp;构造代码块&amp;static&amp;this |  欢迎来到Leo的博客</title>
-  <meta name="generator" content="hexo-theme-ayer">
-      
-      <link rel="shortcut icon" href="/favicon.ico" />
-       
-<link rel="stylesheet" href="/dist/main.css">
-
-      
-<link rel="stylesheet" href="/css/fonts/remixicon.css">
-
-      
-<link rel="stylesheet" href="/css/custom.css">
- 
-      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
-       
- 
-
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
-      />
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
-
-      <!-- mermaid -->
-      
-      <style>
-        .swal2-styled.swal2-confirm {
-          font-size: 1.6rem;
-        }
-      </style>
-    </head>
-  </html>
-</html>
 
 
-<body>
-  <div id="app">
-    
-      
-    <main class="content on">
-      <section class="outer">
-  <article
-  id="post-09-构造函数&amp;构造代码块&amp;static&amp;this"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  09-构造函数&amp;构造代码块&amp;static&amp;this
-</h1>
- 
 
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/" class="article-date">
-  <time datetime="2022-10-09T15:10:47.000Z" itemprop="datePublished">2022-10-09</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaSE/">JavaSE</a>
-  </div>
-  
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">16.8k</span>
-        </span>
-    </span>
 
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">63 分钟</span>
-        </span>
-    </span>
-</div>
- 
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-    <div class="tocbot"></div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
 
 
 
 
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
   
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="09-构造函数-amp-构造代码块-amp-static-amp-this"><a href="#09-构造函数-amp-构造代码块-amp-static-amp-this" class="headerlink" title="09-构造函数&amp;构造代码块&amp;static&amp;this"></a>09-构造函数&amp;构造代码块&amp;static&amp;this</h1><h2 id="上节内容复习"><a href="#上节内容复习" class="headerlink" title="上节内容复习"></a>上节内容复习</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">对象：真实存在的唯一的事物。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">类： 同一种类型的事物公共属性与公共行为的抽取。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">java面向对象语言： </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">核心思想： 找适合的对象做适合的事情.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">找对象的方式：</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	方式一： sun已经定义好了很多了类，我们只需要认识这些类即可创建对象使用。</span></span><br><span class="line"><span class="comment">	方式二： 我们需要自定义类，通过自定义类创建对象。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">在整理笔记的过程中对自己有疑问的概念使用代码验证或者推翻它。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">自定义类三步骤：</span></span><br><span class="line"><span class="comment">	1. 自定义一个类。</span></span><br><span class="line"><span class="comment">		  class 类&#123;</span></span><br><span class="line"><span class="comment">			事物 的公共属性 使用成员变量描述。</span></span><br><span class="line"><span class="comment">			事物的公共行为  使用函数描述。</span></span><br><span class="line"><span class="comment">		  &#125;</span></span><br><span class="line"><span class="comment">	2. 可以通过类创建对象。</span></span><br><span class="line"><span class="comment">	3. 访问(设置)对象的属性或者调用对象的方法。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">成员变量与局部变量 的区别：</span></span><br><span class="line"><span class="comment">	1. 自定义的位置区别：</span></span><br><span class="line"><span class="comment">			1. 成员变量是定义在方法之外，类之内的变量。是类内部的全局变量。 </span></span><br><span class="line"><span class="comment">			2. 局部变量是声明在方法之内的变量。</span></span><br><span class="line"><span class="comment">	2. 作用上的区别： </span></span><br><span class="line"><span class="comment">			1. 成员变量的作用描述一类事物的属性。</span></span><br><span class="line"><span class="comment">			2. 局部变量的作用是提供一个变量给方法内部使用的。</span></span><br><span class="line"><span class="comment">	3. 生命周期的区别；</span></span><br><span class="line"><span class="comment">			1. 成员变量随着对象的创建而存在，随着对象的消失而消失。</span></span><br><span class="line"><span class="comment">			2. 局部变量是调用到了对应的方法执行 到了创建该变量的语句时存在，一旦出了自己的作用域马上从内存中消失。</span></span><br><span class="line"><span class="comment">	4. 初始值的区别：</span></span><br><span class="line"><span class="comment">			1. 成员变量是有默认的初始值的。</span></span><br><span class="line"><span class="comment">			2. 局部变量是没有默认的初始值的，必须要先初始化才能使用。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">匿名对象： 没有引用类型变量指向的对象就称作为匿名对象。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">匿名对象要注意的细节：</span></span><br><span class="line"><span class="comment">		1. 一般不会给匿名对象的属性赋值，因为永远都没法获取到。</span></span><br><span class="line"><span class="comment">		2. 两个匿名对象永远都不可能是同一个对象。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">匿名对象好处：简化书写。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">匿名对象的应用场景：</span></span><br><span class="line"><span class="comment">	1. 如果调用一个对象的方法一次时，然后这个对象就不再使用，那么这时候可以使用匿名对象。</span></span><br><span class="line"><span class="comment">	2. 可以作为实参调用一个函数。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">封装：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">封装的步骤：</span></span><br><span class="line"><span class="comment">	1. 使用private修饰需要被封装的属性.</span></span><br><span class="line"><span class="comment">	2. 根据需要提供get或者set方法设置以及获取属性。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">封装的好处：</span></span><br><span class="line"><span class="comment">	1. 提高了数据的安全性。</span></span><br><span class="line"><span class="comment">	2. 操作简单。</span></span><br><span class="line"><span class="comment">	3. 隐藏了实现。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">注意：一般实体类的属性我们都会封装起来。	</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          09-构造函数&构造代码块&static&this
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-09 23:10:47" itemprop="dateCreated datePublished" datetime="2022-10-09T23:10:47+08:00">2022-10-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-26 12:59:31" itemprop="dateModified" datetime="2022-10-26T12:59:31+08:00">2022-10-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>33k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>30 分钟</span>
+            </span>
+            <div class="post-description">构造函数、构造代码块、static、this</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="09-构造函数-amp-构造代码块-amp-static-amp-this"><a href="#09-构造函数-amp-构造代码块-amp-static-amp-this" class="headerlink" title="09-构造函数&amp;构造代码块&amp;static&amp;this"></a>09-构造函数&amp;构造代码块&amp;static&amp;this</h1><h2 id="上节内容复习"><a href="#上节内容复习" class="headerlink" title="上节内容复习"></a>上节内容复习</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">对象：真实存在的唯一的事物。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">类： 同一种类型的事物公共属性与公共行为的抽取。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">java面向对象语言： </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">核心思想： 找适合的对象做适合的事情.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">找对象的方式：</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">	方式一： sun已经定义好了很多了类，我们只需要认识这些类即可创建对象使用。</span></span><br><span class="line"><span class="comment">	方式二： 我们需要自定义类，通过自定义类创建对象。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">在整理笔记的过程中对自己有疑问的概念使用代码验证或者推翻它。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">自定义类三步骤：</span></span><br><span class="line"><span class="comment">	1. 自定义一个类。</span></span><br><span class="line"><span class="comment">		  class 类&#123;</span></span><br><span class="line"><span class="comment">			事物 的公共属性 使用成员变量描述。</span></span><br><span class="line"><span class="comment">			事物的公共行为  使用函数描述。</span></span><br><span class="line"><span class="comment">		  &#125;</span></span><br><span class="line"><span class="comment">	2. 可以通过类创建对象。</span></span><br><span class="line"><span class="comment">	3. 访问(设置)对象的属性或者调用对象的方法。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">成员变量与局部变量 的区别：</span></span><br><span class="line"><span class="comment">	1. 自定义的位置区别：</span></span><br><span class="line"><span class="comment">			1. 成员变量是定义在方法之外，类之内的变量。是类内部的全局变量。 </span></span><br><span class="line"><span class="comment">			2. 局部变量是声明在方法之内的变量。</span></span><br><span class="line"><span class="comment">	2. 作用上的区别： </span></span><br><span class="line"><span class="comment">			1. 成员变量的作用描述一类事物的属性。</span></span><br><span class="line"><span class="comment">			2. 局部变量的作用是提供一个变量给方法内部使用的。</span></span><br><span class="line"><span class="comment">	3. 生命周期的区别；</span></span><br><span class="line"><span class="comment">			1. 成员变量随着对象的创建而存在，随着对象的消失而消失。</span></span><br><span class="line"><span class="comment">			2. 局部变量是调用到了对应的方法执行 到了创建该变量的语句时存在，一旦出了自己的作用域马上从内存中消失。</span></span><br><span class="line"><span class="comment">	4. 初始值的区别：</span></span><br><span class="line"><span class="comment">			1. 成员变量是有默认的初始值的。</span></span><br><span class="line"><span class="comment">			2. 局部变量是没有默认的初始值的，必须要先初始化才能使用。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">匿名对象： 没有引用类型变量指向的对象就称作为匿名对象。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">匿名对象要注意的细节：</span></span><br><span class="line"><span class="comment">		1. 一般不会给匿名对象的属性赋值，因为永远都没法获取到。</span></span><br><span class="line"><span class="comment">		2. 两个匿名对象永远都不可能是同一个对象。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">匿名对象好处：简化书写。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">匿名对象的应用场景：</span></span><br><span class="line"><span class="comment">	1. 如果调用一个对象的方法一次时，然后这个对象就不再使用，那么这时候可以使用匿名对象。</span></span><br><span class="line"><span class="comment">	2. 可以作为实参调用一个函数。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">封装：</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">封装的步骤：</span></span><br><span class="line"><span class="comment">	1. 使用private修饰需要被封装的属性.</span></span><br><span class="line"><span class="comment">	2. 根据需要提供get或者set方法设置以及获取属性。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">封装的好处：</span></span><br><span class="line"><span class="comment">	1. 提高了数据的安全性。</span></span><br><span class="line"><span class="comment">	2. 操作简单。</span></span><br><span class="line"><span class="comment">	3. 隐藏了实现。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">注意：一般实体类的属性我们都会封装起来。	</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
 
 
@@ -872,464 +1192,242 @@
 
 
 <hr>
- 
-      <!-- reward -->
-      
-    </div>
-    
 
-    <!-- copyright -->
+    </div>
+
     
-    <div class="declare">
-      <ul class="post-copyright">
-        <li>
-          <i class="ri-copyright-line"></i>
-          <strong>版权声明： </strong>
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/" title="09-构造函数&amp;构造代码块&amp;static&amp;this">http://example.com/2022/10/09/09-构造函数&构造代码块&static&this/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
           
-          本博客所有文章除特别声明外，著作权归作者所有。转载请注明出处！
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/08/08-%E7%B1%BB%E3%80%81%E5%AF%B9%E8%B1%A1%E3%80%81%E5%B0%81%E8%A3%85%E3%80%81%E5%8C%BF%E5%90%8D%E5%AF%B9%E8%B1%A1/" rel="prev" title="08-类、对象、封装、匿名对象">
+      <i class="fa fa-chevron-left"></i> 08-类、对象、封装、匿名对象
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/10/10-main%E6%96%B9%E6%B3%95&%E5%B7%A5%E5%85%B7%E7%B1%BB/" rel="next" title="10-main方法&工具类">
+      10-main方法&工具类 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
           
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
         </li>
       </ul>
-    </div>
-    
-    <footer class="article-footer">
-       
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
-        </div>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-amp-%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97-amp-static-amp-this"><span class="nav-number">1.</span> <span class="nav-text">09-构造函数&amp;构造代码块&amp;static&amp;this</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E8%8A%82%E5%86%85%E5%AE%B9%E5%A4%8D%E4%B9%A0"><span class="nav-number">1.1.</span> <span class="nav-text">上节内容复习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">1.3.</span> <span class="nav-text">构造代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaBean"><span class="nav-number">1.4.</span> <span class="nav-text">JavaBean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this%E5%85%B3%E9%94%AE%E5%AD%97%E7%AC%AC%E4%B8%80%E7%A7%8D%E7%94%A8%E6%B3%95%EF%BC%88%E6%8C%87%E5%90%91%E5%BD%93%E5%89%8D%E8%B0%83%E7%94%A8%E8%80%85%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">this关键字第一种用法（指向当前调用者对象）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this%E5%85%B3%E9%94%AE%E5%AD%97%E7%AC%AC%E4%BA%8C%E7%A7%8D%E7%94%A8%E6%B3%95%EF%BC%88%E8%B0%83%E7%94%A8%E6%9C%AC%E7%B1%BB%E5%85%B6%E5%AE%83%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">this关键字第二种用法（调用本类其它构造方法）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">1.7.</span> <span class="nav-text">static静态成员变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static%E4%BF%AE%E9%A5%B0%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.8.</span> <span class="nav-text">static修饰成员变量的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95"><span class="nav-number">1.9.</span> <span class="nav-text">static静态成员方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static%E5%86%85%E5%AD%98%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="nav-number">1.10.</span> <span class="nav-text">static内存原理图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#static%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">1.11.</span> <span class="nav-text">static静态代码块</span></a></li></ol></li></ol></div>
       </div>
-</div>
+      <!--/noindex-->
 
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/10/09/09-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0&%E6%9E%84%E9%80%A0%E4%BB%A3%E7%A0%81%E5%9D%97&static&this/" alt="微信分享二维码">
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
     </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">199k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:01</span>
 </div>
 
-<div id="share-mask"></div>  
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaSE/" rel="tag">JavaSE</a></li></ul>
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
 
+
+
+
+
+
+
+
+      </div>
     </footer>
   </div>
 
-   
-  <nav class="article-nav">
-    
-      <a href="/2022/10/10/10-main%E6%96%B9%E6%B3%95&%E5%B7%A5%E5%85%B7%E7%B1%BB/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            10-main方法&amp;工具类
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2022/10/08/08-%E7%B1%BB%E3%80%81%E5%AF%B9%E8%B1%A1%E3%80%81%E5%B0%81%E8%A3%85%E3%80%81%E5%8C%BF%E5%90%8D%E5%AF%B9%E8%B1%A1/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">08-类、对象、封装、匿名对象</div>
-      </a>
-    
-  </nav>
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
 
   
-   
+
+
+
+
   
-   
-    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
-    <div id="twikoo" class="twikoo"></div>
-    <script>
-        twikoo.init({
-            envId: ""
-        })
-    </script>
- 
-</article>
+<script src="/js/local-search.js"></script>
 
-</section>
-      <footer class="footer">
-  <div class="outer">
-    <ul>
-      <li>
-        Copyrights &copy;
-        2015-2022
-        <i class="ri-heart-fill heart_icon"></i> Leo
-      </li>
-    </ul>
-    <ul>
-      <li>
-        
-      </li>
-    </ul>
-    <ul>
-      <li>
-        
-        
-        <span>
-  <span><i class="ri-user-3-fill"></i>访问人数:<span id="busuanzi_value_site_uv"></span></span>
-  <span class="division">|</span>
-  <span><i class="ri-eye-fill"></i>浏览次数:<span id="busuanzi_value_page_pv"></span></span>
-</span>
-        
-      </li>
-    </ul>
-    <ul>
-      
-    </ul>
-    <ul>
-      
-    </ul>
-    <ul>
-      <li>
-        <!-- cnzz统计 -->
-        
-        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
-        
-      </li>
-    </ul>
-  </div>
-</footer>    
-    </main>
-    <div class="float_btns">
-      <div class="totop" id="totop">
-  <i class="ri-arrow-up-line"></i>
-</div>
 
-<div class="todark" id="todark">
-  <i class="ri-moon-line"></i>
-</div>
 
-    </div>
-    <aside class="sidebar on">
-      <button class="navbar-toggle"></button>
-<nav class="navbar">
+
+
+
+
+
+
+
+
+
+
   
-  <div class="logo">
-    <a href="/"><img src="/images/ayer-side.svg" alt="欢迎来到Leo的博客"></a>
-  </div>
+
   
-  <ul class="nav nav-main">
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/">主页</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/archives">归档</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/categories">分类</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/tags">标签</a>
-    </li>
-    
-    <li class="nav-item">
-      <a class="nav-item-link" href="/about">关于</a>
-    </li>
-    
-  </ul>
-</nav>
-<nav class="navbar navbar-bottom">
-  <ul class="nav">
-    <li class="nav-item">
-      
-      <a class="nav-item-link nav-item-search"  title="搜索">
-        <i class="ri-search-line"></i>
-      </a>
-      
-      
-    </li>
-  </ul>
-</nav>
-<div class="search-form-wrap">
-  <div class="local-search local-search-plugin">
-  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
-  <div id="local-search-result" class="local-search-result"></div>
-</div>
-</div>
-    </aside>
-    <div id="mask"></div>
 
-<!-- #reward -->
-<div id="reward">
-  <span class="close"><i class="ri-close-line"></i></span>
-  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
-  <div class="reward-box">
-    
-    <div class="reward-item">
-      <img class="reward-img" src="/images/alipay.jpg">
-      <span class="reward-type">支付宝</span>
-    </div>
-    
-    
-    <div class="reward-item">
-      <img class="reward-img" src="/images/wechat.jpg">
-      <span class="reward-type">微信</span>
-    </div>
-    
-  </div>
-</div>
-    
-<script src="/js/jquery-3.6.0.min.js"></script>
- 
-<script src="/js/lazyload.min.js"></script>
-
-<!-- Tocbot -->
- 
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  tocbot.init({
-    tocSelector: ".tocbot",
-    contentSelector: ".article-entry",
-    headingSelector: "h1, h2, h3, h4, h5, h6",
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: "main",
-    positionFixedSelector: ".tocbot",
-    positionFixedClass: "is-position-fixed",
-    fixedSidebarOffset: "auto",
-  });
-</script>
-
-<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
-<link
-  rel="stylesheet"
-  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
-/>
-<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
-
-<script src="/dist/main.js"></script>
-
-<!-- ImageViewer -->
- <!-- Root element of PhotoSwipe. Must have class pswp. -->
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-
-    <!-- Background of PhotoSwipe. 
-         It's a separate element as animating opacity is faster than rgba(). -->
-    <div class="pswp__bg"></div>
-
-    <!-- Slides wrapper with overflow:hidden. -->
-    <div class="pswp__scroll-wrap">
-
-        <!-- Container that holds slides. 
-            PhotoSwipe keeps only 3 of them in the DOM to save memory.
-            Don't modify these 3 pswp__item elements, data is added later on. -->
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
-<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
-<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
-<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
-
-<script>
-    function viewer_init() {
-        let pswpElement = document.querySelectorAll('.pswp')[0];
-        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
-
-        $imgArr.forEach(($em, i) => {
-            $em.onclick = () => {
-                // slider展开状态
-                // todo: 这样不好，后面改成状态
-                if (document.querySelector('.left-col.show')) return
-                let items = []
-                $imgArr.forEach(($em2, i2) => {
-                    let img = $em2.getAttribute('data-idx', i2)
-                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
-                    let title = $em2.getAttribute('alt')
-                    // 获得原图尺寸
-                    const image = new Image()
-                    image.src = src
-                    items.push({
-                        src: src,
-                        w: image.width || $em2.width,
-                        h: image.height || $em2.height,
-                        title: title
-                    })
-                })
-                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
-                    index: parseInt(i)
-                });
-                gallery.init()
-            }
-        })
-    }
-    viewer_init()
-</script> 
-<!-- MathJax -->
-
-<!-- Katex -->
-
-<!-- busuanzi  -->
- 
-<script src="/js/busuanzi-2.3.pure.min.js"></script>
- 
-<!-- ClickLove -->
-
-<!-- ClickBoom1 -->
-
-<!-- ClickBoom2 -->
-
-<!-- CodeCopy -->
- 
-<link rel="stylesheet" href="/css/clipboard.css">
- <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('ri-file-copy-2-line');
-        $icon.addClass('ri-checkbox-circle-line');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('ri-checkbox-circle-line');
-          $icon.addClass('ri-file-copy-2-line');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('ri-file-copy-2-line');
-        $icon.addClass('ri-time-line');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('ri-time-line');
-          $icon.addClass('ri-file-copy-2-line');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
-</script>
- 
-<!-- CanvasBackground -->
-
-<script>
-  if (window.mermaid) {
-    mermaid.initialize({ theme: "forest" });
-  }
-</script>
-
-
-    
-    
-
-  </div>
 </body>
-
 </html>
