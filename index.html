@@ -39,6 +39,14 @@
     isPost : false,
     lang   : 'zh-CN'
   };
+  (function(){
+      if(''){
+          if (prompt('请输入密码') !== ''){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
 </script>
 
   <title>欢迎来到Leo的博客</title>
@@ -226,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-10-26 12:57:31" itemprop="dateModified" datetime="2022-10-26T12:57:31+08:00">2022-10-26</time>
+                <time title="修改时间：2022-10-26 22:06:02" itemprop="dateModified" datetime="2022-10-26T22:06:02+08:00">2022-10-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">

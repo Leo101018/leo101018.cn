@@ -65,6 +65,14 @@
     isPost : true,
     lang   : 'zh-CN'
   };
+  (function(){
+      if(''){
+          if (prompt('请输入密码') !== ''){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
 </script>
 
   <title>03-JavaHome&临时环境变量&classpath环境变量 | 欢迎来到Leo的博客</title>

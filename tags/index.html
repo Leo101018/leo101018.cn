@@ -41,6 +41,14 @@
     isPost : false,
     lang   : 'zh-CN'
   };
+  (function(){
+      if(''){
+          if (prompt('请输入密码') !== ''){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
 </script>
 
   <title>标签 | 欢迎来到Leo的博客
