@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="内存和数组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="06-内存和数组">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="内存和数组">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006101709722.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006101752076.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006105359824.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006164345181.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006164132327.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006164534875.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006160427884.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006160641814.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006160741403.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006164810467.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006165039136.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006162933104.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006163106571.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006163240822.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006165740950.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006165801694.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006170757245.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006171052217.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006171303036.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006172904195.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006173144733.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006173649284.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006174322577.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006174504273.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006180131239.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006180435570.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006181230809.png">
+<meta property="article:published_time" content="2022-10-06T10:14:49.000Z">
+<meta property="article:modified_time" content="2022-10-27T04:44:23.251Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006101709722.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if(''){
+          if (prompt('请输入密码') !== ''){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>06-内存和数组 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          06-内存和数组
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-06 18:14:49" itemprop="dateCreated datePublished" datetime="2022-10-06T18:14:49+08:00">2022-10-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-27 12:44:23" itemprop="dateModified" datetime="2022-10-27T12:44:23+08:00">2022-10-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+            <div class="post-description">内存和数组</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="06-内存和数组"><a href="#06-内存和数组" class="headerlink" title="06-内存和数组"></a>06-内存和数组</h1><h2 id="Java内存结构"><a href="#Java内存结构" class="headerlink" title="Java内存结构"></a>Java内存结构</h2><p>内存是计算机中的重要原件，临时存储区域，作用是运行程序。我们编写的程序是存放在硬盘中的，在硬盘中的程<br>序是不会运行的，必须放进内存中才能运行，运行完毕后会清空内存。<br>Java虚拟机要运行程序，必须要对内存进行空间的分配和管理。</p>
+<p>Java运行程序，会从OS来申请内存的。并不是将整个内存都给Java来使用。</p>
+<p>Java内存主要分为5部分，目的是更加方便的管理。</p>
+<h2 id="JVM内存划分"><a href="#JVM内存划分" class="headerlink" title="JVM内存划分"></a>JVM内存划分</h2><img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006101709722.png" class="" title="image-20221006101709722">
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006101752076.png" class="" title="image-20221006101752076">
+
+<p>注意，方法区中存储的都是方法的代码等死的信息的，真正方法的运行是在栈中运行的。</p>
+<p>另外，凡是在堆中创建的东西，都是有默认值的。如上。</p>
+<p>数组的静态初始化虽然没有写new，但是，实际底层仍然是通过new来创建的，因此，仍然是放在堆中的。</p>
+<p>上面说的栈，也叫做方法栈或者叫做方法调用栈。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006105359824.png" class="" title="image-20221006105359824">
+
+
+
+<p>说明，当我们定义的类Student中有成员变量，这个成员变量可以是基本类型，也可以是引用类型，那么如果是基本类型的话，那么成员变量分配的内存空间就是在堆区中给对象分配的内存空间中进行分配，如果成员变量是引用类型，那么在堆区中给对象分配的内存空间中存放的就是地址了，也就是指向，那么指向的对象就是在堆区中另外的一个空间，然后当前堆区中的这个对象中存放的就是引用变量，指向另外的这个对象。</p>
+<p>注意，静态方法存放的位置仍然是方法区中的对应的类的字节码中的位置。</p>
+<p>另外对于String类型，new的时候，就是堆区中创建一个对象了，不会共享字符串常量池中的内容。实际上分为两步，如果new的String的字符串在字符串常量池中没有，那么首先就是在堆区中创建这个对象，然后再将这个字符串存放到字符串常量池中一份。如果new的这个字符串在字符串常量池中已经有了，那么它只会在堆区中创建这个字符串对象，不会再往字符串常量池中去添加了，因为已经有了。</p>
+<p>可以看到，数组也是引用类型，不管通过new的方式，还是简化的方式进行的数组定义，它都是在堆区中创建一个对象的。然后栈区中变量指向它。</p>
+<p>字符串常量池，在新版本jdk中，它放在了堆区中了。在老版本的jdk中，它是存放在代码区（方法区）中的。</p>
+<h2 id="数组概念"><a href="#数组概念" class="headerlink" title="数组概念"></a>数组概念</h2><p>数组概念：存储相同数据类型的多个元素的容器。</p>
+<p>注意，多个元素的数据类型要相同。</p>
+<p>注意，在java中数组也是一个对象。</p>
+<h2 id="数组定义"><a href="#数组定义" class="headerlink" title="数组定义"></a>数组定义</h2><h3 id="方式一-动态初始化方式"><a href="#方式一-动态初始化方式" class="headerlink" title="方式一 动态初始化方式"></a>方式一 动态初始化方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组存储的数据类型[] 数组名字 = <span class="keyword">new</span> 数组存储的数据类型[长度];</span><br></pre></td></tr></table></figure>
+
+<p>数组定义格式详解：<br>数组存储的数据类型： 创建的数组容器可以存储什么数据类型。<br>[] : 表示数组。<br>数组名字：为定义的数组起个变量名，满足标识符规范，可以使用名字操作数组。<br>new：关键字，创建数组使用的关键字。<br>数组存储的数据类型： 创建的数组容器可以存储什么数据类型。<br>[长度]：数组的长度，表示数组容器中可以存储多少个元素。<br><strong>注意：数组有定长特性，长度一旦指定，不可更改。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];<span class="comment">//此种定义方式可读性更好，表明arr变量，它的类型为int[]，即整形[]，整形数组</span></span><br><span class="line"><span class="type">int</span> arr[] = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];<span class="comment">//类似c中的写法</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意，不能int[5] arr或者int arr[5]这样定义，错误的。</strong></p>
+<p><strong>注意，int []是类型。数组的类型。注意，不要int [4]这样，因为int []是类型，而真正开辟多大内存空间是在new后面来指定的。</strong></p>
+<h3 id="方式二-静态初始化方式"><a href="#方式二-静态初始化方式" class="headerlink" title="方式二 静态初始化方式"></a>方式二 静态初始化方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据类型[] 数组名 = <span class="keyword">new</span> 数据类型[]&#123;元素<span class="number">1</span>,元素<span class="number">2</span>,元素<span class="number">3.</span>..&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意，int[] arr &#x3D; new int[4]{1,2,3,4};这样是错误的。</strong></p>
+<p>这样是不对的，因为new int[] {}这样理解为调用int []类型的构造方法的意思。</p>
+<p>另外，int [] b &#x3D;new int [2] {1,2,3,4}，这样在编译的时候编译器看不出错误的，只有在执行的时候，才会发现，因此，这种语法禁止。</p>
+<h3 id="方式三-静态初始化方式-简化版"><a href="#方式三-静态初始化方式-简化版" class="headerlink" title="方式三 静态初始化方式-简化版"></a>方式三 静态初始化方式-简化版</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数据类型[] 数组名 = &#123;元素<span class="number">1</span>,元素<span class="number">2</span>,元素<span class="number">3.</span>..&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>数组有默认值，对于数字类型，默认值为0，对于字符型，默认值为‘\u0000’，对于布尔类型，默认值为false, 对于对象类型（引用类型），默认值为null</strong></p>
+<p><strong>类的成员变量，如果定义的时候，没有赋值，那么它是有一个默认值的。当生成对象的时候，成员变量就会有一个默认值。</strong></p>
+<p>数组也是对象，当int[] a &#x3D;new int[4]，这样就生成了一个int类型的数组对象，那么这个元素就可以看成是对象的成员变量，也有默认值的。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006164345181.png" class="" title="image-20221006164345181">
+
+
+
+
+
+<h2 id="数组访问"><a href="#数组访问" class="headerlink" title="数组访问"></a>数组访问</h2><p><strong>索引</strong></p>
+<p>索引： 每一个存储到数组的元素，都会自动的拥有一个编号，从0开始，这个自动编号称为数组索引(index)，可以通过数组的索引访问到数组中的元素。</p>
+<p>格式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组名[索引]</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>长度属性</strong></p>
+<p>数组的长度属性： 每个数组都具有长度，而且是固定的，Java中赋予了数组的一个属性，可以获取到数组的长度。</p>
+<p>语句为： 数组名.length ，属性length的执行结果是数组的长度，<strong>int类型结果</strong>。由次可以推断出，数组的最大索引值为 数组名.length-1 。</p>
+<p><strong>注意，数组长度属性是final的常量，不可修改的，只读的。</strong></p>
+<p><strong>数组长度length属性是public final int的。</strong>Length属性是final的，意思就是常量。而且length属性是在数组生成的时候，构造方法的时候赋值的。是个常量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">    <span class="comment">//打印数组的属性，输出结果是5</span></span><br><span class="line">    System.out.println(arr.length);</span><br><span class="line">    System.out.println(arr[<span class="number">0</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">1</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">2</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">3</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">4</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>数组名[索引]&#x3D;数值，为数组中的元素赋值</strong><br><strong>变量&#x3D;数组名[索引]，获取出数组中的元素</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//定义存储int类型数组，赋值元素1，2，3，4，5</span></span><br><span class="line">    <span class="type">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">    <span class="comment">//为0索引元素赋值为6</span></span><br><span class="line">    arr[<span class="number">0</span>] = <span class="number">6</span>;</span><br><span class="line">    <span class="comment">//获取数组0索引上的元素</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> arr[<span class="number">0</span>];</span><br><span class="line">    System.out.println(i);</span><br><span class="line">    <span class="comment">//直接输出数组0索引元素</span></span><br><span class="line">    System.out.println(arr[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="数组内存结构图"><a href="#数组内存结构图" class="headerlink" title="数组内存结构图"></a>数组内存结构图</h2><p>数组声明后，Java虚拟机就会给数组分配存储空间</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006164132327.png" class="" title="image-20221006164132327">
+
+<p>数组在声明后，但是没有创建前，并没有给它分配具体的内存空间，所以这个时候访问数组会出现NullPointerException异常。我们需要在访问数组前创建数组，确定数组的长度，以便能为数组分配内存空间。</p>
+<p>可以看到，此时只是栈空间中有了变量，但是堆中并没有创建数组对象，因此，没有指向。</p>
+<p><strong>数组是存储多个相同类型数据的对象。数组的所有元素保存在堆内存中。 创建一个数组就是在堆中创建一个数组对象。数组创建后所有元素立即拥有默认值。索引从0开始，连续分配</strong>。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006164534875.png" class="" title="image-20221006164534875">
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];</span><br><span class="line">    System.out.println(arr);<span class="comment">//[I@5f150435</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出的结果是[I@5f150435，这个是什么呢？是数组在内存中的地址。new出来的内容，都是在堆内存中存储的，而方法中的变量arr保存的是数组的地址。</p>
+<p>输出arr[0]，就会输出arr保存的内存地址中数组中0索引上的元素。</p>
+<p><strong>注意，如果数组是引用类型的数组，那么数组元素（堆中存放）中存放的是引用类型数据的内存地址。而该引用类型的实际数据仍然是在堆中的，数组中的元素指向它。</strong></p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006160427884.png" class="" title="image-20221006160427884">
+
+<p>注意，在堆中的数据都是有出事默认值的。</p>
+<p>定义两个数组内存结构图</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];</span><br><span class="line">    <span class="type">int</span>[] arr2 = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">2</span>];</span><br><span class="line">    System.out.println(arr);</span><br><span class="line">    System.out.println(arr2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006160641814.png" class="" title="image-20221006160641814">
+
+
+
+
+
+<p>两个变量指向一个数组</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 定义数组，存储3个元素</span></span><br><span class="line">    <span class="type">int</span>[] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];</span><br><span class="line">    <span class="comment">//数组索引进行赋值</span></span><br><span class="line">    arr[<span class="number">0</span>] = <span class="number">5</span>;</span><br><span class="line">    arr[<span class="number">1</span>] = <span class="number">6</span>;</span><br><span class="line">    arr[<span class="number">2</span>] = <span class="number">7</span>;</span><br><span class="line">    <span class="comment">//输出3个索引上的元素值</span></span><br><span class="line">    System.out.println(arr[<span class="number">0</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">1</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">2</span>]);</span><br><span class="line">    <span class="comment">//定义数组变量arr2，将arr的地址赋值给arr2</span></span><br><span class="line">    <span class="type">int</span>[] arr2 = arr;</span><br><span class="line">    arr2[<span class="number">1</span>] = <span class="number">9</span>;</span><br><span class="line">    System.out.println(arr[<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006160741403.png" class="" title="image-20221006160741403">
+
+<p>注意，int类型的数组的数组元素初始值默认都是0（因为在堆区中，所以都有默认值），然后再进行赋值，将初始值覆盖。</p>
+<h2 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h2><p><strong>数组遍历： 就是将数组中的每个元素分别获取出来，就是遍历。遍历也是数组操作中的基石。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">    System.out.println(arr[<span class="number">0</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">1</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">2</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">3</span>]);</span><br><span class="line">    System.out.println(arr[<span class="number">4</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码是可以将数组中每个元素全部遍历出来，但是如果数组元素非常多，这种写法肯定不行，因此我们需要改造成循环的写法。数组的索引是 0 到 lenght-1 ，可以作为循环的条件出现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">      System.out.println(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>数组的遍历还可以使用for each循环（增强型for循环）来做。</strong></p>
+<p><strong>for-each 循环通常用于遍历数组和集合，它的使用规则比普通的 for 循环还要简单，不需要初始变量，不需要条件，不需要下标来自增或者自减。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(元素类型 元素 : 数组或集合)&#123;  </span><br><span class="line"><span class="comment">// 要执行的代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ForEachExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        String[] strs = &#123;<span class="string">&quot;沉默王二&quot;</span>, <span class="string">&quot;一枚有趣的程序员&quot;</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (String str : strs) &#123;</span><br><span class="line">            System.out.println(str);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">沉默王二</span><br><span class="line">一枚有趣的程序员</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h2><h3 id="数组获取最大值元素"><a href="#数组获取最大值元素" class="headerlink" title="数组获取最大值元素"></a>数组获取最大值元素</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123; <span class="number">5</span>, <span class="number">15</span>, <span class="number">2000</span>, <span class="number">10000</span>, <span class="number">100</span>, <span class="number">4000</span> &#125;;</span><br><span class="line">    <span class="comment">//定义变量，保存数组中0索引的元素</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> arr[<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//遍历数组，取出每个元素</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">      <span class="comment">//遍历到的元素和变量max比较</span></span><br><span class="line">      <span class="comment">//如果数组元素大于max</span></span><br><span class="line">      <span class="keyword">if</span> (arr[i] &gt; max) &#123;</span><br><span class="line">        <span class="comment">//max记录住大值</span></span><br><span class="line">        max = arr[i];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(<span class="string">&quot;数组最大值是： &quot;</span> + max);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="数组翻转"><a href="#数组翻转" class="headerlink" title="数组翻转"></a>数组翻转</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">      循环中定义变量min=0最小索引</span></span><br><span class="line"><span class="comment">      max=arr.length‐1最大索引</span></span><br><span class="line"><span class="comment">      min++,max‐‐</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> <span class="number">0</span>, max = arr.length ‐ <span class="number">1</span>; min &lt;= max; min++, max‐‐) &#123;</span><br><span class="line">      <span class="comment">//利用第三方变量完成数组中的元素交换</span></span><br><span class="line">      <span class="type">int</span> <span class="variable">temp</span> <span class="operator">=</span> arr[min];</span><br><span class="line">      arr[min] = arr[max];</span><br><span class="line">      arr[max] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 反转后，遍历数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">      System.out.println(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="数组最大值、最小值和平均值"><a href="#数组最大值、最小值和平均值" class="headerlink" title="数组最大值、最小值和平均值"></a>数组最大值、最小值和平均值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ArrayMax</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">          <span class="type">int</span> a[] = &#123;<span class="number">1</span>,-<span class="number">12</span>,<span class="number">33</span>&#125;;</span><br><span class="line">          <span class="type">int</span> <span class="variable">sum</span> <span class="operator">=</span> a[<span class="number">0</span>];</span><br><span class="line">          <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> a[<span class="number">0</span>];</span><br><span class="line">          <span class="type">int</span> <span class="variable">min</span> <span class="operator">=</span> a[<span class="number">0</span>];        </span><br><span class="line">           <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;a.length;i++)&#123;</span><br><span class="line">              sum = sum+a[i];</span><br><span class="line">              <span class="keyword">if</span>(a[i]&gt;max)&#123;</span><br><span class="line">                 max = a[i];</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">if</span>(a[i]&lt;min)&#123;</span><br><span class="line">              	min = a[i];</span><br><span class="line">              &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="type">double</span> <span class="variable">ave</span> <span class="operator">=</span> (<span class="type">double</span>)sum/<span class="number">3</span>;</span><br><span class="line">           System.out.println(<span class="string">&quot;平均值&quot;</span>+ave);</span><br><span class="line">           System.out.println(<span class="string">&quot;最大值&quot;</span>+max);</span><br><span class="line">           System.out.println(<span class="string">&quot;最小值&quot;</span>+min);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006164810467.png" class="" title="image-20221006164810467">
+
+
+
+<h3 id="数组应用例题"><a href="#数组应用例题" class="headerlink" title="数组应用例题"></a>数组应用例题</h3><p>假设队列中共有500人，每次从1开始数，数到3的人出队，下一个人接着从1开始数，编写程序找到最后剩下的人是哪一个。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Count3Quit</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span> &#123;</span><br><span class="line">      <span class="comment">// 用布尔值来标识每个人是否出队 出队为false，未出队为true 并将每个人的初始值都赋为true</span></span><br><span class="line">       <span class="type">boolean</span> a[] = <span class="keyword">new</span> <span class="title class_">boolean</span>[<span class="number">500</span>];</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">           a[i] = <span class="literal">true</span>;</span><br><span class="line">       &#125;</span><br><span class="line">    <span class="comment">/*leftNum:未出队的人数 countNum:取值为1、2、3， 每次从1开始数，数到3的人出队，下一个人接着从1开始数</span></span><br><span class="line"><span class="comment">    index：数数的人的编号，取值范围0~500</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">       <span class="type">int</span> <span class="variable">leftNum</span> <span class="operator">=</span> a.length;</span><br><span class="line">       <span class="type">int</span> <span class="variable">countNum</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">       <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">       <span class="comment">// 循环数数，直到只剩下一个人，即leftNum的值为1</span></span><br><span class="line">       <span class="keyword">while</span> (leftNum &gt; <span class="number">1</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (a[index] == <span class="literal">true</span>) &#123;</span><br><span class="line">              countNum++;</span><br><span class="line">              <span class="keyword">if</span> (countNum == <span class="number">3</span>) &#123;</span><br><span class="line">                  countNum = <span class="number">0</span>;</span><br><span class="line">                  a[index] = <span class="literal">false</span>;</span><br><span class="line">                  leftNum--;</span><br><span class="line">              &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           index++;</span><br><span class="line">           <span class="comment">// 如果数到第500个人，index回0，又从第1个人开始数</span></span><br><span class="line">           <span class="keyword">if</span> (index == a.length) &#123;</span><br><span class="line">              index = <span class="number">0</span>;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//循环遍历每个数数的人，找到值为true的并输出</span></span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">           <span class="keyword">if</span> (a[i] == <span class="literal">true</span>)</span><br><span class="line">              System.out.println(<span class="string">&quot;最后剩下的人是第&quot;</span> + (i + <span class="number">1</span>) + <span class="string">&quot;的人&quot;</span>);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006165039136.png" class="" title="image-20221006165039136">
+
+
+
+
+
+
+
+<h2 id="数组相关异常"><a href="#数组相关异常" class="headerlink" title="数组相关异常"></a>数组相关异常</h2><h3 id="数组越界异常"><a href="#数组越界异常" class="headerlink" title="数组越界异常"></a>数组越界异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    System.out.println(arr[<span class="number">3</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序运行后，将会抛出 ArrayIndexOutOfBoundsException 数组越界异常。</p>
+<h3 id="数组空指针异常"><a href="#数组空指针异常" class="headerlink" title="数组空指针异常"></a>数组空指针异常</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;;</span><br><span class="line">    arr = <span class="literal">null</span>;</span><br><span class="line">    System.out.println(arr[<span class="number">0</span>]);</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+
+<p>运行的时候会抛出 NullPointerException 空指针异常。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006162933104.png" class="" title="image-20221006162933104">
+
+
+
+<h2 id="数组作为方法参数和返回值"><a href="#数组作为方法参数和返回值" class="headerlink" title="数组作为方法参数和返回值"></a>数组作为方法参数和返回值</h2><h3 id="数组作为方法参数"><a href="#数组作为方法参数" class="headerlink" title="数组作为方法参数"></a>数组作为方法参数</h3><p>数组作为方法参数传递，传递的参数是数组内存的地址。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123; <span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span> &#125;;</span><br><span class="line">    <span class="comment">//调用方法，传递数组</span></span><br><span class="line">    printArray(arr);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    创建方法，方法接收数组类型的参数</span></span><br><span class="line"><span class="comment">    进行数组的遍历</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">printArray</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">      System.out.println(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006163106571.png" class="" title="image-20221006163106571">
+
+
+
+<h3 id="数组作为方法返回值"><a href="#数组作为方法返回值" class="headerlink" title="数组作为方法返回值"></a>数组作为方法返回值</h3><p>数组作为方法的返回值，返回的是数组的内存地址</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">//调用方法，接收数组的返回值</span></span><br><span class="line">    <span class="comment">//接收到的是数组的内存地址</span></span><br><span class="line">    <span class="type">int</span>[] arr = getArray();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">      System.out.println(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    创建方法，返回值是数组类型</span></span><br><span class="line"><span class="comment">    return返回数组的地址</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span>[] getArray() &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123; <span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span> &#125;;</span><br><span class="line">    <span class="comment">//返回数组的地址，返回到调用者</span></span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006163240822.png" class="" title="image-20221006163240822">
+
+
+
+<h3 id="方法传递参数时参数类型区别"><a href="#方法传递参数时参数类型区别" class="headerlink" title="方法传递参数时参数类型区别"></a>方法传递参数时参数类型区别</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">    System.out.println(a);</span><br><span class="line">    System.out.println(b);</span><br><span class="line">    change(a, b);</span><br><span class="line">    System.out.println(a);</span><br><span class="line">    System.out.println(b);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">    a = a + b;</span><br><span class="line">    b = b + a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span>[] arr = &#123;<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>&#125;;</span><br><span class="line">    System.out.println(arr[<span class="number">0</span>]);</span><br><span class="line">    change(arr);</span><br><span class="line">    System.out.println(arr[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">change</span><span class="params">(<span class="type">int</span>[] arr)</span> &#123;</span><br><span class="line">    arr[<span class="number">0</span>] = <span class="number">200</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法的参数为基本类型时,传递的是数据值. 方法的参数为引用类型时,传递的是地址值，实际上传递的仍然是变量的值，只是这个值是地址而已。因此，在java中实际上只有一种传值方式，就是传值，只是这个值可以是普通的基本数据类型的值，也可以是引用类型变量的值（地址值）。</p>
+<h2 id="数组排序与查找"><a href="#数组排序与查找" class="headerlink" title="数组排序与查找"></a>数组排序与查找</h2><h3 id="数组排序"><a href="#数组排序" class="headerlink" title="数组排序"></a>数组排序</h3><p><strong>冒泡排序（BubbleSort）</strong>的基本概念是：依次比较相邻的两个数，将小数放在前面，大数放在后面。即在第一趟：首先比较第1个和第2个数，将小数放前，大数放后。然后比较第2个数和第3个数，将小数放前，大数放后，如此继续，直至比较最后两个数，将小数放前，大数放后。冒泡排序流程至此第一趟结束，将最大的数放到了最后。</p>
+<p>在第二趟：仍从第一对数开始比较（因为可能由于第2个数和第3个数的交换，使得第1个数不再小于第2个数），将小数放前，大数放后，一直比较到倒数第二个数（倒数第一的位置上已经是最大的），第二趟结束，在倒数第二的位置上得到一个新的最大数（其实在整个数列中是第二大的数）。如此下去，重复以上过程，直至最终完成排序。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006165740950.png" class="" title="image-20221006165740950">
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006165801694.png" class="" title="image-20221006165801694">
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Array_BubbleSort</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">       <span class="type">int</span>[] arr = &#123;<span class="number">9</span>,<span class="number">8</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">0</span>&#125;;		</span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		 *  趟i:  1,2,3,... arr.length-1</span></span><br><span class="line"><span class="comment">		 *  </span></span><br><span class="line"><span class="comment">		 *  每趟次数 j：   i=1  j=5(0,1,2,3,4)</span></span><br><span class="line"><span class="comment">		 *           i=2  j=4(0,1,2,3)</span></span><br><span class="line"><span class="comment">		 *           i=3  j=3</span></span><br><span class="line"><span class="comment">		 *           </span></span><br><span class="line"><span class="comment">		 *                j=arr.length-i-1</span></span><br><span class="line"><span class="comment">		 * </span></span><br><span class="line"><span class="comment">		 * */</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;arr.length;i++)<span class="comment">//趟</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;arr.length-i;j++)<span class="comment">//次</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span>(arr[j]&gt;arr[j+<span class="number">1</span>])</span><br><span class="line">				&#123;</span><br><span class="line">					<span class="comment">//交换位置</span></span><br><span class="line">					<span class="type">int</span> <span class="variable">tmp</span> <span class="operator">=</span> arr[j];</span><br><span class="line">					arr[j]=arr[j+<span class="number">1</span>];</span><br><span class="line">					arr[j+<span class="number">1</span>]=tmp;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;	</span><br><span class="line">		<span class="comment">//打印数组</span></span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;arr.length;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(arr[i]);</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="数组元素查找"><a href="#数组元素查找" class="headerlink" title="数组元素查找"></a>数组元素查找</h3><p>二分查找的前提是需要查找的<strong>数组必须是已排序的</strong>，这里实现默认前提为升序。</p>
+<p>查找时将数组分为三部分，依次是<strong>中值（所谓的中值就是数组中间位置的那个值）前，中值，中值后</strong>；将要查找的值和数组中的值进行比较，若小于中值则在中值前面找，若大于中值则在中值后面找，等于中值时直接返回。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BinarySearch</span> &#123;</span><br><span class="line">         <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">                   <span class="type">int</span>[] sort = &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span> &#125;;</span><br><span class="line">                   <span class="type">int</span> <span class="variable">key</span> <span class="operator">=</span> <span class="number">6</span>;<span class="comment">// 需要查找的值</span></span><br><span class="line">                   <span class="type">int</span> <span class="variable">locale</span> <span class="operator">=</span> -<span class="number">1</span>;<span class="comment">// 记录 查找位置的变量</span></span><br><span class="line">                   <span class="type">int</span> <span class="variable">low</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">                   <span class="type">int</span> <span class="variable">high</span> <span class="operator">=</span> sort.length - <span class="number">1</span>;</span><br><span class="line">                   <span class="keyword">while</span> (high &gt;= low) &#123;</span><br><span class="line">                            <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> (low + high) / <span class="number">2</span>;</span><br><span class="line">                            <span class="keyword">if</span> (key &lt; sort[mid])</span><br><span class="line">                                     high = mid - <span class="number">1</span>;</span><br><span class="line">                            <span class="keyword">else</span> <span class="keyword">if</span> (key == sort[mid]) &#123;</span><br><span class="line">                                     locale = mid;</span><br><span class="line">                                     <span class="keyword">break</span>;</span><br><span class="line">                            &#125; <span class="keyword">else</span></span><br><span class="line">                                     low = mid + <span class="number">1</span>;</span><br><span class="line">                   &#125;</span><br><span class="line">                   <span class="keyword">if</span> (locale == -<span class="number">1</span>)</span><br><span class="line">                            System.out.println(<span class="string">&quot;数组中不存在元素&quot;</span> + key);</span><br><span class="line">                   <span class="keyword">else</span></span><br><span class="line">                            System.out.println(<span class="string">&quot;元素&quot;</span> + key + <span class="string">&quot;在数组中的下标是&quot;</span> + locale);</span><br><span class="line">         &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006170757245.png" class="" title="image-20221006170757245">
+
+
+
+
+
+<h2 id="数组操作（使用工具类）"><a href="#数组操作（使用工具类）" class="headerlink" title="数组操作（使用工具类）"></a>数组操作（使用工具类）</h2><h3 id="数组的复制"><a href="#数组的复制" class="headerlink" title="数组的复制"></a>数组的复制</h3><p>使用System.arraycopy。</p>
+<p> System.arraycopy(source,srcPos,dest,destPos,length)</p>
+<p>复制source数组中从下标srcPos开始的length个元素到目标数组dest，并从目标数组的下标为destPos的位置开始储存 ，其中各个参数的含义如下：</p>
+<p>@source： 源数组  </p>
+<p>@srcPos： 源数组中的起始位置 </p>
+<p>@dest： 目标数组 </p>
+<p>@destPos：目标数组中的起始位置 </p>
+<p>@length： 要复制的数组元素的个数</p>
+<p><strong>复制数组{1,2,3,4,5}中从下标0开始的5个元素到目标数组{6,7,8,9,10,11,12,13,14,15}，并从目标数组的下标为0的位置开始储存</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Array_copy</span> &#123;</span><br><span class="line">         <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span> &#123;</span><br><span class="line">                   <span class="type">int</span> aa[] = <span class="keyword">new</span> <span class="title class_">int</span>[] &#123; <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span> &#125;;</span><br><span class="line">                   <span class="type">int</span> bb[] = <span class="keyword">new</span> <span class="title class_">int</span>[] &#123; <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span> &#125;;</span><br><span class="line">                   System.arraycopy(aa, <span class="number">0</span>, bb, <span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line">                   <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; aa.length; i++) &#123;</span><br><span class="line">                            System.out.print(aa[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">                   &#125;</span><br><span class="line">                   System.out.println();</span><br><span class="line">                   <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; bb.length; j++) &#123;</span><br><span class="line">                            System.out.print(bb[j] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">                   &#125;</span><br><span class="line">                   System.out.println();</span><br><span class="line">         &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006171052217.png" class="" title="image-20221006171052217">
+
+
+
+
+
+<h3 id="数组的排序"><a href="#数组的排序" class="headerlink" title="数组的排序"></a>数组的排序</h3><p>Arrays.sort(数组名)为数组排序的操作。但这个方法在 java.util 这个包里面,所以在用到的时候需要先将它导入。<br>Arrays.sort方法有两种常用方式，具体参数如下：<br>Arrays.sort(arr_name)<br>Arrays.sort(arr_name,fromIndex,toIndex)</p>
+<p>arr_name：数组名称<br>fromIndex：排序的起始下标<br>toIndex：排序的终止下标</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ArraySort_sample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">        <span class="type">int</span>[ ] point = &#123;<span class="number">1</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">8</span>&#125;;</span><br><span class="line">        Arrays.sort(point);</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;point.length;i++)&#123;</span><br><span class="line">            System.out.print(point[i]+<span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006171303036.png" class="" title="image-20221006171303036">
+
+
+
+
+
+<h2 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h2><p>如果一维数组中的每一个元素也是一个数组，那么就是二维数组。以此类推，还可以有多维数组。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006172904195.png" class="" title="image-20221006172904195">
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] num = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>][<span class="number">4</span>];</span><br><span class="line"><span class="comment">//给二维数组赋值</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;num.length;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;num[i].length;j++)&#123;</span><br><span class="line">        num[i][j] = i+j;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//遍历二维数组</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;num.length;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;num[i].length;j++)&#123;</span><br><span class="line">        System.out.print(num[i][j] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意，二维数组在内存中存储的时候是线性存储的，不是表的形式的。因为内存本身就是线性的。<strong>内存一个字节（8bit）就是一个单元</strong>，然后一个单元一个单元挨着的，因此是线性的。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006173144733.png" class="" title="image-20221006173144733">
+
+
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006173649284.png" class="" title="image-20221006173649284">
+
+<p>注意，数组名代表了数组首地址，因此，一维数组，那么数组名就是数组首地址，也就是arr[0]的地址。</p>
+<p>二维数组，就是数组的数组，也就是每个元素本身又是一个一维数组。</p>
+<p>如上，arr二维数组，首先看成是一维数组，元素为arr[0]，arr[1]，arr[2]，然后每个元素arr[0]，它本身又是一个一维数组，因此，arr[0]就表示了这个一维数组了，它就是这个一维数组的数组名了，表示首地址，因此，arr[0]就是一维数组的首地址，也就是arr[0][0]的地址，这里将arr[0]看成是一个整体即容易理解。</p>
+<p>因此，arr表示整体二维数组首地址，维度是整个二维数组长度。而arr[0]是一维数组的首地址，维度是一维数组的长度。arr和arr[0]的值都是arr[0][0]元素的地址。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006174322577.png" class="" title="image-20221006174322577">
+
+
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006174504273.png" class="" title="image-20221006174504273">
+
+<p>实际内存中是线性存储的。</p>
+<p><strong>注意，java中可以定义列数不等的二维数组。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] arr = <span class="keyword">new</span> <span class="title class_">int</span>[][]&#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>&#125;, &#123;<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>,<span class="number">10</span>,<span class="number">11</span>&#125;, &#123;<span class="number">9</span>&#125;&#125;; <span class="comment">//注意，此时不能指定任何维度</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span>[][] arr = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>][];<span class="comment">//注意，可以这样定义，此时不能使用&#123;&#125;来给定初值，需要通过循环依次给每个元素赋值，此时列数没有指定，那么可以定义列数不等的二维数组了。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test01</span> &#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		</span><br><span class="line">		    <span class="type">int</span>[][] arr = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;, &#123;<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;, &#123;<span class="number">9</span>,<span class="number">9</span>,<span class="number">9</span>&#125;&#125;; </span><br><span class="line">		    System.out.println(arr);</span><br><span class="line">		    System.out.println(arr[<span class="number">0</span>]); </span><br><span class="line">		    System.out.println(arr[<span class="number">1</span>]); </span><br><span class="line">		    System.out.println(arr[<span class="number">2</span>]); </span><br><span class="line">		    System.out.println(arr[<span class="number">3</span>]); </span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[I@6815ee24</span><br><span class="line">[I@77c5b2de</span><br><span class="line">[I@54624a40</span><br><span class="line">[I@f8db08</span><br><span class="line">[I@51f3eab7</span><br></pre></td></tr></table></figure>
+
+<p>@:分隔符<br>6815ee24：十六进制内存地址<br>I：int 数组中存储的数据类型<br>[[： 几个中括号就代表几维数组</p>
+<p><strong>这里的数值也是16进制，这不是真正的地址，而是经过处理过后的数值了，我们也可以看出，二维数组的每一行头结点的地址是没有规则的，更谈不上连续。</strong></p>
+<p>通过实验可以看到，java中二维数组不是线性存储的。而是以对象方式存储的。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006180131239.png" class="" title="image-20221006180131239">
+
+<p>即如图，rating引用变量指向了一个一维数组对象，然后一维数组中每个元素又是一个引用变量指向了另一个一维数组对象。</p>
+<p>C++中二维数组是连续存放的，如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">test_arr</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    <span class="type">int</span> array[<span class="number">2</span>][<span class="number">3</span>] = &#123; </span><br><span class="line">  &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;, </span><br><span class="line">  &#123;<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125; </span><br><span class="line">    &#125;; </span><br><span class="line">    cout &lt;&lt; &amp;array[<span class="number">0</span>][<span class="number">0</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; &amp;array[<span class="number">0</span>][<span class="number">1</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; &amp;array[<span class="number">0</span>][<span class="number">2</span>] &lt;&lt; endl; </span><br><span class="line">    cout &lt;&lt; &amp;array[<span class="number">1</span>][<span class="number">0</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; &amp;array[<span class="number">1</span>][<span class="number">1</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; &amp;array[<span class="number">1</span>][<span class="number">2</span>] &lt;&lt; endl; </span><br><span class="line">&#125; </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123; </span><br><span class="line">    <span class="built_in">test_arr</span>(); </span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>运行结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0x7ffee4065820 0x7ffee4065824 0x7ffee4065828 </span><br><span class="line">0x7ffee406582c 0x7ffee4065830 0x7ffee4065834 </span><br></pre></td></tr></table></figure>
+
+<p>注意地址为16进制，可以看出二维数组地址是连续一条线的。</p>
+<p>一些录友可能看不懂内存地址，我就简单介绍一下， 0x7ffee4065820 与 0x7ffee4065824 差了一个4，就是4个字节，因为这是一个int型的数组，所以两个相信数组元素地址差4个字节。</p>
+<p>0x7ffee4065828 与 0x7ffee406582c 也是差了4个字节，在16进制里8 + 4 &#x3D; c，c就是12。</p>
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006180435570.png" class="" title="image-20221006180435570">
+
+<p>可以看出在C++中二维数组在地址空间上是连续的。</p>
+<p>像Java，Python是没有指针的，同时也不对程序员暴漏其元素的地址，寻址操作完全交给虚拟机。</p>
+<p>不同编程语言的数据结构在地址中的分布方式是不一样的，C++中我们是可以直接获取元素的地址，通过实验，我们也证实了二维数组的元素确实是相邻的。</p>
+<p>在其他语言中，并没有指针，也获取不到每个元素的地址，以Java为例，通过实验可以推测可能Java里的二维数组是不相邻的。</p>
+<h2 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h2><h3 id="查找二维整型数组中的最大数及其位置。"><a href="#查找二维整型数组中的最大数及其位置。" class="headerlink" title="查找二维整型数组中的最大数及其位置。"></a>查找二维整型数组中的最大数及其位置。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MulArrayMax2</span> &#123;</span><br><span class="line">         <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span> &#123;</span><br><span class="line">                   <span class="type">int</span> array[][] = &#123; &#123; <span class="number">23</span>, <span class="number">2</span>, <span class="number">64</span>, <span class="number">16</span> &#125;, &#123; <span class="number">35</span>, <span class="number">56</span>, <span class="number">97</span>, <span class="number">28</span> &#125;,&#123; <span class="number">29</span>, <span class="number">10</span>, <span class="number">81</span>, <span class="number">12</span> &#125; &#125;;</span><br><span class="line">                   <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">                   <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">                   <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">                   <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">                            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; array[i].length; j++) &#123;</span><br><span class="line">                                     <span class="keyword">if</span> (array[i][j] &gt; max) &#123;</span><br><span class="line">                                               max = array[i][j];</span><br><span class="line">                                               x = i + <span class="number">1</span>;</span><br><span class="line">                                               y = j + <span class="number">1</span>;</span><br><span class="line">                                    &#125;   </span><br><span class="line">                            &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">                   System.out.println(<span class="string">&quot;该二维数组中最大值是:&quot;</span> + max);</span><br><span class="line">                   System.out.println(<span class="string">&quot;位置是第&quot;</span> + x + <span class="string">&quot;行，第&quot;</span> + y + <span class="string">&quot;列&quot;</span>);</span><br><span class="line">         &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/image-20221006181230809.png" class="" title="image-20221006181230809">
+
+
+
+
+
+<h3 id="求最高分和学号。"><a href="#求最高分和学号。" class="headerlink" title="求最高分和学号。"></a>求最高分和学号。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// 求最高分及对应的学号</span></span><br><span class="line">		<span class="type">int</span>[][] scores= &#123;&#123;<span class="number">10</span>,<span class="number">88</span>&#125;,&#123;<span class="number">20</span>,<span class="number">98</span>&#125;,&#123;<span class="number">30</span>,<span class="number">89</span>&#125;,&#123;<span class="number">40</span>,<span class="number">66</span>&#125;,&#123;<span class="number">50</span>,<span class="number">77</span>&#125;&#125;;</span><br><span class="line">		<span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> scores[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">		<span class="type">int</span> <span class="variable">no</span> <span class="operator">=</span> scores[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">		</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>; i&lt;scores.length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">        	<span class="keyword">if</span>(scores[i][<span class="number">1</span>]&gt;max)</span><br><span class="line">        	&#123;</span><br><span class="line">        		max=scores[i][<span class="number">1</span>];</span><br><span class="line">        		no=scores[i][<span class="number">0</span>];      		</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        System.out.println(max);</span><br><span class="line">        System.out.println(no);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84/" title="06-内存和数组">http://www.leo101018.xyz/2022/10/06/Java/JavaSE/06-内存和数组/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/05/Java/JavaSE/05-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/" rel="prev" title="05-流程控制语句">
+      <i class="fa fa-chevron-left"></i> 05-流程控制语句
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/07/Java/JavaSE/07-%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3/" rel="next" title="07-方法详解">
+      07-方法详解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#06-%E5%86%85%E5%AD%98%E5%92%8C%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">06-内存和数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">Java内存结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E5%86%85%E5%AD%98%E5%88%92%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">JVM内存划分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.</span> <span class="nav-text">数组概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.4.</span> <span class="nav-text">数组定义</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80-%E5%8A%A8%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.1.</span> <span class="nav-text">方式一 动态初始化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C-%E9%9D%99%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-number">1.4.2.</span> <span class="nav-text">方式二 静态初始化方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%89-%E9%9D%99%E6%80%81%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B9%E5%BC%8F-%E7%AE%80%E5%8C%96%E7%89%88"><span class="nav-number">1.4.3.</span> <span class="nav-text">方式三 静态初始化方式-简化版</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%AE%BF%E9%97%AE"><span class="nav-number">1.5.</span> <span class="nav-text">数组访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">1.6.</span> <span class="nav-text">数组内存结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E9%81%8D%E5%8E%86"><span class="nav-number">1.7.</span> <span class="nav-text">数组遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">1.8.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%8E%B7%E5%8F%96%E6%9C%80%E5%A4%A7%E5%80%BC%E5%85%83%E7%B4%A0"><span class="nav-number">1.8.1.</span> <span class="nav-text">数组获取最大值元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%BF%BB%E8%BD%AC"><span class="nav-number">1.8.2.</span> <span class="nav-text">数组翻转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%9C%80%E5%A4%A7%E5%80%BC%E3%80%81%E6%9C%80%E5%B0%8F%E5%80%BC%E5%92%8C%E5%B9%B3%E5%9D%87%E5%80%BC"><span class="nav-number">1.8.3.</span> <span class="nav-text">数组最大值、最小值和平均值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%BA%94%E7%94%A8%E4%BE%8B%E9%A2%98"><span class="nav-number">1.8.4.</span> <span class="nav-text">数组应用例题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3%E5%BC%82%E5%B8%B8"><span class="nav-number">1.9.</span> <span class="nav-text">数组相关异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E8%B6%8A%E7%95%8C%E5%BC%82%E5%B8%B8"><span class="nav-number">1.9.1.</span> <span class="nav-text">数组越界异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%A9%BA%E6%8C%87%E9%92%88%E5%BC%82%E5%B8%B8"><span class="nav-number">1.9.2.</span> <span class="nav-text">数组空指针异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BD%9C%E4%B8%BA%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0%E5%92%8C%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.10.</span> <span class="nav-text">数组作为方法参数和返回值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BD%9C%E4%B8%BA%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0"><span class="nav-number">1.10.1.</span> <span class="nav-text">数组作为方法参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E4%BD%9C%E4%B8%BA%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">1.10.2.</span> <span class="nav-text">数组作为方法返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0%E6%97%B6%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E5%8C%BA%E5%88%AB"><span class="nav-number">1.10.3.</span> <span class="nav-text">方法传递参数时参数类型区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%9F%A5%E6%89%BE"><span class="nav-number">1.11.</span> <span class="nav-text">数组排序与查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F"><span class="nav-number">1.11.1.</span> <span class="nav-text">数组排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E6%9F%A5%E6%89%BE"><span class="nav-number">1.11.2.</span> <span class="nav-text">数组元素查找</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C%EF%BC%88%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%85%B7%E7%B1%BB%EF%BC%89"><span class="nav-number">1.12.</span> <span class="nav-text">数组操作（使用工具类）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%A4%8D%E5%88%B6"><span class="nav-number">1.12.1.</span> <span class="nav-text">数组的复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%8E%92%E5%BA%8F"><span class="nav-number">1.12.2.</span> <span class="nav-text">数组的排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">1.13.</span> <span class="nav-text">多维数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1"><span class="nav-number">1.14.</span> <span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E4%BA%8C%E7%BB%B4%E6%95%B4%E5%9E%8B%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E5%8F%8A%E5%85%B6%E4%BD%8D%E7%BD%AE%E3%80%82"><span class="nav-number">1.14.1.</span> <span class="nav-text">查找二维整型数组中的最大数及其位置。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%82%E6%9C%80%E9%AB%98%E5%88%86%E5%92%8C%E5%AD%A6%E5%8F%B7%E3%80%82"><span class="nav-number">1.14.2.</span> <span class="nav-text">求最高分和学号。</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">199k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:01</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
