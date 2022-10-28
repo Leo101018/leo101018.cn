@@ -2538,7 +2538,7 @@
 <p>接下来，3次out，输出成员变量值。</p>
 <p>接下来，one.call方法的调用，通过栈中的one找到堆中的对象，然后定位到堆中对象的存储的成员方法的地址值，然后定位到方法区中Phone.class中的的call方法代码，然后将其代码依次拿到栈中来运行，即进栈操作。注意，此时调用call方法，实际会转换为call(one)这样调用，将对象one作为第一个隐含参数传给call方法内部的this引用变量。此时栈中call在main的上方，此时开始运行call方法。当call方法运行结束之后，栈中call占据内存空间即释放销毁，因此，call的局部变量空间就会释放掉。重新回到栈中main方法中接着运行。</p>
 <p><strong>注意，实际上这里是根据one变量的类型从而知道去代码区中那个类的字节码中找对应的要调用的那个全局call方法的。</strong></p>
-<p><strong>对于多态的情况，也是如此，指向某个对象，那么就是允许期间知道该对象的对应的类型，从而找代码区中该类型字节码中那个要调用的全局方法的。</strong> </p>
+<p><strong>对于多态的情况，也是如此，指向某个对象，那么就是运行期间知道该对象的对应的类型，从而找代码区中该类型字节码中那个要调用的全局方法的。</strong></p>
 <p>接下来，one.sendMessage方法的调用，同理操作。</p>
 <p>最后，当main方法运行结束之后，栈中，main方法占据的内存空间也会释放销毁。</p>
 <p><strong>注意，所有的方法的运行，都是在栈中运行的，也叫做方法调用栈。</strong></p>
@@ -2594,6 +2594,8 @@
 <p>​		局部变量：随着方法进栈而诞生，随着方法出栈而消失。局部变量在调用了对应的方法时执行到了创建该变量的语句时存在，局部变</p>
 <p>​		量一旦出了自己的作用域那么马上从内存中消失。</p>
 <p>​		成员变量：随着对象创建而诞生，随着对象被垃圾回收而消失</p>
+<p>​		<strong>局部变量的生命周期是从进入到某一个方法体或者代码块的时候生命周期就开始了，但是它的作用域是从定义它的位置开始到方法		体或者代码块结束位置。</strong></p>
+<p>成员变量整个类内部都可以使用，是说针对于某一个对象而言，例如，Person类的对象p1，那么成员变量就是该对象内部的，那对应的所有成员方法（实例方法，也叫作绑定到对象的方法）全部都可以使用它。而对于另外一个对象p2，那么就是p2这个对象中的成员变量，对于该类的所有成员方法都可以使用。因此，是分不同对象而言的。注意，这里说的这些成员方法（实例方法，也叫作绑定到对象的方法）都是同一个类的各个对象共用的。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo01VariableDifference</span> &#123;</span><br><span class="line"></span><br><span class="line">    String name; <span class="comment">// 成员变量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">methodA</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> <span class="number">20</span>; <span class="comment">// 局部变量</span></span><br><span class="line">        System.out.println(num);</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">methodB</span><span class="params">(<span class="type">int</span> param)</span> &#123; <span class="comment">// 方法的参数就是局部变量</span></span><br><span class="line">        <span class="comment">// 参数在方法调用的时候，必然会被赋值的。所以这里直接输出局部变量不报错。</span></span><br><span class="line">        System.out.println(param);</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> age; <span class="comment">// 局部变量</span></span><br><span class="line"><span class="comment">//        System.out.println(age); // 没赋值不能用，编译会报错</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        System.out.println(num); // 错误写法！num作用域为methodA中，跨作用域访问，错误</span></span><br><span class="line">        System.out.println(name);<span class="comment">//成员变量，在类内部通用，谁都能访问</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
