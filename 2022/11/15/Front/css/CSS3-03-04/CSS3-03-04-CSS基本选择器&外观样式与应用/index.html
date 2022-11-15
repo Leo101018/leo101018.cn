@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="CSS基本选择器&amp;外观样式与应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS基本选择器&amp;外观样式与应用">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="CSS基本选择器&amp;外观样式与应用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204652945.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204848974.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204909547.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204931198.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204951814.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205038311.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205123943.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205157655.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205218636.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205235432.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205255704.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205320014.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205406189.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205426030.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205804415.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205815636.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115210204432.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115210323115.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115210339858.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115210357077.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115213933947.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115213946072.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214037871.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214054106.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214114579.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214130730.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214146009.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214205292.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214312801.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214636832.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214648805.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214701841.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214709864.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214723917.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214733099.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214907274.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215010339.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215033139.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215107631.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215132341.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215144159.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215155690.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215238829.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215250944.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215327202.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215338467.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215355602.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215412398.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215525344.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215726898.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215758217.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215811422.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215823610.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215850274.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220052090.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220119426.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220137894.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220630444.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220720326.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220955834.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221031855.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221050463.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221114398.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221125075.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221148085.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221232566.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221356407.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221428473.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221758273.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222238026.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222256134.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222305938.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222324640.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222424198.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222439565.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222512227.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222553309.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222849168.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222925602.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223053597.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223116745.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223137344.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223148466.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223202259.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223218467.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223410922.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223434609.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223453450.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223538627.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223552994.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223615433.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223634385.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223655599.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223725728.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223737032.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223823109.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223849404.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223928734.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223950714.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224001407.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224023385.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224115962.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224154131.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224202416.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224223304.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224244004.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224326350.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224345924.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224402690.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224552307.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224630415.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224659735.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224730777.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224753937.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224811974.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225144952.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225202270.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225228773.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225420179.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225447747.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225514933.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225526245.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225546109.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225623462.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225701520.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225738458.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225804689.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225821685.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230110566.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230128011.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230322558.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230337695.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230402701.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230415357.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230531628.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230553295.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230730550.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230742680.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230809201.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230819590.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230838172.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230853262.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230915983.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231106131.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231125641.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231212879.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231345251.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231411958.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231437823.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231446994.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231509728.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231534510.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231554136.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231756654.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231808822.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232032745.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232042027.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232103603.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232113189.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232125376.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232141305.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232154682.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232211244.png">
+<meta property="article:published_time" content="2022-11-15T15:27:43.000Z">
+<meta property="article:modified_time" content="2022-11-15T15:29:41.689Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="css3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204652945.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if('19491001'){
+          if (prompt('请输入密码') !== '19491001'){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>CSS基本选择器&外观样式与应用 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS基本选择器&外观样式与应用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-15 23:27:43 / 修改时间：23:29:41" itemprop="dateCreated datePublished" datetime="2022-11-15T23:27:43+08:00">2022-11-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Front/" itemprop="url" rel="index"><span itemprop="name">Front</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Front/css3/" itemprop="url" rel="index"><span itemprop="name">css3</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">CSS基本选择器&外观样式与应用</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="CSS基本选择器"><a href="#CSS基本选择器" class="headerlink" title="CSS基本选择器"></a>CSS基本选择器</h1><h2 id="调试工具"><a href="#调试工具" class="headerlink" title="调试工具"></a>调试工具</h2><p>开发者工具（chrome）</p>
+<p>此工具是我们的必备工具，以后代码出了问题，我们首先第一反应就是：</p>
+<p>“按F12”或者是 “shift+ctrl+i” 打开 开发者工具。</p>
+<p>菜单： 右击网页空白出—查看 </p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204652945.png" class="" title="image-20221115204652945">
+
+<p>小技巧：</p>
+<p>1、ctrl+滚轮 可以 放大开发者工具代码大小。</p>
+<p><strong>2、左边是HTML元素结构 右边是CSS样式。</strong></p>
+<p><strong>3、右边CSS样式可以改动数值和颜色查看更改后效果。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204848974.png" class="" title="image-20221115204848974">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204909547.png" class="" title="image-20221115204909547">
+
+<p>没有变色，因此，可以进行调试。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204931198.png" class="" title="image-20221115204931198">
+
+<p>先检查结构，可以看到，没问题。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115204951814.png" class="" title="image-20221115204951814">
+
+<p>查看样式，发现根本没有颜色属性。因此，可能是color属性写错了。同时我们自己也没有写h1的样式。可以看到，针对标签有一些默认的样式的，例如h1的标签。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205038311.png" class="" title="image-20221115205038311">
+
+<p>修改一下6行，改为h1。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205123943.png" class="" title="image-20221115205123943">
+
+<p>刷新页面，此时，h1的样式有了，但是属性有问题。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205157655.png" class="" title="image-20221115205157655">
+
+<p>找到，对应的行。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205218636.png" class="" title="image-20221115205218636">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205235432.png" class="" title="image-20221115205235432">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205255704.png" class="" title="image-20221115205255704">
+
+
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205320014.png" class="" title="image-20221115205320014">
+
+<p>可以点击这里，实时的调整颜色，然后查看效果。</p>
+<p>然后可以将这个16进制的颜色cp到源文件中，然后对应的字体就会变色了。</p>
+<p>ctrl+滚轮，可以放大缩小调试区的字体。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205406189.png" class="" title="image-20221115205406189">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205426030.png" class="" title="image-20221115205426030">
+
+<p>定位到字号这里，然后按向上箭头，字号就会动态的增大。</p>
+<h2 id="标签选择器（元素选择器）"><a href="#标签选择器（元素选择器）" class="headerlink" title="标签选择器（元素选择器）"></a>标签选择器（元素选择器）</h2><p><strong>选择器（重点）</strong></p>
+<p>要想将CSS样式应用于特定的HTML元素，首先需要找到该目标元素。在CSS中，执行这一任务的样式规则部分被称为选择器（选择符）。</p>
+<p><strong>标签选择器（元素选择器）</strong></p>
+<p>标签选择器是指用HTML标签名称作为选择器，按标签名称分类，为页面中某一类标签指定统一的CSS样式。其基本语法格式如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">标签名&#123;属性<span class="number">1</span>:属性值<span class="number">1</span>; 属性<span class="number">2</span>:属性值<span class="number">2</span>; 属性<span class="number">3</span>:属性值<span class="number">3</span>; &#125; 或者</span><br><span class="line">元素名&#123;属性<span class="number">1</span>:属性值<span class="number">1</span>; 属性<span class="number">2</span>:属性值<span class="number">2</span>; 属性<span class="number">3</span>:属性值<span class="number">3</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>标签选择器最大的优点是能快速为页面中同类型的标签统一样式，同时这也是他的缺点，不能设计差异化样式。</p>
+<p>缺点就是要改p就只能将所有的p都更改了，不能说只更改第一个p，其他的不动，不行，这就需要其他的选择器了。</p>
+<p>案例：</p>
+<p><strong>标签选择器，标签名就是选择器的名字了。就是对某一类标签进行操作。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205804415.png" class="" title="image-20221115205804415">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115205815636.png" class="" title="image-20221115205815636">
+
+
+
+<h2 id="类选择器"><a href="#类选择器" class="headerlink" title="类选择器"></a>类选择器</h2><p>类选择器</p>
+<p><strong>类选择器使用“.”（英文点号）进行标识，后面紧跟类名，其基本语法格式如下：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.类名&#123;属性<span class="number">1</span>:属性值<span class="number">1</span>; 属性<span class="number">2</span>:属性值<span class="number">2</span>; 属性<span class="number">3</span>:属性值<span class="number">3</span>; &#125;</span><br><span class="line">标签调用的时候用 class=“类名” 即可。</span><br></pre></td></tr></table></figure>
+
+<p>类选择器最大的优势是可以为元素对象定义单独或相同的样式。</p>
+<p>小技巧：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.长名称或词组可以使用中横线来为选择器命名。</span><br><span class="line">2.不建议使用“<span class="built_in">_</span>”下划线来命名CSS选择器。</span><br><span class="line">3.不要纯数字、中文等命名， 尽量使用英文字母来表示。</span><br></pre></td></tr></table></figure>
+
+<p>命名规范： 见附件（Web前端开发规范手册.doc）</p>
+<p>命名是我们通俗约定的，但是没有规定必须用这些常用的命名。</p>
+<p>案例：</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115210204432.png" class="" title="image-20221115210204432">
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="language-css">        	<span class="attribute">font-size</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.blue</span> &#123;</span></span><br><span class="line"><span class="language-css">        	<span class="attribute">color</span>: blue;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.red</span> &#123;</span></span><br><span class="line"><span class="language-css">        	<span class="attribute">color</span>: red;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.orange</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">color</span>: orange;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">		<span class="selector-class">.green</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">color</span>: green;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;blue&quot;</span>&gt;</span>G<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>o<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;orange&quot;</span>&gt;</span>o<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;blue&quot;</span>&gt;</span>g<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;green&quot;</span>&gt;</span>l<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;red&quot;</span>&gt;</span>e<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115210323115.png" class="" title="image-20221115210323115">
+
+<p>使用标签选择器，不能进行差异化操作。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115210339858.png" class="" title="image-20221115210339858">
+
+<p>此时就需要使用类选择器了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115210357077.png" class="" title="image-20221115210357077">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115213933947.png" class="" title="image-20221115213933947">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115213946072.png" class="" title="image-20221115213946072">
+
+<p>上面声明，下面引用。</p>
+<h2 id="CSS命名规范"><a href="#CSS命名规范" class="headerlink" title="CSS命名规范"></a>CSS命名规范</h2><img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214037871.png" class="" title="image-20221115214037871">
+
+<p>c就是color的意思。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214054106.png" class="" title="image-20221115214054106">
+
+<p>尽量不要使用下划线，因为下划线会有浏览器兼容问题，并且js中一般爱用下划线。因此，尽量使用短横线。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214114579.png" class="" title="image-20221115214114579">
+
+<p>不要使用纯数字命名，不生效的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214130730.png" class="" title="image-20221115214130730">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214146009.png" class="" title="image-20221115214146009">
+
+<p>也不要使用汉字。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214205292.png" class="" title="image-20221115214205292">
+
+<p>浏览器居然能够支持，但是不要这样来使用。因为，有的浏览器不能够支持的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214312801.png" class="" title="image-20221115214312801">
+
+<p>以下是各种类选择器或者是其他选择，需要命名的时候的一般规则，例如，页面上的logo，那么类选择器就命名为.logo</p>
+<p><strong>命名规则：</strong></p>
+<p> 头：header</p>
+<p> 内容：content&#x2F;container</p>
+<p> 尾：footer</p>
+<p> 导航：nav</p>
+<p> 侧栏：sidebar</p>
+<p> 栏目：column</p>
+<p> 页面外围控制整体布局宽度：wrapper</p>
+<p> 左右中：left right center</p>
+<p> 登录条：loginbar</p>
+<p> 标志：logo</p>
+<p> 广告：banner</p>
+<p> 页面主体：main</p>
+<p> 热点：hot</p>
+<p> 新闻：news</p>
+<p> 下载：download</p>
+<p> 子导航：subnav</p>
+<p> 菜单：menu</p>
+<p> 子菜单：submenu</p>
+<p> 搜索：search</p>
+<p> 友情链接：friendlink</p>
+<p> 页脚：footer</p>
+<p> 版权：copyright</p>
+<p> 滚动：scroll</p>
+<p> 内容：content</p>
+<p> 标签页：tab</p>
+<p> 文章列表：list</p>
+<p> 提示信息：msg</p>
+<p> 小技巧：tips</p>
+<p> 栏目标题：title</p>
+<p> 加入：joinus</p>
+<p> 指南：guild</p>
+<p> 服务：service</p>
+<p> 注册：regsiter</p>
+<p> 状态：status</p>
+<p> 投票：vote</p>
+<p> 合作伙伴：partner</p>
+<p>(二)注释的写法:</p>
+<p> &#x2F;* Footer *&#x2F;</p>
+<p> 内容区</p>
+<p> &#x2F;* End Footer *&#x2F;</p>
+<p>(三)id的命名:</p>
+<p> (1)页面结构</p>
+<p> 容器: container</p>
+<p> 页头：header</p>
+<p> 内容：content&#x2F;container</p>
+<p> 页面主体：main</p>
+<p> 页尾：footer</p>
+<p> 导航：nav</p>
+<p> 侧栏：sidebar</p>
+<p> 栏目：column</p>
+<p> 页面外围控制整体布局宽度：wrapper</p>
+<p> 左右中：left right center</p>
+<p> (2)导航</p>
+<p> 导航：nav</p>
+<p> 主导航：mainbav</p>
+<p> 子导航：subnav</p>
+<p> 顶导航：topnav</p>
+<p> 边导航：sidebar</p>
+<p> 左导航：leftsidebar</p>
+<p> 右导航：rightsidebar</p>
+<p> 菜单：menu</p>
+<p> 子菜单：submenu</p>
+<p> 标题: title</p>
+<p> 摘要: summary</p>
+<p>  (3)功能</p>
+<p> 标志：logo</p>
+<p> 广告：banner</p>
+<p> 登陆：login</p>
+<p> 登录条：loginbar</p>
+<p> 注册：regsiter</p>
+<p> 搜索：search</p>
+<p> 功能区：shop</p>
+<p> 标题：title</p>
+<p> 加入：joinus</p>
+<p> 状态：status</p>
+<p> 按钮：btn</p>
+<p> 滚动：scroll</p>
+<p> 标签页：tab</p>
+<p> 文章列表：list</p>
+<p> 提示信息：msg</p>
+<p> 当前的: current</p>
+<p> 小技巧：tips</p>
+<p> 图标: icon</p>
+<p> 注释：note</p>
+<p> 指南：guild</p>
+<p> 服务：service</p>
+<p> 热点：hot</p>
+<p> 新闻：news</p>
+<p> 下载：download</p>
+<p> 投票：vote</p>
+<p> 合作伙伴：partner</p>
+<p> 友情链接：link</p>
+<p> 版权：copyright\</p>
+<p><strong>案例</strong>：</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214636832.png" class="" title="image-20221115214636832">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214648805.png" class="" title="image-20221115214648805">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214701841.png" class="" title="image-20221115214701841">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214709864.png" class="" title="image-20221115214709864">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214723917.png" class="" title="image-20221115214723917">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214733099.png" class="" title="image-20221115214733099">
+
+
+
+<p>类选择器，标签上是可以多次使用的。即多个标签上可以重复使用它。</p>
+<h2 id="多类名选择器"><a href="#多类名选择器" class="headerlink" title="多类名选择器"></a>多类名选择器</h2><p>我们可以给标签指定多个类名，从而达到更多的选择目的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115214907274.png" class="" title="image-20221115214907274">
+
+<p>注意：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 样式显示效果跟HTML元素中的类名先后顺序没有关系,受CSS样式书写的上下顺序有关。</span><br><span class="line">2. 各个类名中间用空格隔开。</span><br></pre></td></tr></table></figure>
+
+<p>多类名选择器在后期布局比较复杂的情况下，还是较多使用的。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pink fontWeight font20&quot;</span>&gt;</span>亚瑟<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;font20&quot;</span>&gt;</span>刘备<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;font14 pink&quot;</span>&gt;</span>安其拉<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;font14&quot;</span>&gt;</span>貂蝉<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215010339.png" class="" title="image-20221115215010339">
+
+<p>这就是两个类名。</p>
+<p>J_Cover这个类名，明显是为js准备的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215033139.png" class="" title="image-20221115215033139">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215107631.png" class="" title="image-20221115215107631">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215132341.png" class="" title="image-20221115215132341">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215144159.png" class="" title="image-20221115215144159">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215155690.png" class="" title="image-20221115215155690">
+
+<p><strong>注意，class属性只能写一个的，不能写多个，因此，这样写，页面是没有效果的。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215238829.png" class="" title="image-20221115215238829">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215250944.png" class="" title="image-20221115215250944">
+
+<p>此时使用多类名选择器即可。</p>
+<p><strong>即class的属性值是可以写多个的。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215327202.png" class="" title="image-20221115215327202">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215338467.png" class="" title="image-20221115215338467">
+
+<p>后面还可以再添加更多的类名，都是阔以的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215355602.png" class="" title="image-20221115215355602">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215412398.png" class="" title="image-20221115215412398">
+
+
+
+<h2 id="ID选择器"><a href="#ID选择器" class="headerlink" title="ID选择器"></a>ID选择器</h2><p>id选择器使用“#”进行标识，后面紧跟id名，其基本语法格式如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#id</span>名&#123;属性<span class="number">1</span>:属性值<span class="number">1</span>; 属性<span class="number">2</span>:属性值<span class="number">2</span>; 属性<span class="number">3</span>:属性值<span class="number">3</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>该语法中，id名即为HTML元素的id属性值，大多数HTML元素都可以定义id属性，元素的id值是唯一的，只能对应于文档中某一个具体的元素。</p>
+<p>用法基本和类选择器相同。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215525344.png" class="" title="image-20221115215525344">
+
+<p><strong>注意，页面中id的值必须是唯一的。同时一个html标签只能定义一个id属性。</strong></p>
+<h2 id="ID选择器和类选择器的区别"><a href="#ID选择器和类选择器的区别" class="headerlink" title="ID选择器和类选择器的区别"></a>ID选择器和类选择器的区别</h2><p>W3C标准规定，在同一个页面内，不允许有相同名字的id对象出现，但是允许相同名字的class。</p>
+<p>类选择器（class） 好比人的名字， 是可以多次重复使用的， 比如 张伟 王伟 李伟 李娜</p>
+<p>id选择器 好比人的身份证号码， 全中国是唯一的， 不得重复。 只能使用一次。</p>
+<p><strong>id选择器和类选择器最大的不同在于 使用次数上。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215726898.png" class="" title="image-20221115215726898">
+
+<p>类选择器，同一个页面中是可以重复使用的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215758217.png" class="" title="image-20221115215758217">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215811422.png" class="" title="image-20221115215811422">
+
+
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215823610.png" class="" title="image-20221115215823610">
+
+<p>同一个页面中有两个id属性的值是一样是不行的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115215850274.png" class="" title="image-20221115215850274">
+
+<p><strong>一个标签的id和class属性，都只能出现一次，不能出现多次。</strong></p>
+<h2 id="通配符选择器"><a href="#通配符选择器" class="headerlink" title="通配符选择器"></a>通配符选择器</h2><p>通配符选择器用“*”号表示，他是所有选择器中作用范围最广的，能匹配页面中所有的元素。其基本语法格式如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* &#123; 属性<span class="number">1</span>:属性值<span class="number">1</span>; 属性<span class="number">2</span>:属性值<span class="number">2</span>; 属性<span class="number">3</span>:属性值<span class="number">3</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>例如下面的代码，使用通配符选择器定义CSS样式，清除所有HTML标记的默认边距。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line"> <span class="attribute">margin</span>: <span class="number">0</span>;                    <span class="comment">/* 定义外边距*/</span></span><br><span class="line"> <span class="attribute">padding</span>: <span class="number">0</span>;                   <span class="comment">/* 定义内边距*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<p>这个通配符选择器，就像我们的电影明星中的梦中情人， 想想它就好了，但是它不会和你过日子。 这个选择器，平时很少使用的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220052090.png" class="" title="image-20221115220052090">
+
+<p>之前，如果想要p，h1，ul中的li都变成红色，需要挨个来写。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220119426.png" class="" title="image-20221115220119426">
+
+<p>使用*通配符选择器。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220137894.png" class="" title="image-20221115220137894">
+
+<p>*，就是指所有标签。</p>
+<h2 id="链接伪类选择器"><a href="#链接伪类选择器" class="headerlink" title="链接伪类选择器"></a>链接伪类选择器</h2><p><strong>伪类选择器</strong></p>
+<p>伪类选择器用于向某些<strong>选择器添加特殊的效果</strong>。比如给链接添加特殊效果， 比如可以选择 第1个，第n个元素。</p>
+<p><strong>伪类选择器就是指满足某种状态的选择。</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">为了和我们刚才学的类选择器相区别， 类选择器是一个点 比如 .demo &#123;&#125;   而我们的伪类 用 2个点 就是 冒号 比如 :link&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>链接伪类选择器（给链接添加特殊效果的）</strong></p>
+<p>:link &#x2F;* 未访问的链接 *&#x2F; <strong>满足未访问的这种状态的选择。</strong></p>
+<p>:visited &#x2F;* 已访问的链接 就是我们已经点击过的*&#x2F;</p>
+<p>:hover &#x2F;* 鼠标移动到链接上 *&#x2F;</p>
+<p>:active &#x2F;* 选定的链接 就是当我们点击别松开鼠标时的状态*&#x2F;</p>
+<p>注意写的时候，他们的顺序尽量不要颠倒 按照 lvha 的顺序。 love hate 爱上了讨厌 记忆法 或者 lv 包包 非常 hao </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span> &#123;   <span class="comment">/* a是标签选择器 所有的链接 */</span></span><br><span class="line"><span class="attribute">font-weight</span>: <span class="number">700</span>;</span><br><span class="line"><span class="attribute">font-size</span>: <span class="number">16px</span>;</span><br><span class="line"><span class="attribute">color</span>: gray;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;   <span class="comment">/* :hover 是链接伪类选择器 鼠标经过 */</span></span><br><span class="line"><span class="attribute">color</span>: red; <span class="comment">/* 鼠标经过的时候，由原来的 灰色 变成了红色 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220630444.png" class="" title="image-20221115220630444">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220720326.png" class="" title="image-20221115220720326">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115220955834.png" class="" title="image-20221115220955834">
+
+<p><strong>注意，如果a标签不指定href的话，就不是链接标签，css样式就不起作用。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221031855.png" class="" title="image-20221115221031855">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221050463.png" class="" title="image-20221115221050463">
+
+<p>hover就是鼠标经过的时候。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221114398.png" class="" title="image-20221115221114398">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221125075.png" class="" title="image-20221115221125075">
+
+
+
+<p>按住鼠标别松开时候的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221148085.png" class="" title="image-20221115221148085">
+
+<p>书写的顺序，尽量是lvha的顺序，不要颠倒。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221232566.png" class="" title="image-20221115221232566">
+
+<p>此时鼠标移动上来，发现，css就没有效果了。</p>
+<p>因此，这个书写顺序是浏览器解析的时候固定好的，不要乱调。</p>
+<p>因此，链接伪类的css书写顺序不能随便颠倒的。</p>
+<p><strong>链接伪类的简写方式</strong></p>
+<p>链接伪类，实际中，不需要全部都使用的。</p>
+<p>一般active不用。visited也不用。</p>
+<p>一般link和hover状态用的最多。</p>
+<p>因此，实际中，我们书写链接伪类选择器的时候，都用简化的写法。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221356407.png" class="" title="image-20221115221356407">
+
+<p>上面写一个标签选择器，下面写一个链接伪类选择器。<strong>因为默认就是link的，所以，link伪类可以不写。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221428473.png" class="" title="image-20221115221428473">
+
+<p>上面的这个是最常用的写法。</p>
+<h2 id="结构伪类选择器（一）（CSS3）"><a href="#结构伪类选择器（一）（CSS3）" class="headerlink" title="结构伪类选择器（一）（CSS3）"></a>结构伪类选择器（一）（CSS3）</h2><p>结构(位置)伪类选择器（CSS3)</p>
+<p>:first-child :选取属于其父元素的首个子元素的指定选择器</p>
+<p>:last-child :选取属于其父元素的最后一个子元素的指定选择器</p>
+<p>:nth-child(n) ： 匹配属于其父元素的第 N 个子元素，不论元素的类型</p>
+<p>:nth-last-child(n) ：选择器匹配属于其元素的第 N 个子元素的每个元素，不论元素的类型，从最后一个子元素开始计数。 n 可以是数字、关键词或公式</p>
+<p>li:first-child { &#x2F;* 选择第一个孩子 *&#x2F;</p>
+<p>​           color: pink; </p>
+<p>​        }</p>
+<p>li:last-child {  &#x2F;* 最后一个孩子 *&#x2F;</p>
+<p>​           color: purple;</p>
+<p>​        }</p>
+<p>li:nth-child(4) {  &#x2F;* 选择第4个孩子 n 代表 第几个的意思 *&#x2F; </p>
+<p>​              color: skyblue;</p>
+<p>​        }</p>
+<p><strong>结构伪类选择器是css3中的新特性。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115221758273.png" class="" title="image-20221115221758273">
+
+<p>结构伪类，目的就是选择出第几个。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222238026.png" class="" title="image-20221115222238026">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222256134.png" class="" title="image-20221115222256134">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222305938.png" class="" title="image-20221115222305938">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222324640.png" class="" title="image-20221115222324640">
+
+<p>匹配其父元素的第几个元素，li的父是ul，因此，就是选择ul的第几个子元素。</p>
+<p>12行，就是选取第4个li。</p>
+<p>6行，就是选取第1个li。</p>
+<p>9行，就是选取最后一个li。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222424198.png" class="" title="image-20221115222424198">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222439565.png" class="" title="image-20221115222439565">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222512227.png" class="" title="image-20221115222512227">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222553309.png" class="" title="image-20221115222553309">
+
+<p>:first-child伪类的含义，某个元素的第一个子元素。注意，是第一个。也就是xx:first-child，这个xx必须是某个元素的第一个子元素才能够被选择到。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222849168.png" class="" title="image-20221115222849168">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115222925602.png" class="" title="image-20221115222925602">
+
+<p>如图，这个div不能够被选择到。原因是div是某个元素的子元素，但是，它并不是作为第一个子元素出现的。因为和div同级的前面还有p，所以div不是body下面的第一个。</p>
+<p><strong>也就是想要选取到div，那么它首先是某个元素的子元素，同时还得是第一个才行。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223053597.png" class="" title="image-20221115223053597">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223116745.png" class="" title="image-20221115223116745">
+
+
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223137344.png" class="" title="image-20221115223137344">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223148466.png" class="" title="image-20221115223148466">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223202259.png" class="" title="image-20221115223202259">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223218467.png" class="" title="image-20221115223218467">
+
+<p>选择某一元素的第一个子元素。如果:first-child只是这样写，那么整个页面上的所有标签（整体）都会被认为是某个元素的第一个子元素了。</p>
+<h2 id="结构伪类选择器（二）（CSS3）"><a href="#结构伪类选择器（二）（CSS3）" class="headerlink" title="结构伪类选择器（二）（CSS3）"></a>结构伪类选择器（二）（CSS3）</h2><img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223410922.png" class="" title="image-20221115223410922">
+
+<p>我现在想要选择1，3，5。或者是2，4，6。如何来做呢？</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223434609.png" class="" title="image-20221115223434609">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223453450.png" class="" title="image-20221115223453450">
+
+<p>这样只是把第三个选择到。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223538627.png" class="" title="image-20221115223538627">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223552994.png" class="" title="image-20221115223552994">
+
+<p>现在选择到的是2，4，6。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223615433.png" class="" title="image-20221115223615433">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223634385.png" class="" title="image-20221115223634385">
+
+<p>选择的就是奇数的了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223655599.png" class="" title="image-20221115223655599">
+
+<p>这就是使用关键词的方式，也就是nth-child(n)，n是关键词的方式。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223725728.png" class="" title="image-20221115223725728">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223737032.png" class="" title="image-20221115223737032">
+
+<p>如果就是写n，那么就是所有的都选择到了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223823109.png" class="" title="image-20221115223823109">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223849404.png" class="" title="image-20221115223849404">
+
+<p>这就是使用公式的方式。</p>
+<p>直接写n，那么n就是从0开始往后排。因此，2n，就是2，4，6这样的了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223928734.png" class="" title="image-20221115223928734">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115223950714.png" class="" title="image-20221115223950714">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224001407.png" class="" title="image-20221115224001407">
+
+<p>这样就是选择了所有的奇数了。</p>
+<p>这就是通过公式的方式来选择的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224023385.png" class="" title="image-20221115224023385">
+
+
+
+<h2 id="结构伪类选择器（三）（CSS3）"><a href="#结构伪类选择器（三）（CSS3）" class="headerlink" title="结构伪类选择器（三）（CSS3）"></a>结构伪类选择器（三）（CSS3）</h2><img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224115962.png" class="" title="image-20221115224115962">
+
+<p>没有第0个，因此，就忽略掉。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224154131.png" class="" title="image-20221115224154131">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224202416.png" class="" title="image-20221115224202416">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224223304.png" class="" title="image-20221115224223304">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224244004.png" class="" title="image-20221115224244004">
+
+<p>此时变成了选择奇数的了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224326350.png" class="" title="image-20221115224326350">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224345924.png" class="" title="image-20221115224345924">
+
+<p>因此是从下往上数的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224402690.png" class="" title="image-20221115224402690">
+
+<p>一个从前数，一个从后数。</p>
+<h2 id="目标伪类选择器（CSS3）"><a href="#目标伪类选择器（CSS3）" class="headerlink" title="目标伪类选择器（CSS3）"></a>目标伪类选择器（CSS3）</h2><p>:target目标伪类选择器 :选择器可用于选取当前活动的目标元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:target</span> &#123;</span><br><span class="line"><span class="attribute">color</span>: red;</span><br><span class="line"><span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标伪类，主要选择当前活动的元素的。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224552307.png" class="" title="image-20221115224552307">
+
+<p>现在要达成的功能就是当我们点击演艺经历，调到下面的演艺经历，然后让这个演艺经历改变其样式。</p>
+<p>因此，当我们点击演艺经历，然后调到下面的演艺经历，那么下面的这个演艺经历就是当前活动的目标元素。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224630415.png" class="" title="image-20221115224630415">
+
+<p>点击上面的11行，然后调到下面的24行，那么下面的24行就是当前活动的目标元素了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224659735.png" class="" title="image-20221115224659735">
+
+<p>只需要这样写即可。</p>
+<p><strong>target就表示选中的当前活动的目标元素。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224730777.png" class="" title="image-20221115224730777">
+
+<p>当点击演艺经历的时候，下面的演艺经历就是当前活动目标元素了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224753937.png" class="" title="image-20221115224753937">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115224811974.png" class="" title="image-20221115224811974">
+
+<p>此时其他的部分都是黑色的。</p>
+<p>当点击个人生活的时候，那么调到下面的个人生活，当前活动元素了，然后变成红色，此时其他的都是黑色的，因为其他的都不是当前活动元素。</p>
+<p>这就是目标伪类。</p>
+<h1 id="CSS外观样式与应用"><a href="#CSS外观样式与应用" class="headerlink" title="CSS外观样式与应用"></a>CSS外观样式与应用</h1><h2 id="CSS颜色"><a href="#CSS颜色" class="headerlink" title="CSS颜色"></a>CSS颜色</h2><p><strong>CSS外观属性</strong></p>
+<p><strong>color:文本颜色</strong></p>
+<p><strong>color属性用于定义文本的颜色，其取值方式有如下3种：</strong></p>
+<p>1.预定义的颜色值，如red，green，blue等。</p>
+<p>2.十六进制，如#FF0000，#FF6600，#29D794等。实际工作中，十六进制是最常用的定义颜色的方式。</p>
+<p>3.RGB代码，如红色可以表示为rgb(255,0,0)或rgb(100%,0%,0%)。</p>
+<p>需要注意的是，如果使用RGB代码的百分比颜色值，取值为0时也不能省略百分号，必须写为0%</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225144952.png" class="" title="image-20221115225144952">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225202270.png" class="" title="image-20221115225202270">
+
+
+
+<p>16进制，就是0-9-a-f。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225228773.png" class="" title="image-20221115225228773">
+
+<p>#开头，16进制写法。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225420179.png" class="" title="image-20221115225420179">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225447747.png" class="" title="image-20221115225447747">
+
+<p>点击color这里，选择一个颜色，实际上都是16进制进行显示的。</p>
+<p>自动将选择的颜色，转为16进制了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225514933.png" class="" title="image-20221115225514933">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225526245.png" class="" title="image-20221115225526245">
+
+<p>注意，#FF6600，这种有重复的，是可以简写的，推荐使用简写的方式。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225546109.png" class="" title="image-20221115225546109">
+
+<p>两个F变成一个F，两个6变成一个6，两个0变成一个0。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225623462.png" class="" title="image-20221115225623462">
+
+<p>对于最后一个#ff00fe这种就不能够简写的，因为最后fe不重复，就不能够进行简写的。只有xxyyzz，红绿蓝3个位置代号一样的时候，才能够进行简写。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225701520.png" class="" title="image-20221115225701520">
+
+<p>在开发者工具这里能够看到颜色选取器。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225738458.png" class="" title="image-20221115225738458">
+
+<p>上下箭头，可以切换颜色书写的格式。现在这里是RGB的书写格式。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225804689.png" class="" title="image-20221115225804689">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115225821685.png" class="" title="image-20221115225821685">
+
+<p><strong>重点是使用16进制格式的方式的。另外两种用的少。</strong></p>
+<h2 id="行高对齐和首行缩进"><a href="#行高对齐和首行缩进" class="headerlink" title="行高对齐和首行缩进"></a>行高对齐和首行缩进</h2><p>line-height:行间距</p>
+<p>line-height属性用于设置行间距，就是行与行之间的距离，即字符的垂直间距，一般称为<strong>行高</strong>。line-height常用的属性值单位有三种，分别为像素px，相对值em和百分比%，实际工作中使用最多的是像素px</p>
+<p>一般情况下，行距比字号大7到8像素左右就可以了。</p>
+<p><strong>行间距，就是行和行之间的距离。</strong></p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230110566.png" class="" title="image-20221115230110566">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230128011.png" class="" title="image-20221115230128011">
+
+<p>行距增大了。</p>
+<p><strong>text-align:水平对齐方式</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">text-align属性用于设置文本内容的水平对齐，相当于html中的align对齐属性。其可用属性值如下：</span><br><span class="line">left：左对齐（默认值）</span><br><span class="line">right：右对齐</span><br><span class="line">center：居中对齐</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230322558.png" class="" title="image-20221115230322558">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230337695.png" class="" title="image-20221115230337695">
+
+<p>注意，设置的是水平对齐，不是垂直对齐的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230402701.png" class="" title="image-20221115230402701">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230415357.png" class="" title="image-20221115230415357">
+
+
+
+<p><strong>text-indent:首行缩进</strong></p>
+<p>text-indent属性用于设置首行文本的缩进，其属性值可为不同单位的数值、em字符宽度的倍数、或相对于浏览器窗口宽度的百分比%，允许使用负值, 建议使用em作为设置单位。</p>
+<p>1em 就是一个字的宽度 如果是汉字的段落， 1em 就是一个汉字的宽度</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230531628.png" class="" title="image-20221115230531628">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230553295.png" class="" title="image-20221115230553295">
+
+
+
+<h2 id="字间距和单词间距"><a href="#字间距和单词间距" class="headerlink" title="字间距和单词间距"></a>字间距和单词间距</h2><p><strong>letter-spacing:字间距</strong></p>
+<p>letter-spacing属性用于定义字间距，所谓字间距就是字符与字符之间的空白。其属性值可为不同单位的数值，允许使用负值，默认为normal。</p>
+<p><strong>word-spacing:单词间距</strong></p>
+<p>word-spacing属性用于定义英文单词之间的间距，对中文字符无效。和letter-spacing一样，其属性值可为不同单位的数值，允许使用负值，默认为normal。</p>
+<p>word-spacing和letter-spacing均可对英文进行设置。不同的是letter-spacing定义的为字母之间的间距，而word-spacing定义的为英文单词之间的间距。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230730550.png" class="" title="image-20221115230730550">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230742680.png" class="" title="image-20221115230742680">
+
+<p>定义字符和字符之间的间距。</p>
+<p>word-spacing，设置单词之间的间距，这个主要是对于英文的，因为中文中没有单词的概念。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230809201.png" class="" title="image-20221115230809201">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230819590.png" class="" title="image-20221115230819590">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230838172.png" class="" title="image-20221115230838172">
+
+<p>这个针对汉字是没用的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230853262.png" class="" title="image-20221115230853262">
+
+<p>对汉子没有效果的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115230915983.png" class="" title="image-20221115230915983">
+
+
+
+<h2 id="颜色半透明（CSS3）"><a href="#颜色半透明（CSS3）" class="headerlink" title="颜色半透明（CSS3）"></a>颜色半透明（CSS3）</h2><p>文字颜色到了CSS3我们可以采取半透明的格式了语法格式如下：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">color: rgba(r,g,b,a)  a 是alpha 透明的意思 取值范围 0~1之间    color: rgba(0,0,0,0.3) </span><br></pre></td></tr></table></figure>
+
+<p>0是完全透明。1是完全不透明。</p>
+<p>rgb(0,0,0)这个是黑色。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231106131.png" class="" title="image-20221115231106131">
+
+<p>前面的是css通用的。后面的两个是css3中新增的。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231125641.png" class="" title="image-20221115231125641">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231212879.png" class="" title="image-20221115231212879">
+
+
+
+<h2 id="文字阴影（CSS3）"><a href="#文字阴影（CSS3）" class="headerlink" title="文字阴影（CSS3）"></a>文字阴影（CSS3）</h2><p>以后我们可以给我们的文字添加阴影效果了 Shadow 影子 </p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">text-shadow:水平位置 垂直位置 模糊距离 阴影颜色;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231345251.png" class="" title="image-20221115231345251">
+
+<p>前两项是必须写的。 后两项可以选写。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231411958.png" class="" title="image-20221115231411958">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231437823.png" class="" title="image-20221115231437823">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231446994.png" class="" title="image-20221115231446994">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231509728.png" class="" title="image-20221115231509728">
+
+<p>通过调试工具来测试效果。</p>
+<p>第一个是水平阴影距离。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231534510.png" class="" title="image-20221115231534510">
+
+<p>第二个是垂直阴影距离。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231554136.png" class="" title="image-20221115231554136">
+
+<p>第三个是模糊距离，就是文字是否模糊。</p>
+<p>最后一个就是阴影颜色了。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231756654.png" class="" title="image-20221115231756654">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115231808822.png" class="" title="image-20221115231808822">
+
+<p>后面两个参数不写，那么就取默认值了。</p>
+<h2 id="快捷方式"><a href="#快捷方式" class="headerlink" title="快捷方式"></a>快捷方式</h2><p>1、生成标签 直接输入标签名 按tab键即可 比如 div 然后tab 键， 就可以生成 &lt;div&gt;&lt;&#x2F;div&gt;</p>
+<p>2、如果想要生成多个相同标签 加上 * 就可以了 比如 div*3 就可以快速生成3个div</p>
+<p>3、如果有父子级关系的标签，可以用 &gt; 比如 ul &gt; li就可以了</p>
+<p>4、如果有兄弟关系的标签，用 + 就可以了 比如 div+p </p>
+<p>5、如果生成带有类名或者id名字的， 直接写 .demo 或者 #two tab 键就可以了</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232032745.png" class="" title="image-20221115232032745">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232042027.png" class="" title="image-20221115232042027">
+
+
+
+<p>父子标签的快速生成。</p>
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232103603.png" class="" title="image-20221115232103603">
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232113189.png" class="" title="image-20221115232113189">
+
+
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232125376.png" class="" title="image-20221115232125376">
+
+
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232141305.png" class="" title="image-20221115232141305">
+
+
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232154682.png" class="" title="image-20221115232154682">
+
+
+
+<img src="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221115232211244.png" class="" title="image-20221115232211244">
+
+
+
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/" title="CSS基本选择器&amp;外观样式与应用">http://www.leo101018.xyz/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS基本选择器&外观样式与应用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/css3/" rel="tag"><i class="fa fa-tag"></i> css3</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/15/VirtualBox/network/centos7.9.2009%E4%B8%8BVirtualBox%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" rel="prev" title="centos7.9.2009下VirtualBox网络配置">
+      <i class="fa fa-chevron-left"></i> centos7.9.2009下VirtualBox网络配置
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">CSS基本选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7"><span class="nav-number">1.1.</span> <span class="nav-text">调试工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E7%AD%BE%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">标签选择器（元素选择器）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">类选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="nav-number">1.4.</span> <span class="nav-text">CSS命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%B1%BB%E5%90%8D%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.5.</span> <span class="nav-text">多类名选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ID%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">ID选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ID%E9%80%89%E6%8B%A9%E5%99%A8%E5%92%8C%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.7.</span> <span class="nav-text">ID选择器和类选择器的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.8.</span> <span class="nav-text">通配符选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.9.</span> <span class="nav-text">链接伪类选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%88CSS3%EF%BC%89"><span class="nav-number">1.10.</span> <span class="nav-text">结构伪类选择器（一）（CSS3）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%88CSS3%EF%BC%89"><span class="nav-number">1.11.</span> <span class="nav-text">结构伪类选择器（二）（CSS3）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%88CSS3%EF%BC%89"><span class="nav-number">1.12.</span> <span class="nav-text">结构伪类选择器（三）（CSS3）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%88CSS3%EF%BC%89"><span class="nav-number">1.13.</span> <span class="nav-text">目标伪类选择器（CSS3）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">CSS外观样式与应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS%E9%A2%9C%E8%89%B2"><span class="nav-number">2.1.</span> <span class="nav-text">CSS颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E9%AB%98%E5%AF%B9%E9%BD%90%E5%92%8C%E9%A6%96%E8%A1%8C%E7%BC%A9%E8%BF%9B"><span class="nav-number">2.2.</span> <span class="nav-text">行高对齐和首行缩进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E9%97%B4%E8%B7%9D%E5%92%8C%E5%8D%95%E8%AF%8D%E9%97%B4%E8%B7%9D"><span class="nav-number">2.3.</span> <span class="nav-text">字间距和单词间距</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2%E5%8D%8A%E9%80%8F%E6%98%8E%EF%BC%88CSS3%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">颜色半透明（CSS3）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E9%98%B4%E5%BD%B1%EF%BC%88CSS3%EF%BC%89"><span class="nav-number">2.5.</span> <span class="nav-text">文字阴影（CSS3）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E6%8D%B7%E6%96%B9%E5%BC%8F"><span class="nav-number">2.6.</span> <span class="nav-text">快捷方式</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">305k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:37</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
