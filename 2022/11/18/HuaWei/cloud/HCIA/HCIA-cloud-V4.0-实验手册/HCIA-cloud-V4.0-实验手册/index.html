@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="HCIA-cloud-V4.0-实验手册">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HCIA-cloud-V4.0-实验手册">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="HCIA-cloud-V4.0-实验手册">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/33382e8093d76f70571d628bfbef5248.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/bf59005bd0444de913da32121cfcc7ba.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/09080b46fc4803e8a1736bba9aaebd6e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/79c16df8c2f97263cdf912c14be8e20e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2845acb19cdd2d9f053f7e4ad92c2427.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c3897c932ce207a636d9ed115b331a6e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e88a33d5a304b7c8795254a1fa793f42.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/54fe505c1a93aed907eb75f2feeaeed6.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/df7a4875e8b04a89ac46ec8989c28cc2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/05d2990cf94d4ec2d7811bf3648b88d7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b5450e1a6e6cc813b7dd53bd5f951f8b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c32f30a462818b369966f549341efcad.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9013977fa7fa5cfcc1ab6d4847c3556e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/434ec17c2ca862d962ec97365b1b546e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/390fd81ae16fbe88b9518d8a45cee4ec.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d01940d8d7baed34ba433aa9aee79052.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0faf7aa1f73d04b2b9d68019f7eb61be.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f8ba0f1512aa135ddf371e24476d9e5b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/36f3131c76b6f9ab8a3c1f8a78033f6b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/993f860083aa7a879af9228aa69f115c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/95a5892d1de1002f0d445cf0c2a46c68.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/8a873327f96125bc0d14303cfd81b36f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/47aaab246d71640b7a772bc4b525afb3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c66f97e55cea00b16e26eb3da222538c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0c396bd0a8d0c11aba11be92d30a97a9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e8ce2120dcc7e9c41c1825e159a4cf32.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/07cdc82d09198507662906659204d590.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b211599cede64ec32c38bec66f2ad4e2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/57fad50fce881f12919faf88979c98f7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cc64c48848089c407aeddc8edcd6d981.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/3a18d9fcab7dacd855f8dd7fbb1b2fc4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/08f32d9781bfada6d49e8a4ee7e86868.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/00e6d5707490de3de391bc53a445bbaf.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5da7d26be0cc783802833f1c717e5078.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/10cdac3a982c2aa28baa8a062567ffba.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6f7ac3e51c4fbf9cc41bf8801d51cc3a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/45826342de60db0fa85d4d3e1869bc0d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7fbb2e1c29126bb49bc4e5ddb17b8cef.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/63812d36bff6b8b7c9bfd0b3d856568a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0a308773280bdc199d02966b5b36a99b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6b2ef3814ab0d04209f0139b099c0af3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/66f88b38f1a42ec331ba63b0e4f1970b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/56387ae6d2cb8c340f8b25a3e59587f1.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9ea42a9a3783988717dd24ab757c9b73.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fe0e809e533535e89b41e6dc143b1d62.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/3cae56e63f83d1a21da7bb8f43629930.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f149e4f74dd80fb7b8df167a105213db.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e75234e19ad660bc1a4aaffd23206853.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9e1782200e18611abfab575e71d4f4de.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/bf133b9a11ca341f44779bac4c7b886f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/61b74aea05b1a1d06b4ff55c33a42627.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c9892253ca07ddeafd6fec7a9b9d14cb.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c2801fe52d97914a420826aea1396ee7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/51fb72308787c0e4ce157ae077b06098.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a2c08f118bce78e67d15ee363f2c9d67.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/822b764415ed355889cbc7348ca3652b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/318803ff3383a51c16b73aaf7990595a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c40022d8b41c355e57af6698c11acdc9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cc406a086c91f7c725e13e9ae9f0b912.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/38e5ab69c7772a46116db409ad7291b4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4b90c629957354cacfc75a27a97e5268.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/1106223a77e7685d1097d79871da1def.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/73929101b3ae459cace79d6865ceadc4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/59cbec7d9d54d1d7efbf949fa3e2fe10.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/483e635043dd1b3ad95e6c634b9d7c04.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fa22a06d40465891dd153eb9546cadcf.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9b349c542677fcf94fce8cdc377f22af.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/50d51005f847c1eb26e2abfe2c8808a1.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/03868bbf2b5a9da5ae9a8c5beb73e241.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6624cff7d725e00241b38727930ca83d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b860e96279e6a3a46e8715382e8d2808.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f959d50f15ea8d621aa1c69e679ac9cd.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/750ef522fe0ca26765cddf246541695b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/db0beb615d055f066f66afc7f69f400b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/183526b1ba67361c6166d6c72ae3084e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2182469516a9ce8dd39cceef728a3ead.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c957fdea9ff29135eb79a23747d80ce9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7063efaa004b1223dc87ae947a6d97f3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/39e15d507e8fa8298a9aeedded4a6337.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b4d837c57f78b5db97fe06eece6efcd9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6ed7c31af3f971074c8bc1bb70b171a4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/3803c671bb8b9d4c5f0fb67575b29c3d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/829f6c52649be70ac8a99e2744d65a2a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/dbc123e32d8fec6459a415b421e747b0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9738cbfb4710ed911af1ae2c3030df78.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/af1b30c1145d4d58505515eacd46a1c0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9cb9cc65befd32732f4723f2d3206338.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5db6fb8b458ac14e00be7d50591b363a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/bb6bb0d61e569e6bac06055725f44457.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d0170d44fa5cd92e92b10f6ef594ac94.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/de90e980131555a71d639ab1e45e1015.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2b0adb6da138f5697738a52292df38a4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5ffe82466b1a8e7f390f419df379951f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c3bbb1e2b63af48cbbeceb70517c8fb6.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9c196a5edb15e59de2ba90d514e723fd.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/623e011e8d12f4ee42e74cb403b2c9d3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b7e3e68635a1ae75fbae29e8380e4bc3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/890a30904d4266a0945edb299f09dc01.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/93ab63c72e020a0b7459f1448c1cb97e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/72951292dc5d57bf9e6ad6703c3c2940.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e0b0747dea586a6d924111115947ec5c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ec4c7237bff9c85c15577d83f10cf9f8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a2684d07e73045deacdb147d0b2c9381.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7854e2138d6dc774a145966087b287f3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5537a2a9905942b25dc43b4204fc7b69.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b9a6e153449dc561977bc70927077f3f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/065623a91b683884b55e2296bf940af9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/296e96abc355ef4b2c3c41d4045543c4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/32b6762b903e7aa7bf3c95b7e7a61408.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/1150e2689168715c1017cb5e37e1246d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d6bc4cddba697ab55c0797bd3e56efb7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/15506d9917dabc42c297431c40e74740.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/154c3389819060ac8672e41198f8f023.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/8c6b5872d9bd88bd542149a9c7e0f6b0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/93adfadce7e02aee6e2fb17645fc0c87.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a8599b7f6422cc9005350b700adea11b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f77c841b3b0b7466dc245a30a57349e8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/229a036b3e7a41cc2aa63cb19da56aa3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ab9c8d5a6b7fcc0e640cafec5a70260f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f2723a0d5a24e9c959188fc9fced4896.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/657a7de9f15871756139fd4f4fcd9b31.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/04c5d03f686c5599da8244cdd456c396.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/309ebfb5ed033f2643f18f6fbce82dcb.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d7d2180cb3fa474b04e02d102fe08bd2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d637a0146218433c24dc784467e22f1c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9b8b75646b0fd470c639cf47216ec208.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/080522f8ada12bf6a29f32455d283f70.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5b4377be7c0c94fe4d599355bed3fd98.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4cf19da4ecaf1e1b0fd66c850546d8e4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a227b34ff8d851a495615dbd650a2b7f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5790b7bb74b20a81ddc322cf57c04b60.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d9f743e27fc0fdad32593d9ea83c257d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d5d29c032f23101da87c87695e38578d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/23087b170ff395a80178898e3c5a8f3a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f94c492ecc897a0099957e1b5c7b88a5.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7f21209ac9f627a997f882d32e11abd9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/536b9688c575d51d22c07bfbe5236fde.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/03f9e89a41a6b178e770d9d5a1e22377.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/39eaede14c068523bf5c4b3e5bbfe338.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/23082b62d5a4567dd04655bc83b5e963.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d8f2beec186c4673db755a05c3a9b2a1.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c8dce492254bca41747402ed145b9460.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f16acd9a368a438509924b5b8000734b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ee729bab48e870ac34720a433f077294.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/473d6d021813cf9caad1b7302d9bfe55.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4f198d755eebd7b5cd1c0ba67994ddd6.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a4577c5edb8b98dfb9d9f55339398371.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4fd0ab2a4a8080228a53ecdee09ea2fc.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9bc1b1a4b2b8f5d78903492b87740093.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a083fd60a6d2ece017aaee5a046c2953.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ddbe4715052d0b2c6410fdae1708ba84.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2ee526d51d388d3b441db8e3805e6225.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0da3186df5225a365ef371a5ded0bc89.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6c213b70cb0f90a2195a77161e8fcf7c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/21da86872bed0cc80da5746d38880419.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9b30c788f9b5e45c0223970ae7663710.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/168a4bc227cf67d287d3bdef969ba15d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e915fc14f1099751da60ea4f0667753f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ecf27d297b862067c3233fd40522f2c8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cbdea35ce68afd72dd7aaa7703d5410d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/165283c0413e3c97b7684104cc9667a8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/aa8bdd4ccb502f18967e3f51016316b4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/dbb38d791760a6f58ffcb51af093e856.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/03ef8d4c3bf2e3eba33491ba89a4e93b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/25ad84b0cd1c85aa61140415a81d38af.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0bcca37b0d198d823e04ef52a8524b6d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fb9f19771d2059e6ab048b90a82eb44a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fb8fdd7af6bdcfa0140498cfc0de369e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/878112fbf68863c4ae857ed8ee3eb271.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/45f33e4f2ef1f6fa6908bf6a16793355.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/90a55829f9fafc25dfc78bb5a85921f4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/693601e87a09dd022be8ce8c27d43a38.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a45a2d00c745864e9632d420318fef2f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6f3687c11fa5781f0fa370fb5b2b6cdf.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e317c37ad6dab9f3a5f93b5f2be3e109.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ecd3a2fc8d440ee706242e608475d3cd.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/aaa660459f310c493b7782d979a02ff4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4dc0a94e1f7b5f2dbca55aeba6bdeacb.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/327de7524e470e3bb9c83b6e9910a3e7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b6531b601e85c024b87f113274a049a0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/778519d8a1d766bc71d27a80344bf3ab.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/12d2128a13c4970a0eb492aac5277ce0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2327f9214383515de1d7f7bfe89ec33e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/18e01f02a5a25e3f8fec403c3284f96a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2ac90ddd010f9285cf098920f0e10692.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c6b4625ada24ec981acd1029263ccf29.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cc8d66ff524e600296e46a6e8f56516f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/391cad968e0b034b938015c077a80d8f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/3a2d77bde2a4fd21b34f7c72f7764cbf.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5f39225c1581c2115ef9e7c741291dbe.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cb7f19d7faf5f206b1c14768a6cda938.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d766abccbf0be51c2824927ee8b20394.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/79b0f077624ea671943c3ca486ae4c89.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/722fa0d027169cf85f767fefee064ca9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6a2229b0eab787edde4dd7ed0700b892.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ebbc0443e189ae429e6ef88b696f7bdf.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/469892f9a15778ad6fac06856f0d0f52.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4e3b9204b6c608369aca7b019075d811.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/62e779b60d9fc1f0bb77b9531d565bea.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9cfaa3b12391f9a6d724d307ee7a8b65.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/504d0ba58bea546c472885ed602eccb5.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ae9fcd6b5ccfe2b086b7b2609348b9c6.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d470c27a70502b3ec01b8bde98cff46a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ef945e3b322f50ef5288bc460be85a0b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/81e22d6a7b9139330780cd56df046536.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/231762c077b8bc7ebb2e453d869581e9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/569877a9f101b344084970a77b95282c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/daa81b9854adfcdee9c431dac498008a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b6c50cc0131d7485f9ab25071baa1d40.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d74ce441d6f50de03ae0026ddb0e754c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/57741c86f7b5a42f2caca41380627578.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a17cf6e42635e7a86746dd69eb9a1302.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f7f7a746a731c261996f81959b14cfd4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9f8b6d6a8e9f6e33324ab4fd2e65bd37.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2e90d2cfcfe8d2c126123667aae3c340.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d5bf55664e1e64f74765f6e57a5e019d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b6f2d50cc12256e159a9ea0f135ce9e9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/14cb19fd894394068da8ad3d8fbcd40b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/bf90fae3b146cf9c4d8864f8a4ad49ff.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b6f2d50cc12256e159a9ea0f135ce9e9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fef465efc27da597235d1200e2670627.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/617986284a77fcecae3a3315fab6b832.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9f4e8e018e14344142786c1c99b84e7e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5098500be54ec122ed6a24435ace4ddf.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/720005ae320c85cceb3c18a2baf5c40e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5024e4b453d86d7d2265f5558d1fd863.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6213ad6b733ede5ca5765eebafef6a4e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/852b72670bce18e22e8c452d1a7761d8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d8ffe4f1533d9c846344732b92e989c0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ba4b035033ad8d03bc89c26beec2b20a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e9ad773d9d6e5223e1d04a18714df9db.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a17cf6e42635e7a86746dd69eb9a1302.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fc4c435ac4cbf26972d40da76a3e7a91.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fcda9e72ad262fd1c6d3aa213a5db8ea.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/efe79c3bd0fabcb4cf4904590ebcb8c6.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6445d24607dd8d1768d67c4c2682d319.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/187098984ba994546577adafb5458b9d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ca159f98f0e85fc573261b14274b9e3a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/053dd75cf3c52b4edc4182ea728b6cde.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/814a0946f8e570931e140f1510493868.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/18df80a3e1e748e2be30e017c1c635ef.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/90531372a7c5f1967dedb32e48f6dc9c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4e4ecd5ef816715fc291a3318f3d0a3d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7d21fbce89c1805a4ff84e97d992cee4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6c13975172867dcc254f9ac75cc41c30.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7a7c56a1c84ffbebf95819dc575073be.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ce3a02a312b6a5e55af9f0dfbfa06d13.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e08d2dbb8daf71bae7aa1656a84a186c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e401ae971933545d459702e2213f74b0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9ae8c9d8b95d14dc74d7024ba10c1679.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/82dc6dbd666f377673e942efb786cdba.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/42acabe0e0c84bc0722e85c12711715b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d1fa53343e3cf61bfc180c0f027946f9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/08458ecdbd6e0f99bf189fbd97bfacea.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f74c67977db4057d659b5e5f1294bc5b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/dac5e2588cde414d7f5853e5e4cfe69e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/91971428ebf30d7c36947aa9d0e5e7b0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/318cb08bada48cad1bbc86de87f47a8a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9db96282e49a83836b2a6cfa59b453c2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f083b6bb059a2187a9077b6ec96596d6.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d726a2d201302935695e7245cba09571.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f083b6bb059a2187a9077b6ec96596d6.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e99b3cabcc525225d29a535c3c0d5a9d.png">
+<meta property="article:published_time" content="2022-11-18T13:19:43.000Z">
+<meta property="article:modified_time" content="2022-11-18T13:19:56.447Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="HCIA-Cloud">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/33382e8093d76f70571d628bfbef5248.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if('19491001'){
+          if (prompt('请输入密码') !== '19491001'){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>HCIA-cloud-V4.0-实验手册 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">21</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          HCIA-cloud-V4.0-实验手册
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-18 21:19:43 / 修改时间：21:19:56" itemprop="dateCreated datePublished" datetime="2022-11-18T21:19:43+08:00">2022-11-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HuaWei/" itemprop="url" rel="index"><span itemprop="name">HuaWei</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HuaWei/cloud/" itemprop="url" rel="index"><span itemprop="name">cloud</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HuaWei/cloud/HCIA/" itemprop="url" rel="index"><span itemprop="name">HCIA</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>18k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>16 分钟</span>
+            </span>
+            <div class="post-description">HCIA-cloud-V4.0-实验手册</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>华为认证Cloud系列教程</p>
+<p>HCIA-Cloud Computing</p>
+<p>实验指导手册</p>
+<p>版本:4.0</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/33382e8093d76f70571d628bfbef5248.png" class="">
+
+<p>华为技术有限公司</p>
+<table>
+<thead>
+<tr>
+<th>版权所有 © 华为技术有限公司 2019。 保留一切权利。 非经本公司书面许可，任何单位和个人不得擅自摘抄、复制本文档内容的部分或全部，并不得以任何形式传播。  商标声明 <img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/bf59005bd0444de913da32121cfcc7ba.png" class="">和其他华为商标均为华为技术有限公司的商标。 本文档提及的其他所有商标或注册商标，由各自的所有人拥有。  注意 您购买的产品、服务或特性等应受华为公司商业合同和条款的约束，本文档中描述的全部或部分产品、服务或特性可能不在您的购买或使用范围之内。除非合同另有约定，华为公司对本文档内容不做任何明示或暗示的声明或保证。 由于产品版本升级或其他原因，本文档内容会不定期进行更新。除非另有约定，本文档仅作为使用指导，本文档中的所有陈述、信息和建议不构成任何明示或暗示的担保。</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th>华为技术有限公司</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>地址：</td>
+<td>深圳市龙岗区坂田华为总部办公楼 邮编：518129</td>
+</tr>
+<tr>
+<td>网址：</td>
+<td>http:&#x2F;&#x2F;<a target="_blank" rel="noopener" href="http://e.huawei.com/">e</a>.huawei.com</td>
+</tr>
+</tbody></table>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/09080b46fc4803e8a1736bba9aaebd6e.png" class="">
+
+<p>前 言</p>
+<p>简介</p>
+<p>本书为HCIA-Cloud Computing认证培训教程，适用于准备参加HCIA-Cloud Computing考试的学员或者希望了解云计算基础知识、虚拟化基础知识、华为虚拟化产品架构及特性等相关知识的读者。</p>
+<p>目录</p>
+<p><a href="#_Toc4740558">前 言</a></p>
+<p><a href="#_Toc4740559">简介</a></p>
+<p><a href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E4%BB%8B%E7%BB%8D">1 实验环境介绍</a></p>
+<p><a href="#%E7%BB%84%E7%BD%91%E8%AF%B4%E6%98%8E">1.1 组网说明</a></p>
+<p><a href="#%E8%AE%BE%E5%A4%87%E4%BB%8B%E7%BB%8D">1.2 设备介绍</a></p>
+<p><a href="#%E8%BD%AF%E4%BB%B6%E5%92%8C%E5%B7%A5%E5%85%B7">1.3 软件和工具</a></p>
+<p><a href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E7%BB%84%E7%BD%91%E4%BB%8B%E7%BB%8D">1.4 实验环境组网介绍</a></p>
+<p><a href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83">1.5 交换机配置参考</a></p>
+<p><a href="#%E5%AE%89%E8%A3%85fusioncompute">2 安装FusionCompute</a></p>
+<p><a href="#_Toc4740567">2.1 实验目标</a></p>
+<p><a href="#_Toc4740568">2.2 手动安装CNA，工具安装VRM</a></p>
+<p><a href="#_Toc4740569">2.2.1 使用镜像安装CNA</a></p>
+<p><a href="#_Toc4740570">2.2.2 使用工具安装VRM</a></p>
+<p><a href="#%E7%99%BB%E5%BD%95fusioncompute">2.3 登录FusionCompute</a></p>
+<p><a href="#fusioncompute%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE">3 FusionCompute资源配置</a></p>
+<p><a href="#%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE">3.1 主机配置</a></p>
+<p><a href="#%E6%B7%BB%E5%8A%A0%E4%B8%BB%E6%9C%BA">3.1.1 添加主机</a></p>
+<p><a href="#%E7%BD%91%E5%8F%A3%E7%BB%91%E5%AE%9A">3.1.2 网口绑定</a></p>
+<p><a href="#%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE">3.2 网络资源配置</a></p>
+<p><a href="#%E5%88%9B%E5%BB%BAdvs">3.2.1 创建DVS</a></p>
+<p><a href="#%E6%B7%BB%E5%8A%A0%E4%B8%8A%E8%A1%8C%E9%93%BE%E8%B7%AF">3.2.2 添加上行链路</a></p>
+<p><a href="#%E6%B7%BB%E5%8A%A0vlan%E6%B1%A0">3.2.3 添加VLAN池</a></p>
+<p><a href="#%E5%88%9B%E5%BB%BA%E7%AB%AF%E5%8F%A3%E7%BB%84">3.2.4 创建端口组</a></p>
+<p><a href="#%E5%AD%98%E5%82%A8%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE">3.3 存储资源配置</a></p>
+<p><a href="#%E6%B7%BB%E5%8A%A0%E5%AD%98%E5%82%A8%E6%8E%A5%E5%8F%A3">3.3.1 添加存储接口</a></p>
+<p><a href="#%E6%B7%BB%E5%8A%A0%E5%AD%98%E5%82%A8%E8%B5%84%E6%BA%90">3.3.2 添加存储资源</a></p>
+<p><a href="#%E5%8F%AF%E9%80%89%E6%89%AB%E6%8F%8F%E5%AD%98%E5%82%A8%E8%AE%BE%E5%A4%87">3.3.3 （可选）扫描存储设备</a></p>
+<p><a href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8">3.3.4 添加数据存储</a></p>
+<p><a href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%9B%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE">4 虚拟机创建及配置</a></p>
+<p><a href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA">4.1 创建虚拟机</a></p>
+<p><a href="#%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%99%9A%E6%8B%9F%E6%9C%BA">4.1.1 创建裸虚拟机</a></p>
+<p><a href="#_Toc4740589">4.1.2 安装操作系统（仅体验）</a></p>
+<p><a href="#%E5%88%A0%E9%99%A4%E8%99%9A%E6%8B%9F%E6%9C%BA">4.2 删除虚拟机</a></p>
+<p><a href="#%E5%AF%BC%E5%85%A5%E5%B9%B6%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E6%9C%BA">4.3 导入并配置虚拟机</a></p>
+<p><a href="#%E5%AF%BC%E5%85%A5%E8%99%9A%E6%8B%9F%E6%9C%BA">4.3.1 导入虚拟机</a></p>
+<p><a href="#%E6%8C%82%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8F%8A%E5%8D%B8%E8%BD%BDtools">4.3.2 挂载，安装及卸载Tools</a></p>
+<p><a href="#%E6%A8%A1%E6%9D%BF%E9%83%A8%E7%BD%B2%E8%99%9A%E6%8B%9F%E6%9C%BA">4.4 模板部署虚拟机</a></p>
+<p><a href="#%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A8%A1%E6%9D%BF">4.4.1 制作虚拟机模板</a></p>
+<p><a href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E9%83%A8%E7%BD%B2%E8%99%9A%E6%8B%9F%E6%9C%BA">4.4.2 使用模板部署虚拟机</a></p>
+<p><a href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%A7%84%E6%A0%BC%E8%B0%83%E6%95%B4">4.5 虚拟机规格调整</a></p>
+<p><a href="#cpu%E7%83%AD%E6%B7%BB%E5%8A%A0">4.5.1 CPU热添加</a></p>
+<p><a href="#%E5%86%85%E5%AD%98%E7%83%AD%E6%B7%BB%E5%8A%A0">4.5.2 内存热添加</a></p>
+<p><a href="#%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9">4.5.3 磁盘扩容</a></p>
+<p><a href="#%E6%B7%BB%E5%8A%A0%E7%BD%91%E5%8D%A1">4.5.4 添加网卡</a></p>
+<p><a href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%AF%B9%E8%B1%A1%E6%9D%83%E9%99%90">4.6 虚拟机配置对象权限</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E4%B8%80%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%A3%81%E7%9B%98%E5%BA%94%E7%94%A8">5 场景一：虚拟机磁盘应用</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0">5.1 场景描述</a></p>
+<p><a href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B">5.2 操作流程</a></p>
+<p><a href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4">5.3 操作步骤</a></p>
+<p><a href="#%E5%88%9B%E5%BB%BA%E7%A3%81%E7%9B%98">5.3.1 创建磁盘</a></p>
+<p><a href="#%E7%BB%91%E5%AE%9A%E7%A3%81%E7%9B%98">5.3.2 绑定磁盘</a></p>
+<p><a href="#%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96">5.3.3 磁盘格式化</a></p>
+<p><a href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%83%AD%E8%BF%81%E7%A7%BB">5.3.4 虚拟机热迁移</a></p>
+<p><a href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%BF%AB%E7%85%A7%E4%B8%8E%E6%81%A2%E5%A4%8D">5.3.5 虚拟机快照与恢复</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%E9%9B%86%E7%BE%A4drs%E8%A7%84%E5%88%99%E7%BB%84">6 场景二：集群DRS规则组</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0-1">6.1 场景描述</a></p>
+<p><a href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-1">6.2 操作步骤</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E4%B8%89ha%E5%8A%9F%E8%83%BD%E4%BD%93%E9%AA%8C">7 场景三：HA功能体验</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0-2">7.1 场景描述</a></p>
+<p><a href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4">7.2 实验步骤</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E5%9B%9B%E5%AE%89%E5%85%A8%E7%BB%84%E7%9A%84%E4%BD%9C%E7%94%A8">8 场景四：安全组的作用</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0-3">8.1 场景描述</a></p>
+<p><a href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4-1">8.2 实验步骤</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E4%BA%94%E5%B8%B8%E7%94%A8%E8%BF%90%E7%BB%B4%E6%93%8D%E4%BD%9C">9 场景五：常用运维操作</a></p>
+<p><a href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0-4">9.1 场景描述</a></p>
+<p><a href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4-2">9.2 实验步骤</a></p>
+<p><a href="#%E6%9F%A5%E7%9C%8B%E6%B8%85%E9%99%A4%E5%B1%8F%E8%94%BD%E5%91%8A%E8%AD%A6%E4%BF%A1%E6%81%AF">9.2.1 查看、清除、屏蔽告警信息</a></p>
+<p><a href="#%E6%B7%BB%E5%8A%A0%E8%A7%92%E8%89%B2%E5%92%8C%E7%94%A8%E6%88%B7">9.2.2 添加角色和用户</a></p>
+<p><a href="#%E9%85%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%AD%96%E7%95%A5">9.2.3 配置密码策略</a></p>
+<p><a href="#license%E7%AE%A1%E7%90%86">9.2.4 License管理</a></p>
+<p><a href="#%E6%89%8B%E5%8A%A8%E5%A4%87%E4%BB%BD%E7%AE%A1%E7%90%86%E6%95%B0%E6%8D%AE">9.2.5 手动备份管理数据</a></p>
+<h1 id="实验环境介绍"><a href="#实验环境介绍" class="headerlink" title="实验环境介绍"></a>实验环境介绍</h1><h2 id="组网说明"><a href="#组网说明" class="headerlink" title="组网说明"></a>组网说明</h2><p>本实验环境面向准备HCIA-Cloud Computing的云计算工程师。每套实验环境包括1台服务器和1台交换机。每套实验环境适用于5名学员同时上机操作。</p>
+<h2 id="设备介绍"><a href="#设备介绍" class="headerlink" title="设备介绍"></a>设备介绍</h2><p>为了满足HCIA-Cloud Computing实验需要，建议每套实验环境采用以下配置：</p>
+<p>设备名称、型号与版本的对应关系如下：</p>
+<table>
+<thead>
+<tr>
+<th>设备名称</th>
+<th>设备型号</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>服务器</td>
+<td>RH2288V3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>交换机</td>
+<td>S5700</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h2 id="软件和工具"><a href="#软件和工具" class="headerlink" title="软件和工具"></a>软件和工具</h2><p>本实验主要涉及到FusionCompute R6.3.1的安装和使用，在此过程中会用到多个工具，具体如下：</p>
+<p>FusionCompute 6.3</p>
+<p>CentOS 7.3</p>
+<p>Putty</p>
+<p>VNC-viewer</p>
+<p>WinSCP</p>
+<h2 id="实验环境组网介绍"><a href="#实验环境组网介绍" class="headerlink" title="实验环境组网介绍"></a>实验环境组网介绍</h2><img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/79c16df8c2f97263cdf912c14be8e20e.png" class="">
+
+<h2 id="交换机配置参考"><a href="#交换机配置参考" class="headerlink" title="交换机配置参考"></a>交换机配置参考</h2><p>连接CNA的交换机配置如下：</p>
+<p>port link-type hybrid</p>
+<p>port hybrid pvid vlan 17</p>
+<p>port hybrid tagged vlan 16 18</p>
+<p>port hybrid untagged vlan 17</p>
+<h1 id="安装FusionCompute"><a href="#安装FusionCompute" class="headerlink" title="安装FusionCompute"></a>安装FusionCompute</h1><h2 id="实验目标"><a href="#实验目标" class="headerlink" title="实验目标"></a>实验目标</h2><p>本章主要涉及FusionCompute R6.3.1版本的安装任务。</p>
+<p>FusionCompute安装流程如下：</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2845acb19cdd2d9f053f7e4ad92c2427.png" class="">
+
+<p>安装方式一：采用工具安装CNA和VRM。</p>
+<p>安装方式二：使用镜像安装CNA，后采用工具安装VRM（本文档采用此安装方式）。</p>
+<p>安装方式三：使用镜像安装CNA和VRM。</p>
+<h2 id="手动安装CNA，工具安装VRM"><a href="#手动安装CNA，工具安装VRM" class="headerlink" title="手动安装CNA，工具安装VRM"></a>手动安装CNA，工具安装VRM</h2><h3 id="使用镜像安装CNA"><a href="#使用镜像安装CNA" class="headerlink" title="使用镜像安装CNA"></a>使用镜像安装CNA</h3><ol>
+<li><p>进入主机安装界面。</p>
+<p>使用VNC工具登录CNA主机，<strong>宿主机IP地址和端口号</strong>联系管理员获取。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c3897c932ce207a636d9ed115b331a6e.png" class="">
+
+<ol>
+<li><p>开始安装CNA主机。</p>
+<p>在30秒内选择“Install”，按“Enter”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e88a33d5a304b7c8795254a1fa793f42.png" class="">
+
+<ol>
+<li><p>配置主机。</p>
+<p>配置磁盘信息。</p>
+<p>按上下键选择“Hard Drive”，按“Enter”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/54fe505c1a93aed907eb75f2feeaeed6.png" class="">
+
+<p>按上下键选择到待安装操作系统的磁盘。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/df7a4875e8b04a89ac46ec8989c28cc2.png" class="">
+
+<p>选择“OK”后，会弹出对话框，在弹出的对话框中选择“Yes”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/05d2990cf94d4ec2d7811bf3648b88d7.png" class="">
+
+<p>配置主机网络信息。</p>
+<p>按上下键选择“Network”，按“Enter”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b5450e1a6e6cc813b7dd53bd5f951f8b.png" class="">
+
+<p>选择网卡，按“Enter”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c32f30a462818b369966f549341efcad.png" class="">
+
+<p>配置主机网络信息（设置管理平面VLAN）。</p>
+<p>进入配置界面，按上下键移动到“Manual address configuration”，按空格键选择。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9013977fa7fa5cfcc1ab6d4847c3556e.png" class="">
+
+<p>按Tab键配置如下网络地址：</p>
+<p>IP Address：192.168.17.10 Netmask：255.255.255.0</p>
+<p>（地址规划请咨询管理员或讲师）</p>
+<p>完成后单击“OK”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/434ec17c2ca862d962ec97365b1b546e.png" class="">
+
+<p>配置管理平面网关，网关：192.168.17.254，完成后单击“OK”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/390fd81ae16fbe88b9518d8a45cee4ec.png" class="">
+
+<p>配置主机名。</p>
+<p>按上下键选择“Hostname”，按“Enter”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d01940d8d7baed34ba433aa9aee79052.png" class="">
+
+<p>修改主机名为CNA01，与后续实验保持一致。（另一台服务器按照规划，设置主机名为CNA02）</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0faf7aa1f73d04b2b9d68019f7eb61be.png" class="">
+
+<p>配置时区。</p>
+<p>按上下键选择“Timezone”，按“Enter”。修改时区为Asia&#x2F;Beijing，按Tab键选OK。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f8ba0f1512aa135ddf371e24476d9e5b.png" class="">
+
+<p>配置密码（此密码为登录CNA操作系统时的root密码）。</p>
+<p>按上下键选择“password”，按“Enter”。修改密码为Cloud12#$，按Tab键选OK。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/36f3131c76b6f9ab8a3c1f8a78033f6b.png" class="">
+
+<ol>
+<li><p>开始安装主机。</p>
+<p>使用上下键或者Tab键选取“OK”，安装主机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/993f860083aa7a879af9228aa69f115c.png" class="">
+
+<p>选择YES。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/95a5892d1de1002f0d445cf0c2a46c68.png" class="">
+
+<p>自动安装主机操作系统。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/8a873327f96125bc0d14303cfd81b36f.png" class="">
+
+<ol>
+<li><p>参考以上步骤，安装另一台主机CNA02，网络地址信息如下：</p>
+<p>IP Address：192.168.17.20 Netmask：255.255.255.0</p>
+<p>为保证系统安全，安装完成后不支持直接使用“root”用户通过ssh协议登录主机。可使用“gandalf”用户通过ssh协议登录主机。如果执行的操作需要使用“root”权限，可切换到“root”用户。“<strong>gandalf</strong>”用户的默认密码为“**IaaS@OS-CLOUD9!**”。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="使用工具安装VRM"><a href="#使用工具安装VRM" class="headerlink" title="使用工具安装VRM"></a>使用工具安装VRM</h3><p>以下步骤介绍使用工具将单节点VRM安装在CNA01上。</p>
+<ol>
+<li><p>解压缩FusionCompute安装工具。</p>
+<p>右键选择“FusionCompute 6.3.1_Installer.zip”，将软件包解压缩至文件夹“FusionCompute 6.3.1_Installer”。在“FusionCompute 6.3.1_Installer”文件夹中运行“FusionComputeInstaller.exe”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/47aaab246d71640b7a772bc4b525afb3.png" class="">
+
+<ol>
+<li><p>弹出安装准备页面，按如下方式选择语言和待安装的组件VRM。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c66f97e55cea00b16e26eb3da222538c.png" class="">
+
+<ol>
+<li><p>选择“典型安装”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0c396bd0a8d0c11aba11be92d30a97a9.png" class="">
+
+<ol>
+<li><p>选择VRM安装包存放路径。（路径中不能含有中文、特殊字符等）</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e8ce2120dcc7e9c41c1825e159a4cf32.png" class="">
+
+<ol>
+<li><p>单击“开始检测”，并等待检查完成。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/07cdc82d09198507662906659204d590.png" class="">
+
+<ol>
+<li><p>单击“下一步”，进入“安装VRM”界面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b211599cede64ec32c38bec66f2ad4e2.png" class="">
+</li>
+<li><p>单击“下一步”，进入“配置VRM”界面。按如下方式配置VRM（IP地址规划咨询管理员或讲师）。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/57fad50fce881f12919faf88979c98f7.png" class="">
+</li>
+<li><p>单击“下一步”，进入“选择主机”界面。按如下方式配置主机，单击“开始安装VRM”,等待VRM安装完成，安装时间预计为45min。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cc64c48848089c407aeddc8edcd6d981.png" class="">
+</li>
+<li><p>安装成功后，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/3a18d9fcab7dacd855f8dd7fbb1b2fc4.png" class="">
+
+<p>完成VRM安装。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="登录FusionCompute"><a href="#登录FusionCompute" class="headerlink" title="登录FusionCompute"></a>登录FusionCompute</h2><ol>
+<li><p>在浏览器中，输入VRM管理IP地址，登录FusionCompute。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/08f32d9781bfada6d49e8a4ee7e86868.png" class="">
+
+<ol>
+<li><p>添加浏览器安全例外。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/00e6d5707490de3de391bc53a445bbaf.png" class="">
+
+<ol>
+<li><p>使用默认用户名和密码“**admin&#x2F;IaaS@PORTAL-CLOUD8!**”登录FusionCompute。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5da7d26be0cc783802833f1c717e5078.png" class="">
+
+<ol>
+<li><p>初次登录需修改密码，修改密码为“<strong>HCIA@123</strong>”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/10cdac3a982c2aa28baa8a062567ffba.png" class="">
+
+<ol>
+<li><p>单击“确定”，登录FusionCompute主页。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6f7ac3e51c4fbf9cc41bf8801d51cc3a.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="FusionCompute资源配置"><a href="#FusionCompute资源配置" class="headerlink" title="FusionCompute资源配置"></a>FusionCompute资源配置</h1><h2 id="主机配置"><a href="#主机配置" class="headerlink" title="主机配置"></a>主机配置</h2><h3 id="添加主机"><a href="#添加主机" class="headerlink" title="添加主机"></a>添加主机</h3><p>准备数据，添加主机的参数。（在安装VRM时，已经添加了一台主机，此次将另外一台添加到系统自创的集群内）</p>
+<table>
+<thead>
+<tr>
+<th>参数类型</th>
+<th>参数名称</th>
+<th>参数含义</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主机</td>
+<td>名称</td>
+<td>主机的名称，必选参数</td>
+<td>CNA02</td>
+</tr>
+<tr>
+<td></td>
+<td>IP地址</td>
+<td>主机的管理IP地址，必选参数</td>
+<td>192.168.17.20</td>
+</tr>
+<tr>
+<td></td>
+<td>描述</td>
+<td>主机信息的附加描述，可选参数</td>
+<td></td>
+</tr>
+<tr>
+<td>BMC</td>
+<td>IP地址</td>
+<td>BMC的IP地址，可选参数</td>
+<td>192.168.16.2</td>
+</tr>
+<tr>
+<td></td>
+<td>用户名</td>
+<td>BMC的用户名，可选参数</td>
+<td>root</td>
+</tr>
+<tr>
+<td></td>
+<td>密码</td>
+<td>BMC的密码，可选参数</td>
+<td>Huawei2#$</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>在FusionCompute左侧导航栏，选择“资源池”，进入“资源池”页面。右键单击待添加主机的集群名称“ManagementCluster”（系统自动创建），选择“添加主机”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/45826342de60db0fa85d4d3e1869bc0d.png" class="">
+
+<ol>
+<li><p>进入添加主机页面，添加主机信息和BMC信息如下，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7fbb2e1c29126bb49bc4e5ddb17b8cef.png" class="">
+
+<ol>
+<li><p>确认主机信息，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/63812d36bff6b8b7c9bfd0b3d856568a.png" class="">
+
+<ol>
+<li>等待CNA02主机图标颜色由红色转为蓝色后，表示该CNA02主机添加完成。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0a308773280bdc199d02966b5b36a99b.png" class="">
+
+<h3 id="网口绑定"><a href="#网口绑定" class="headerlink" title="网口绑定"></a>网口绑定</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择“资源池”，进入资源池页面。选择“主机”页签，单击待绑定网口的主机名称“CNA01”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6b2ef3814ab0d04209f0139b099c0af3.png" class="">
+
+<ol>
+<li><p>在主机概要页面，选择“配置”页签，选择“网络 &gt; 聚合网口”，在聚合网口列表选中“Mgnt_Aggr”（系统自动创建），下方物理网卡列表会显示已加入该聚合网口的物理网卡（添加主机时加入的默认物理网卡）。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/66f88b38f1a42ec331ba63b0e4f1970b.png" class="">
+
+<ol>
+<li><p>单击“添加网口”，进入添加网口页面，选择其它待加入的物理网卡，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/56387ae6d2cb8c340f8b25a3e59587f1.png" class="">
+
+<ol>
+<li><p>返回聚合网口配置页面，刷新并查看聚合网口Mgnt_Aggr的物理网卡列表。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9ea42a9a3783988717dd24ab757c9b73.png" class="">
+
+<ol>
+<li><p>单击页面上方的“绑定网口”，进入“绑定网口”页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fe0e809e533535e89b41e6dc143b1d62.png" class="">
+
+<ol>
+<li><p>在绑定网口页面，配置绑定网口信息，绑定模式选择“主备”，选择待加入聚合网口“Storage”的物理网卡，单击“确定”，完成聚合网口的绑定。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/3cae56e63f83d1a21da7bb8f43629930.png" class="">
+</li>
+<li><p>返回聚合网口配置页面，刷新并查看聚合网口Storage的物理网卡列表。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f149e4f74dd80fb7b8df167a105213db.png" class="">
+</li>
+<li><p>刷新并查看页面上方聚合网口列表中添加的聚合网口。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e75234e19ad660bc1a4aaffd23206853.png" class="">
+</li>
+<li><p>参考以上步骤，完成CNA02的网口绑定。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="网络资源配置"><a href="#网络资源配置" class="headerlink" title="网络资源配置"></a>网络资源配置</h2><h3 id="创建DVS"><a href="#创建DVS" class="headerlink" title="创建DVS"></a>创建DVS</h3><p>安装完FusionCompute后，系统会自动创建一个默认DVS“ManagementDVS”，并自动添加上行链路“Mgnt_Aggr”，此处仅介绍创建一个新DVS的步骤。</p>
+<ol>
+<li><p>在FusionCompute左侧导航栏，选择“资源池”，进入资源池页面。单击“网络”，进入网络配置页面，单击“创建分布式交换机”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9e1782200e18611abfab575e71d4f4de.png" class="">
+
+<ol>
+<li><p>进入创建分布式交换机页面，配置如下信息，单击“下一步”。（实际可根据需要勾选“添加上行链路”和“添加VLAN池”，后续有介绍，此处暂不勾选）</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/bf133b9a11ca341f44779bac4c7b886f.png" class="" title="C:\\Users\\swx632340\\AppData\\Roaming\\eSpace_Desktop\\UserData\\swx632340\\imagefiles\\48F31B81-F41F-483D-AE8E-11F584A0395D.png">
+
+<ol>
+<li><p>进入确认页面，核对信息无误后，单击“确定”，完成分布式交换机的创建。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/61b74aea05b1a1d06b4ff55c33a42627.png" class="" title="C:\\Users\\swx632340\\AppData\\Roaming\\eSpace_Desktop\\UserData\\swx632340\\imagefiles\\02A50589-9E59-424E-AB95-AEE437458F85.png">
+
+<ol>
+<li><p>返回网络页面，查看分布式交换机列表中已创建的分布式交换机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c9892253ca07ddeafd6fec7a9b9d14cb.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="添加上行链路"><a href="#添加上行链路" class="headerlink" title="添加上行链路"></a>添加上行链路</h3><ol>
+<li><p>在分布式交换机列表，选择待操作的分布式交换机“ManagementDVS”所在行，选择下方的“上行链路组”页签，单击“添加”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c2801fe52d97914a420826aea1396ee7.png" class="">
+
+<ol>
+<li><p>进入添加上行链路页面，展开CNA02前的“+”，选择待添加为上行链路的端口，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/51fb72308787c0e4ce157ae077b06098.png" class="">
+
+<ol>
+<li><p>返回上行链路组列表，查看添加的上行链路。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a2c08f118bce78e67d15ee363f2c9d67.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="添加VLAN池"><a href="#添加VLAN池" class="headerlink" title="添加VLAN池"></a>添加VLAN池</h3><ol>
+<li><p>选择待操作的分布式交换机“ManagementDVS”所在行，选择下方的“VLAN池”页签，单击“添加”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/822b764415ed355889cbc7348ca3652b.png" class="">
+
+<ol>
+<li><p>在添加VLAN池页面，填入起始和结束VLAN信息，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/318803ff3383a51c16b73aaf7990595a.png" class="">
+
+<ol>
+<li><p>返回分布式交换机“ManagementDVS”的VLAN池列表，查看添加的VLAN池。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c40022d8b41c355e57af6698c11acdc9.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="创建端口组"><a href="#创建端口组" class="headerlink" title="创建端口组"></a>创建端口组</h3><ol>
+<li><p>选择待操作的分布式交换机“ManagementDVS”所在行，选择下方的“端口组”页签，单击“添加”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cc406a086c91f7c725e13e9ae9f0b912.png" class="">
+
+<ol>
+<li><p>进入添加端口组页面，配置端口组的基本信息如下，端口类型选择“普通”，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/38e5ab69c7772a46116db409ad7291b4.png" class="">
+
+<ol>
+<li><p>添加端口组对应的VLAN ID。</p>
+<p>填入的VLAN ID必须在VLAN池范围内，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4b90c629957354cacfc75a27a97e5268.png" class="">
+
+<ol>
+<li><p>进入确认信息页面，核对信息无误后，单击“确定”，完成端口组的创建。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/1106223a77e7685d1097d79871da1def.png" class="">
+
+<ol>
+<li><p>重新进入创建端口组菜单，添加一个类型为中继的端口组。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/73929101b3ae459cace79d6865ceadc4.png" class="">
+
+<ol>
+<li><p>输入VLAN。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/59cbec7d9d54d1d7efbf949fa3e2fe10.png" class="">
+
+<p>按照前面的步骤完成此操作。</p>
+</li>
+<li><p>返回分布式交换机“ManagementDVS”的端口组列表，查看添加的端口组。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/483e635043dd1b3ad95e6c634b9d7c04.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="存储资源配置"><a href="#存储资源配置" class="headerlink" title="存储资源配置"></a>存储资源配置</h2><h3 id="添加存储接口"><a href="#添加存储接口" class="headerlink" title="添加存储接口"></a>添加存储接口</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择“资源池”，进入资源池页面。单击待添加存储接口的主机名称，选择“配置”页签， 选择“网络 &gt; 逻辑接口”。单击“添加存储接口”，进入添加存储接口页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fa22a06d40465891dd153eb9546cadcf.png" class="">
+
+<ol>
+<li><p>关联存储接口使用的聚合网口，然后单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9b349c542677fcf94fce8cdc377f22af.png" class="">
+
+<ol>
+<li><p>配置存储接口连接信息，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/50d51005f847c1eb26e2abfe2c8808a1.png" class="">
+
+<ol>
+<li><p>进入确认信息页面，核对信息无误后，单击“确定”，完成存储接口的添加。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/03868bbf2b5a9da5ae9a8c5beb73e241.png" class="">
+
+<ol>
+<li><p>返回逻辑接口页面，查看逻辑接口信息如下。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6624cff7d725e00241b38727930ca83d.png" class="">
+
+<ol>
+<li><p>参考以上步骤，为CNA02添加存储接口，逻辑接口信息如下。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b860e96279e6a3a46e8715382e8d2808.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="添加存储资源"><a href="#添加存储资源" class="headerlink" title="添加存储资源"></a>添加存储资源</h3><ol>
+<li><p>在资源池页面，选择“存储”，进入存储配置页面，选择“存储资源”页签。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f959d50f15ea8d621aa1c69e679ac9cd.png" class="">
+
+<ol>
+<li><p>单击“添加存储资源”，进入添加存储资源页面，配置存储资源参数，类型选择“NAS”，并勾选“关联主机”，然后单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/750ef522fe0ca26765cddf246541695b.png" class="">
+
+<p>存储IP请联系管理员或讲师获取。</p>
+<ol>
+<li><p>勾选需要与NAS存储资源关联的主机，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/db0beb615d055f066f66afc7f69f400b.png" class="">
+
+<ol>
+<li><p>进入确认信息页面，核对信息无误后，勾选“扫描存储设备”，单击“确定”，完成NAS存储资源的添加。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/183526b1ba67361c6166d6c72ae3084e.png" class="">
+
+<ol>
+<li><p>返回存储资源列表，刷新并查看已添加的NAS存储资源。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2182469516a9ce8dd39cceef728a3ead.png" class="">
+
+<ol>
+<li><p>单击“添加存储资源”，进入添加存储资源页面，添加IP SAN存储资源。类型选择“IPSAN”，配置如下信息，勾选“关联主机”，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c957fdea9ff29135eb79a23747d80ce9.png" class="">
+
+<p>管理IP及存储IP请联系管理员或讲师获取。</p>
+</li>
+<li><p>勾选需要与IP SAN存储资源关联的主机，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7063efaa004b1223dc87ae947a6d97f3.png" class="">
+</li>
+<li><p>进入确认信息页面，核对信息无误后，勾选“扫描存储设备”，单击“确定”，完成IP SAN存储资源的添加。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/39e15d507e8fa8298a9aeedded4a6337.png" class="">
+</li>
+<li><p>返回存储资源列表，刷新并查看添加的IP SAN存储资源。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b4d837c57f78b5db97fe06eece6efcd9.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="（可选）扫描存储设备"><a href="#（可选）扫描存储设备" class="headerlink" title="（可选）扫描存储设备"></a>（可选）扫描存储设备</h3><p>若3.3.2添加存储资源<strong>未勾选“扫描存储设备”</strong>，需要执行以下步骤，否则不需要，可直接在“存储设备”页签的存储设备列表中查看。</p>
+<ol>
+<li><p>在存储配置页面，单击“存储设备”页签，进入存储设备页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6ed7c31af3f971074c8bc1bb70b171a4.png" class="">
+
+<ol>
+<li><p>单击“扫描”，进入扫描存储设备页面，勾选需要扫描的主机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/3803c671bb8b9d4c5f0fb67575b29c3d.png" class="">
+
+<p>扫描大概需要1分钟时间，完成后刷新并查看是否有扫描出可用的存储设备。扫描结果如下：</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/829f6c52649be70ac8a99e2744d65a2a.png" class=""></li>
+</ol>
+</li>
+</ol>
+<h3 id="添加数据存储"><a href="#添加数据存储" class="headerlink" title="添加数据存储"></a>添加数据存储</h3><ol>
+<li><p>在存储配置页面，单击“数据存储”页签，进入数据存储页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/dbc123e32d8fec6459a415b421e747b0.png" class="">
+
+<ol>
+<li><p>单击“添加数据存储”，进入添加数据存储页面。在选择存储设备页面，勾选数据存储所在的NAS存储，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9738cbfb4710ed911af1ae2c3030df78.png" class="">
+
+<ol>
+<li><p>配置数据存储的名称DataStore_01，勾选数据存储需要关联的两台主机，然后单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/af1b30c1145d4d58505515eacd46a1c0.png" class="">
+
+<ol>
+<li><p>进入确认信息页面，核对信息无误后，单击“确定”，完成数据存储的添加。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9cb9cc65befd32732f4723f2d3206338.png" class="">
+
+<ol>
+<li><p>返回数据存储页面，单击“添加数据存储”，进入添加数据存储页面。在选择存储设备页面，勾选数据存储所在的IP SAN存储，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5db6fb8b458ac14e00be7d50591b363a.png" class="">
+
+<ol>
+<li><p>配置数据存储的名称DataStore_02，使用方式选择“虚拟化”，勾选数据存储需要关联的两台主机，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/bb6bb0d61e569e6bac06055725f44457.png" class="">
+</li>
+<li><p>弹出如下信息提示框，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d0170d44fa5cd92e92b10f6ef594ac94.png" class="">
+</li>
+<li><p>进入确认信息页面，核对信息无误后，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/de90e980131555a71d639ab1e45e1015.png" class="">
+</li>
+<li><p>返回数据存储页面，单击“刷新数据存储”，完成后查看数据存储列表中添加的数据存储。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2b0adb6da138f5697738a52292df38a4.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="虚拟机创建及配置"><a href="#虚拟机创建及配置" class="headerlink" title="虚拟机创建及配置"></a>虚拟机创建及配置</h1><h2 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h2><h3 id="创建裸虚拟机"><a href="#创建裸虚拟机" class="headerlink" title="创建裸虚拟机"></a>创建裸虚拟机</h3><ol>
+<li><p>在FusionCompute左侧导航栏，单击“资源池”，进入资源池页面，选择待创建虚拟机的集群名称。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5ffe82466b1a8e7f390f419df379951f.png" class="">
+
+<ol>
+<li><p>右键单击该集群名称，选择“创建虚拟机”，进入创建虚拟机页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c3bbb1e2b63af48cbbeceb70517c8fb6.png" class="">
+
+<ol>
+<li><p>在选择创建类型页面，选择“创建新虚拟机”，单击“下一步”，创建一个裸虚拟机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9c196a5edb15e59de2ba90d514e723fd.png" class="">
+
+<ol>
+<li><p>在基本配置页面，完成如下虚拟机基本配置。</p>
+<p>单击“选择计算资源”后面的“选择”，选择虚拟机运行的主机（如CNA01），单击“确定”，选择虚拟机操作系统类型以及版本号（此处选择安装Linux操作系统的CentOS 7.3 64bit版本）， 单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/623e011e8d12f4ee42e74cb403b2c9d3.png" class="">
+
+<ol>
+<li><p>在选择数据存储页面，选择虚拟机待运行的数据存储，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b7e3e68635a1ae75fbae29e8380e4bc3.png" class="">
+
+<ol>
+<li><p>在虚拟机配置页面，配置如下虚拟机硬件规格。</p>
+<p>展开“磁盘1”，磁盘配置模式选择“精简”，其他保持默认，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/890a30904d4266a0945edb299f09dc01.png" class="">
+</li>
+<li><p>进入确认信息页面，核对信息无误后，单击“确定”，完成裸虚拟机的创建。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/93ab63c72e020a0b7459f1448c1cb97e.png" class="">
+</li>
+<li><p>返回资源池页面，在FusionCompute左侧导航栏选择刚创建的裸虚拟机名称，进入虚拟机“概要”页签，查看虚拟机状态转为“运行中”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/72951292dc5d57bf9e6ad6703c3c2940.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="安装操作系统（仅体验）"><a href="#安装操作系统（仅体验）" class="headerlink" title="安装操作系统（仅体验）"></a>安装操作系统（仅体验）</h3><ol>
+<li><p>在FusionCompute左侧导航树，单击虚拟机名称，选择“配置”页签，选择“管理 &gt; 选项 &gt; 启动方式”，单击“修改”，将虚拟机的启动方式设置为“光驱启动”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e0b0747dea586a6d924111115947ec5c.png" class="">
+
+<ol>
+<li><p>在“配置”页签，选择“硬件 &gt; 光驱”，进入光驱配置页面，选择挂载光驱方式为“本地方式”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ec4c7237bff9c85c15577d83f10cf9f8.png" class="">
+
+<ol>
+<li><p>进入光驱管理页面，选择“文件（*iso）”，单击后面的“浏览”，选择镜像文件所在路径，将ISO镜像挂载给虚拟机，勾选“立即重启虚拟机，安装操作系统”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a2684d07e73045deacdb147d0b2c9381.png" class="">
+
+<p>在使用镜像的过程中，不可关闭此页面，否则回导致虚拟机操作系统安装失败。</p>
+<ol>
+<li><p>返回虚拟机“概要”页面，单击“VNC登录”，进入虚拟机VNC窗口。根据界面提示，完成操作系统的安装。（此处仅需了解如何安装即可，对具体安装步骤不作要求，学员不用完成整个安装过程）</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7854e2138d6dc774a145966087b287f3.png" class="">
+
+<ol>
+<li><p>返回配置光驱页面，单击“卸载光驱”，完成光驱的卸载。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5537a2a9905942b25dc43b4204fc7b69.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="删除虚拟机"><a href="#删除虚拟机" class="headerlink" title="删除虚拟机"></a>删除虚拟机</h2><ol>
+<li><p>在FusionCompute左侧导航栏，右键单击待操作的虚拟机名称，选择“删除 &gt; 安全删除”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b9a6e153449dc561977bc70927077f3f.png" class="">
+
+<ol>
+<li><p>待任务成功后，刷新左侧导航栏虚拟机列表，查看是否已删除虚拟机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/065623a91b683884b55e2296bf940af9.png" class=""></li>
+</ol>
+</li>
+</ol>
+<h2 id="导入并配置虚拟机"><a href="#导入并配置虚拟机" class="headerlink" title="导入并配置虚拟机"></a>导入并配置虚拟机</h2><h3 id="导入虚拟机"><a href="#导入虚拟机" class="headerlink" title="导入虚拟机"></a>导入虚拟机</h3><ol>
+<li><p>在FusionCompute左侧导航栏，右键单击“资源池”，选择“导入 &gt; 导入虚拟机”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/296e96abc355ef4b2c3c41d4045543c4.png" class="">
+
+<ol>
+<li><p>进入模板导入页面，选择“从本地导入”，单击“模板路径”后的“选择”，选择模板虚拟机所在路径，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/32b6762b903e7aa7bf3c95b7e7a61408.png" class="">
+
+<ol>
+<li><p>参考4.1.1中的步骤4~6，完成虚拟机相关配置（直接单击“下一步”，保持默认即可）。在自定义客户机操作系统页面，取消勾选“生成系统初始密码”，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/1150e2689168715c1017cb5e37e1246d.png" class="">
+
+<ol>
+<li><p>进入确认信息页面，核对信息无误后，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d6bc4cddba697ab55c0797bd3e56efb7.png" class="">
+
+<ol>
+<li><p>弹出导入虚拟机页面，待提示“成功提交导入虚拟机任务”后，关闭该页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/15506d9917dabc42c297431c40e74740.png" class="">
+
+<ol>
+<li><p>在FusionCompute左侧导航栏的虚拟机列表，查看导入的虚拟机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/154c3389819060ac8672e41198f8f023.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="挂载，安装及卸载Tools"><a href="#挂载，安装及卸载Tools" class="headerlink" title="挂载，安装及卸载Tools"></a>挂载，安装及卸载Tools</h3><ol>
+<li><p>在FusionCompute左侧导航栏，右键单击导入的虚拟机名称，选择“Tools &gt; 挂载Tools”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/8c6b5872d9bd88bd542149a9c7e0f6b0.png" class="">
+
+<ol>
+<li><p>在虚拟机“概要”页签，单击“VNC登录”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/93adfadce7e02aee6e2fb17645fc0c87.png" class="">
+
+<ol>
+<li><p>使用“root”用户登录虚拟机VNC窗口，安装Tools。</p>
+<p>打开命令行终端，执行以下命令，将虚拟光驱挂载到某一个文件夹下。</p>
+<p>mkdir &#x2F;etc&#x2F;Tools</p>
+<p>mount &#x2F;dev&#x2F;sr0 &#x2F;etc&#x2F;Tools</p>
+<p>cd &#x2F;etc&#x2F;Tools</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a8599b7f6422cc9005350b700adea11b.png" class="">
+
+<p>执行以下命令，拷贝vmtools-2xxx.tar.bz2文件到创建的文件夹下，并解压。</p>
+<p>cp vmtools-2xxx.tar.bz2 &#x2F;root</p>
+<p>cd &#x2F;root</p>
+<p>tar –xjvf vmtools-2xxx.tar.bz2</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f77c841b3b0b7466dc245a30a57349e8.png" class="">
+
+<p>执行以下命令，进入Tools安装目录并安装Tools。</p>
+<p>cd vmtools</p>
+<p>.&#x2F;install</p>
+<p>屏幕回显如下信息，表示Tools安装完成，按照系统提示重启虚拟机。</p>
+<p>reboot</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/229a036b3e7a41cc2aa63cb19da56aa3.png" class="">
+
+<ol>
+<li><p>虚拟机重启成功后，返回虚拟机“概要”页签，查看Tools运行状态为“运行中”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ab9c8d5a6b7fcc0e640cafec5a70260f.png" class="">
+
+<ol>
+<li><p>在FusionCompute左侧导航栏，右键单击虚拟机名称，选择“Tools &gt; 卸载Tools”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f2723a0d5a24e9c959188fc9fced4896.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="模板部署虚拟机"><a href="#模板部署虚拟机" class="headerlink" title="模板部署虚拟机"></a>模板部署虚拟机</h2><h3 id="制作虚拟机模板"><a href="#制作虚拟机模板" class="headerlink" title="制作虚拟机模板"></a>制作虚拟机模板</h3><ol>
+<li><p>在虚拟机“概要”页签，单击“VNC登录”。</p>
+<p>使用“root”用户登录虚拟机VNC窗口，打开命令行终端，打开虚拟机网络配置文件。</p>
+<p>vi &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/657a7de9f15871756139fd4f4fcd9b31.png" class="">
+
+<ol>
+<li><p>修改以下配置文件参数，并输入:wq保存退出。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/04c5d03f686c5599da8244cdd456c396.png" class="">
+
+<ol>
+<li><p>重启网络服务。</p>
+<p>systemctl restart network.service</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/309ebfb5ed033f2643f18f6fbce82dcb.png" class="">
+
+<ol>
+<li><p>测试。</p>
+<p>使用命令ip addr测试网络配置是否生效。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d7d2180cb3fa474b04e02d102fe08bd2.png" class="">
+
+<p>使用命令ping 192.168.17.254检查网络是否配置正确。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d637a0146218433c24dc784467e22f1c.png" class="">
+
+<ol>
+<li><p>在FusionCompute左侧导航栏，右键单击虚拟机名称，选择“电源 &gt; 关闭”，单击“确定”，虚拟机关机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9b8b75646b0fd470c639cf47216ec208.png" class="">
+
+<ol>
+<li><p>在虚拟机“概要”页签，待虚拟机状态转为“已停止”，右键单击虚拟机名称，选择“模板 &gt; 转为模板”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/080522f8ada12bf6a29f32455d283f70.png" class="">
+</li>
+<li><p>在FusionCompute左侧导航栏，展开“虚拟机模板”列表，查看刚转化的虚拟机模板。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5b4377be7c0c94fe4d599355bed3fd98.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="使用模板部署虚拟机"><a href="#使用模板部署虚拟机" class="headerlink" title="使用模板部署虚拟机"></a>使用模板部署虚拟机</h3><ol>
+<li><p>在FusionCompute左侧导航栏，右键单击虚拟机模板名称，选择“按模板部署虚拟机”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4cf19da4ecaf1e1b0fd66c850546d8e4.png" class="">
+
+<ol>
+<li><p>完成虚拟机Linux_01基本配置。</p>
+<p>参考4.1中的步骤4-6，在创建虚拟机页面，完成基本配置和虚拟机配置。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a227b34ff8d851a495615dbd650a2b7f.png" class="">
+
+<ol>
+<li><p>单击“下一步”，进入自定义客户机操作系统页面，属性规格选择“自定义向导创建”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5790b7bb74b20a81ddc322cf57c04b60.png" class="">
+
+<p>展开“自定义属性”，配置计算机名称和管理员密码（如<strong>HCIA@123</strong>）。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d9f743e27fc0fdad32593d9ea83c257d.png" class="">
+
+<p>展开“网卡设置”，配置虚拟机网卡信息。（IP地址&#x2F;子网掩码：192.168.17.31&#x2F;24, 默认网关：192.168.17.254）</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d5d29c032f23101da87c87695e38578d.png" class="">
+
+<ol>
+<li><p>单击“下一步”，进入确认信息页面，核对信息无误后，单击“确定”，完成虚拟机Linux_01的部署。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/23087b170ff395a80178898e3c5a8f3a.png" class="">
+
+<ol>
+<li>参考以上步骤，部署虚拟机Linux_02，运行于主机CNA02上，IP地址&#x2F;子网掩码：192.168.17.32&#x2F;24, 默认网关：192.168.17.254。<ol>
+<li><p>待虚拟机部署完成后，在FusionCompute左侧导航栏，查看虚拟机列表中部署的两台虚拟机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f94c492ecc897a0099957e1b5c7b88a5.png" class="">
+</li>
+<li><p>右键单击待操作的虚拟机名称，选择“电源 &gt; 打开电源”，单击“确定”，打开虚拟机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7f21209ac9f627a997f882d32e11abd9.png" class="">
+</li>
+<li><p>参考步骤7，打开虚拟机Linux_02。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="虚拟机规格调整"><a href="#虚拟机规格调整" class="headerlink" title="虚拟机规格调整"></a>虚拟机规格调整</h2><h3 id="CPU热添加"><a href="#CPU热添加" class="headerlink" title="CPU热添加"></a>CPU热添加</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择待操作的虚拟机名称，单击虚拟机“配置”页签，选择“硬件 &gt; CPU”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/536b9688c575d51d22c07bfbe5236fde.png" class="">
+
+<ol>
+<li><p>单击“内核数”后面的“+”，将CPU内核数调整为2，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/03f9e89a41a6b178e770d9d5a1e22377.png" class="">
+
+<ol>
+<li><p>使用“root”用户VNC登录虚拟机，执行以下命令，查看虚拟机CPU数量。</p>
+<p>cat &#x2F;proc&#x2F;cpuinfo | grep name | cut -f2 -d: | uniq –c</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/39eaede14c068523bf5c4b3e5bbfe338.png" class="">
+
+<p>显示虚拟机CPU个数为2个。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="内存热添加"><a href="#内存热添加" class="headerlink" title="内存热添加"></a>内存热添加</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择待操作的虚拟机名称，单击虚拟机“配置”页签，选择“硬件 &gt; 内存”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/23082b62d5a4567dd04655bc83b5e963.png" class="">
+
+<ol>
+<li><p>单击“内存”后面的“+”，将CPU内核数调整为2GB，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d8f2beec186c4673db755a05c3a9b2a1.png" class="">
+
+<ol>
+<li><p>使用“root”用户VNC登录虚拟机，执行以下命令，查看虚拟机内存数量。</p>
+<p>cat &#x2F;proc&#x2F;meminfo</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c8dce492254bca41747402ed145b9460.png" class="">
+
+<p>显示虚拟机内存总数接近2G。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="磁盘扩容"><a href="#磁盘扩容" class="headerlink" title="磁盘扩容"></a>磁盘扩容</h3><ol>
+<li><p>在左侧导航栏，选择待操作的虚拟机名称，单击虚拟机“配置”页签，选择“硬件 &gt; 磁盘”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f16acd9a368a438509924b5b8000734b.png" class="">
+
+<ol>
+<li><p>在磁盘列表中选择待操作的磁盘所在行，单击后面的“更多”，选择“调整容量”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ee729bab48e870ac34720a433f077294.png" class="" title="C:\\Users\\swx632340\\AppData\\Roaming\\eSpace_Desktop\\UserData\\swx632340\\imagefiles\\3C0306DC-B291-4825-860E-B464E5D2A0F1.png">
+
+<ol>
+<li><p>进入调整容量页面，将容量调整为6GB，单击“保存”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/473d6d021813cf9caad1b7302d9bfe55.png" class="" title="C:\\Users\\swx632340\\AppData\\Roaming\\eSpace_Desktop\\UserData\\swx632340\\imagefiles\\E7BEBE86-5C4D-422E-A079-EFF180DFBC7A.png">
+
+<ol>
+<li><p>刷新磁盘列表，查看磁盘容量。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4f198d755eebd7b5cd1c0ba67994ddd6.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="添加网卡"><a href="#添加网卡" class="headerlink" title="添加网卡"></a>添加网卡</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择待操作的虚拟机名称，单击虚拟机“配置”页签，选择“硬件 &gt; 网卡”, 单击“添加网卡”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a4577c5edb8b98dfb9d9f55339398371.png" class="">
+
+<ol>
+<li><p>在添加网卡页面，网卡信息保持默认，分布式交换机选择“ManagementDVS”，端口组选择在3.2.4中创建的“VLAN16”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4fd0ab2a4a8080228a53ecdee09ea2fc.png" class="">
+
+<ol>
+<li><p>刷新并查看虚拟机网卡列表中添加的网卡。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9bc1b1a4b2b8f5d78903492b87740093.png" class="">
+
+<ol>
+<li><p>为新添加的网卡配置IP地址</p>
+<p>输入以下命令：</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a083fd60a6d2ece017aaee5a046c2953.png" class="">
+
+<p>按照以下方式修改配置文件：</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ddbe4715052d0b2c6410fdae1708ba84.png" class="">
+
+<p>修改完成后，敲击键盘“Esc”，然后输入“:wq”，然后回车。</p>
+<p>输入以下命令，重启网络服务：</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2ee526d51d388d3b441db8e3805e6225.png" class="">
+
+<p>使用此网卡ping网关，测试网络是否正常。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0da3186df5225a365ef371a5ded0bc89.png" class="">
+
+<ol>
+<li><p>将新增网卡使用的端口组修改为“VLAN16-2”。</p>
+<p>返回到虚拟机配置网卡页面，点击新增网卡后面的下拉式菜单，选择“修改端口组”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6c213b70cb0f90a2195a77161e8fcf7c.png" class="">
+
+<p>在弹出的提示对话框中选择“确定”，然后选择新的端口组。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/21da86872bed0cc80da5746d38880419.png" class="">
+
+<p>返回到虚拟机重新ping网卡，发现网络不通。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9b30c788f9b5e45c0223970ae7663710.png" class="">
+
+<p>原因为端口组类型从“普通”变成了“中继”，请结合教材中的内容，简单阐述“普通”和“中继”的区别。</p>
+<ol>
+<li><p>（可选）增加新的配置，使网络在“中继”模式下恢复正常。</p>
+<p>修改新增网卡配置文件，将IP地址删除，具体如下：</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/168a4bc227cf67d287d3bdef969ba15d.png" class="">
+
+<p>使用命令ip link add link eth1 name eth0.16 type vlan id 16添加一个携带VLAN标签为16的网卡eth0.16。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e915fc14f1099751da60ea4f0667753f.png" class="">
+
+<p>使用命令ip addr add 192.168.16.31&#x2F;24 brd 192.168.16.255 dev eth0.16为该设备配置IP。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ecf27d297b862067c3233fd40522f2c8.png" class="">
+
+<p>使用命令 ip link set dev eth0.16 up 启动新设备。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cbdea35ce68afd72dd7aaa7703d5410d.png" class="">
+
+<p>完成配置后，使用命令service network restart重启网络服务。</p>
+<p>重新ping 网关，查看结果。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/165283c0413e3c97b7684104cc9667a8.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="虚拟机配置对象权限"><a href="#虚拟机配置对象权限" class="headerlink" title="虚拟机配置对象权限"></a>虚拟机配置对象权限</h2><ol>
+<li><p>在FusionCompute左侧导航栏，选择待操作的虚拟机名称，单击虚拟机“配置”页签，选择“管理 &gt; 选项”，单击“配置对象权限”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/aa8bdd4ccb502f18967e3f51016316b4.png" class="">
+
+<ol>
+<li>在配置权限页面，勾选需要禁止的权限，如“删除虚拟机”，单击“确定”。</li>
+</ol>
+</li>
+</ol>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/dbb38d791760a6f58ffcb51af093e856.png" class="" title="C:\\Users\\swx632340\\AppData\\Roaming\\eSpace_Desktop\\UserData\\swx632340\\imagefiles\\16624340-E10E-4E89-B664-CAB0DE3ED423.png">
+
+<ol>
+<li>在FusionCompute左侧导航栏，右键单击虚拟机名称，查看“删除”是否可操作（灰色表示不可操作）。</li>
+</ol>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/03ef8d4c3bf2e3eba33491ba89a4e93b.png" class="">
+
+<h1 id="场景一：虚拟机磁盘应用"><a href="#场景一：虚拟机磁盘应用" class="headerlink" title="场景一：虚拟机磁盘应用"></a>场景一：虚拟机磁盘应用</h1><h2 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h2><p>华为虚拟化产品中，虚拟机磁盘有多种类型和模式，它们分别有什么作用，能实现什么功能呢？本实验通过对比的方式，进行一一展示。</p>
+<p>通过本实验，请自行总结不同类型和模式的虚拟机磁盘使用的业务场景。</p>
+<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2><p>1. 创建不同类型和模式的磁盘。</p>
+<p>2. 将创建的磁盘挂载给Linux_01和Linux_02.</p>
+<p>3. 进行功能性测试。</p>
+<h2 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h2><h3 id="创建磁盘"><a href="#创建磁盘" class="headerlink" title="创建磁盘"></a>创建磁盘</h3><ol>
+<li><p>在FusionCompute左侧导航栏的资源池页面，选择“存储”，进入存储配置页面。在“数据存储”页签，单击待创建磁盘的数据存储所在行，选择面下方的“磁盘列表”页签，单击“创建磁盘”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/25ad84b0cd1c85aa61140415a81d38af.png" class="">
+
+<ol>
+<li><p>进入创建磁盘页面，配置磁盘基本信息，类型选择“共享”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/0bcca37b0d198d823e04ef52a8524b6d.png" class="">
+
+<ol>
+<li><p>参考以上步骤，创建Disk_02和Disk_03，配置磁盘信息如下。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fb9f19771d2059e6ab048b90a82eb44a.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fb8fdd7af6bdcfa0140498cfc0de369e.png" class="">
+
+<ol>
+<li><p>返回磁盘列表，查看刚创建的3块磁盘。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/878112fbf68863c4ae857ed8ee3eb271.png" class="">
+
+<p><strong>思考：</strong>通过查看磁盘Disk_01（Disk_02）与Disk_03的实际使用容量，对比两者的配置模式，说说普通与精简配置模式有什么区别？</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="绑定磁盘"><a href="#绑定磁盘" class="headerlink" title="绑定磁盘"></a>绑定磁盘</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择待操作的虚拟机名称，单击“配置”页签，选择“硬件 &gt; 磁盘”，进入虚拟机配置页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/45f33e4f2ef1f6fa6908bf6a16793355.png" class="">
+
+<ol>
+<li><p>单击“绑定磁盘”，进入绑定磁盘页面，选择待绑定的磁盘Disk_01，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/90a55829f9fafc25dfc78bb5a85921f4.png" class="">
+
+<ol>
+<li><p>参考步骤2，绑定磁盘Disk_02。返回虚拟机磁盘，查看虚拟机绑定的磁盘。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/693601e87a09dd022be8ce8c27d43a38.png" class="">
+
+<ol>
+<li><p>参考步骤1~3，为Linux_02虚拟机绑定磁盘Disk_01，Disk_03，虚拟机磁盘列表如下。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a45a2d00c745864e9632d420318fef2f.png" class="">
+
+<p><strong>思考：</strong>通过上述实验，比较磁盘Disk_01与Disk_02（Disk_03）的类型，说说普通与共享类型的区别？</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="磁盘格式化"><a href="#磁盘格式化" class="headerlink" title="磁盘格式化"></a>磁盘格式化</h3><ol>
+<li><p>使用“root”用户VNC登录代操作的虚拟机，执行以下命令格式化磁盘Disk_01。</p>
+<p>使用命令fdisk创建新分区Test1：</p>
+<p>fdisk &#x2F;dev&#x2F;vdb</p>
+<p>n</p>
+<p>p</p>
+<p>直接Enter（三次）</p>
+<p>w</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6f3687c11fa5781f0fa370fb5b2b6cdf.png" class="">
+
+<p>使用命令mkfs格式化新的分区：</p>
+<p>mkfs –t ext3 &#x2F;dev&#x2F;vdb1</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e317c37ad6dab9f3a5f93b5f2be3e109.png" class="">
+
+<ol>
+<li><p>将新分区挂载到新创建的目录下。</p>
+<p>在&#x2F;tmp目录下，创建目录Test1：</p>
+<p>cd &#x2F;tmp</p>
+<p>mkdir Test1</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ecd3a2fc8d440ee706242e608475d3cd.png" class="">
+
+<p>使用命令mount将磁盘分区&#x2F;dev&#x2F;vdb1挂载到目录&#x2F;tmp&#x2F;Test1：</p>
+<p>mount &#x2F;dev&#x2F;vdb1 &#x2F;tmp&#x2F;Test1</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/aaa660459f310c493b7782d979a02ff4.png" class="">
+
+<p>使用命令df查看挂载的磁盘分区&#x2F;dev&#x2F;vdb1：</p>
+<p>df –Th</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4dc0a94e1f7b5f2dbca55aeba6bdeacb.png" class="">
+
+<ol>
+<li><p>进入挂载目录，创建测试文件，测试是否可读写。</p>
+<p>cd &#x2F;tmp&#x2F;Test1</p>
+<p>touch test1.txt</p>
+<p>ll</p>
+<p>echo “this is test file” &gt; test1.file</p>
+<p>cat test1.file</p>
+<p>查看是否成功。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/327de7524e470e3bb9c83b6e9910a3e7.png" class="">
+
+<p>由上可知，该磁盘格式化后可正常读写文件。</p>
+<ol>
+<li>参考以上步骤，对磁盘Disk_02和Disk_03分别进行格式化，挂载到虚拟机的&#x2F;tmp&#x2F;Test2和&#x2F;tmp&#x2F;Test3下，并创建测试文件test2.file和test3.file。（磁盘Disk_02和Disk_03分别是虚拟机Linux_01和Linux_02的第三块磁盘，设备名都为&#x2F;dev&#x2F;vdc）</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="虚拟机热迁移"><a href="#虚拟机热迁移" class="headerlink" title="虚拟机热迁移"></a>虚拟机热迁移</h3><ol>
+<li><p>在FusionCompute左侧导航栏，右键单击待操作的虚拟机名称，选择“迁移”，进入迁移虚拟机页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b6531b601e85c024b87f113274a049a0.png" class="">
+
+<ol>
+<li><p>在迁移方式页面，选择“更改主机”，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/778519d8a1d766bc71d27a80344bf3ab.png" class="">
+
+<ol>
+<li>在更改主机页面，单击“选择”，展开集群前的“+”，选择迁移的目的主机，单击两次“确定”。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/12d2128a13c4970a0eb492aac5277ce0.png" class="">
+
+<ol>
+<li><p>等待热迁移完成，返回虚拟机概要页面，再次查看虚拟机的所属主机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2327f9214383515de1d7f7bfe89ec33e.png" class="">
+
+<p>由上可知，虚拟机Linux_01已从主机CNA01热迁移到主机CNA02。</p>
+<ol>
+<li><p>参考以上步骤，对虚拟机Linux_01进行更改数据存储的热迁移。在迁移方式页面，选择“更改数据存储”，单击“下一步”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/18e01f02a5a25e3f8fec403c3284f96a.png" class="">
+
+<ol>
+<li><p>在更改数据存储页面，选择“存储整体迁移”，单击“选择”，选择迁移的目的数据存储，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2ac90ddd010f9285cf098920f0e10692.png" class="">
+
+<ol>
+<li><p>弹出如下信息提示框，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/c6b4625ada24ec981acd1029263ccf29.png" class="">
+
+<ol>
+<li><p>返回更改数据存储页面，在页面下方的列表中，查看不支持迁移的磁盘和不支持迁移原因，同时可对支持迁移的磁盘修改目的配置模式，完成后单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cc8d66ff524e600296e46a6e8f56516f.png" class="">
+
+<ol>
+<li><p>弹出如下信息提示框，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/391cad968e0b034b938015c077a80d8f.png" class="">
+</li>
+<li><p>选择虚拟机“配置”页签，单击“磁盘”，查看虚拟机磁盘列表中的所属数据存储。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/3a2d77bde2a4fd21b34f7c72f7764cbf.png" class="">
+
+<p>由上可知，虚拟机磁盘从数据存储DataStore_01迁移到了数据存储DataStore_02上。</p>
+</li>
+<li><p>参考以上步骤，对虚拟机Linux_02进行更改数据存储热迁移。</p>
+<p>思考：</p>
+<p>根据上述实验，回答以下问题：</p>
+<ol>
+<li>挂载了共享磁盘的虚拟机是否支持更改主机热迁移？</li>
+<li>共享磁盘是否支持更改数据存储热迁移？</li>
+<li>独立-持久磁盘是否支持更改数据存储热迁移？</li>
+<li>独立-非持久磁盘是否支持更改数据存储热迁移？是否支持更改数据存储冷迁移（虚拟机关闭后迁移）？</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="虚拟机快照与恢复"><a href="#虚拟机快照与恢复" class="headerlink" title="虚拟机快照与恢复"></a>虚拟机快照与恢复</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择待操作的虚拟机名称，选择“快照”页签。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5f39225c1581c2115ef9e7c741291dbe.png" class="">
+
+<ol>
+<li><p>单击“创建快照”，进入创建快照页面。填写快照名称，取消勾选“生成内存快照”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/cb7f19d7faf5f206b1c14768a6cda938.png" class="">
+
+<p><strong>思考：</strong>若勾选“生成内存快照”，快照是否能成功？为什么？</p>
+<ol>
+<li><p>弹出如下信息提示框，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d766abccbf0be51c2824927ee8b20394.png" class="">
+
+<ol>
+<li><p>完成后，查看虚拟机快照列表。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/79b0f077624ea671943c3ca486ae4c89.png" class="">
+
+<ol>
+<li><p>单击虚拟机“配置”页签，选择“磁盘”，在虚拟机磁盘列表中，选择磁盘所在行，单击“更多”，选择“快照管理”，在快照管理中查看各磁盘是否存在快照。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/722fa0d027169cf85f767fefee064ca9.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6a2229b0eab787edde4dd7ed0700b892.png" class="">
+
+<ol>
+<li><p>参考以上步骤，对虚拟机Linux_02进行快照，并查看磁盘的快照管理中是否存在快照。</p>
+<p><strong>思考：</strong>磁盘Disk_01（共享磁盘）中是否存在快照？磁盘Disk_02（从属磁盘）中是否存在快照？磁盘Disk_03（独立-非持久磁盘）中是否存在快照？</p>
+</li>
+<li><p>使用“root”用户登录虚拟机，执行以下命令，在虚拟机&#x2F;root目录下创建文件test.file。</p>
+<p>cd &#x2F;root</p>
+<p>touch test.file</p>
+<p>ll</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ebbc0443e189ae429e6ef88b696f7bdf.png" class="">
+</li>
+<li><p>执行以下命令，修改&#x2F;tmp&#x2F;Test1下的测试文件test1.file的内容。</p>
+<p>cd &#x2F;tmp&#x2F;Test1</p>
+<p>vi test1.file</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/469892f9a15778ad6fac06856f0d0f52.png" class="">
+
+<p>按i内容修改为“this is new file”</p>
+<p>按Esc退出编辑模式</p>
+<p>输入“：wq”保存</p>
+<p>cat test1.file</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4e3b9204b6c608369aca7b019075d811.png" class="">
+</li>
+<li><p>完成后，重新对虚拟机创建快照，展开第一个快照Snap_01前的“+”，可以查看创建的第二个快照Snap_02。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/62e779b60d9fc1f0bb77b9531d565bea.png" class="">
+</li>
+<li><p>选择快照列表中的第一个快照Snap_01，单击上方的“恢复虚拟机”，弹出信息提示框，单击“确定”，对虚拟机进行快照还原。</p>
+</li>
+<li><p>完成后，查看虚拟机&#x2F;root目录下是否存在新建的test.file文件。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9cfaa3b12391f9a6d724d307ee7a8b65.png" class="">
+
+<p>由上可知，新建的test.file文件已不存在，快照已成功恢复到创建第一个快照Snap_01时的状态。</p>
+<p>返回虚拟机快照列表，查看第二个快照Snap_02的状态。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/504d0ba58bea546c472885ed602eccb5.png" class="">
+
+<p><strong>思考：</strong>使用快照还原虚拟机后，是否会影响该快照之后的快照？</p>
+</li>
+<li><p>使用快照还原后，执行命令df –Th查看虚拟机Linux_01上磁盘的挂载情况。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ae9fcd6b5ccfe2b086b7b2609348b9c6.png" class="">
+
+<p>由上可知，&#x2F;dev&#x2F;vdb1和&#x2F;dev&#x2F;vdc1在快照还原后都被卸载了。</p>
+</li>
+<li><p>参考步骤8，使用“root”用户登录虚拟机Linux_02，执行以下命令，将&#x2F;tmp&#x2F;Test3下的测试文件test3.file的内容由“this is test file”修改为“this is new file”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d470c27a70502b3ec01b8bde98cff46a.png" class="">
+</li>
+<li><p>参考步骤10，使用快照Snap_01对虚拟机Linux_02进行还原快照。</p>
+</li>
+<li><p>完成快照还原后，查看虚拟机Linux_02上磁盘的挂载情况。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ef945e3b322f50ef5288bc460be85a0b.png" class="">
+
+<p>由上可知，&#x2F;dev&#x2F;vdc1在快照还原后也被卸载了。</p>
+<p><strong>结论：</strong>使用快照还原后，磁盘Disk_02（从属）、磁盘Disk_01（独立-持久）和磁盘Disk_02（独立-非持久）都会卸载磁盘。</p>
+</li>
+<li><p>执行mount命令，在虚拟机Linux_01上重新挂载磁盘Disk_01，并查看&#x2F;tmp&#x2F;Test1目录下是否存在修改后的文件。</p>
+<p>mount &#x2F;dev&#x2F;vdb1 &#x2F;tmp&#x2F;Test1</p>
+<p>cd &#x2F;tmp&#x2F;Test1</p>
+<p>ll</p>
+<p>cat test1.file</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/81e22d6a7b9139330780cd56df046536.png" class="">
+
+<p>由上可知，虚拟机快照还原后，磁盘Disk_01（独立-持久）中依然存在修改后的文件，数据更改将立即并永久写入磁盘。</p>
+</li>
+<li><p>执行mount命令，在虚拟机Linux_02上重新挂载磁盘Disk_03。</p>
+<p>mount &#x2F;dev&#x2F;vdc1 &#x2F;tmp&#x2F;Test3</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/231762c077b8bc7ebb2e453d869581e9.png" class="">
+
+<p>提示&#x2F;dev&#x2F;vdc1不存在，无法重新挂载。</p>
+<p>由上可知，虚拟机快照还原后，磁盘Disk_03（独立-非持久）需要重新绑定并进行格式化，磁盘中的数据会丢失。</p>
+<p><strong>总结：</strong>创建虚拟机快照时，不对磁盘Disk_01（独立-持久）和磁盘Disk_03（独立-非持久）进行快照，也无法对磁盘数据进行还原。虚拟机快照还原后，磁盘Disk_01（独立-持久）会被卸载，重新挂载后，磁盘中的数据不会丢失；而磁盘Disk_03（独立-非持久）会被解绑定，无法重新挂载，且需要重新绑定和格式化，磁盘中的数据会丢失。</p>
+</li>
+<li><p>上述实验完成后，为避免对后续实验造成影响，将虚拟机Linux_01重新迁移到原主机CNA01上，并解绑定虚拟机Linux_01和Linux_02上的共享磁盘Disk_01，在虚拟机磁盘列表中，选择待操作的磁盘所在行，单击后面的“解绑定”，在弹出的信息提示框中，单击“确定”，完成磁盘的解绑定。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/569877a9f101b344084970a77b95282c.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="场景二：集群DRS规则组"><a href="#场景二：集群DRS规则组" class="headerlink" title="场景二：集群DRS规则组"></a>场景二：集群DRS规则组</h1><h2 id="场景描述-1"><a href="#场景描述-1" class="headerlink" title="场景描述"></a>场景描述</h2><p>在实际工作场景中，大多业务都是主备部署在不同的虚拟机上，为了保证业务能正常主备切换，需保证主备虚拟机必须有一台运行正常，这样就要求主备虚拟机运行在不同的物理主机上，防止一台物理主机宕机，导致业务不可用，在华为虚拟化中该如何实现呢？</p>
+<p>如果一个业务涉及到多个服务，通常会将服务所涉的虚拟机运行在同一物理主机上，来保证业务能更流畅的运行，在华为虚拟化中又该如何实现呢？</p>
+<p>本实验通过DRS规则组的设置来满足以上需求。</p>
+<h2 id="操作步骤-1"><a href="#操作步骤-1" class="headerlink" title="操作步骤"></a>操作步骤</h2><ol>
+<li><p>在FusionCompute左侧导航栏，单击“资源池”，进入资源池页面。分别单击虚拟机Linux_01和Linux_02名称，进入虚拟机“概要”页签，在基本信息中查看虚拟机所属主机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/daa81b9854adfcdee9c431dac498008a.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b6c50cc0131d7485f9ab25071baa1d40.png" class="">
+
+<p>根据以上观察，虚拟机Linux_01运行于主机CNA01，虚拟机Linux_02运行于主机CNA02。</p>
+<ol>
+<li><p>单击待操作的集群名称“ManagementCluster”，选择“配置”页签，选择“配置 &gt; 计算资源调度配置”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d74ce441d6f50de03ae0026ddb0e754c.png" class="">
+
+<ol>
+<li><p>单击页面右侧的“集群资源控制”，进入集群资源控制页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/57741c86f7b5a42f2caca41380627578.png" class="">
+
+<ol>
+<li><p>点击“开启计算资源调度”后面的<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a17cf6e42635e7a86746dd69eb9a1302.png" class="">，打开计算资源调度开关。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f7f7a746a731c261996f81959b14cfd4.png" class="">
+
+<ol>
+<li><p>页面自动显示如下计算资源调度配置信息，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9f8b6d6a8e9f6e33324ab4fd2e65bd37.png" class="">
+
+<ol>
+<li><p>返回计算资源调度配置页面，选择“DRS规则 &gt; 规则组”，单击“添加”，进入添加规则组页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/2e90d2cfcfe8d2c126123667aae3c340.png" class="">
+</li>
+<li><p>配置规则组名称“Rule_01”，类型选择“聚集虚拟机”，在下方虚拟机列表中勾选虚拟机Linux_01和Linux_02，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d5bf55664e1e64f74765f6e57a5e019d.png" class="">
+</li>
+<li><p>返回规则组列表，查看添加的规则组。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b6f2d50cc12256e159a9ea0f135ce9e9.png" class="">
+</li>
+<li><p>单击页面下方的“近期任务”，查看任务列表。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/14cb19fd894394068da8ad3d8fbcd40b.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/bf90fae3b146cf9c4d8864f8a4ad49ff.png" class="">
+
+<p>任务显示系统自动将虚拟机Linux_02从主机CNA02迁移到了主机CNA01上，即虚拟机Linux_01和Linux_02运行在同一主机上（聚集）。</p>
+</li>
+<li><p>选择规则组“Rule_01”所在行后面的“删除”，删除该规则组。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/b6f2d50cc12256e159a9ea0f135ce9e9.png" class="">
+</li>
+<li><p>参考步骤6~9，添加规则组“Rule_02”, 类型选择“互斥虚拟机”，在下方虚拟机列表中勾选虚拟机Linux_01和Linux_02，完成后在任务列表中查看虚拟机的迁移情况。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fef465efc27da597235d1200e2670627.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/617986284a77fcecae3a3315fab6b832.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9f4e8e018e14344142786c1c99b84e7e.png" class="">
+
+<p>任务显示系统又自动将虚拟机Linux_02从主机CNA01迁移到了主机CNA02上，即虚拟机Linux_01和Linux_02分别运行在不同的主机上（互斥）。</p>
+</li>
+<li><p>参考步骤10，删除规则组“Rule_02”。</p>
+</li>
+<li><p>在集群配置页面，选择“DRS规则 &gt; 主机组”，单击“添加”，进入添加主机组页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5098500be54ec122ed6a24435ace4ddf.png" class="">
+</li>
+<li><p>配置主机组名称“HostGroup”,在下方主机列表中勾选虚拟机待运行的主机，如CNA02，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/720005ae320c85cceb3c18a2baf5c40e.png" class="">
+</li>
+<li><p>返回集群配置页面，选择“DRS规则 &gt; 虚拟机组”，单击“添加”，进入添加虚拟机组页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/5024e4b453d86d7d2265f5558d1fd863.png" class="">
+</li>
+<li><p>配置主机组名称“VMGroup”,在下方虚拟机列表中勾选要求的虚拟机Linux_01和Linux_02，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6213ad6b733ede5ca5765eebafef6a4e.png" class="">
+</li>
+<li><p>参考步骤6~9，添加规则组“Rule_03”, 类型选择“虚拟机到主机”,规则选择“必须在主机组上运行”，在虚拟机组和主机组列表中分别勾选刚添加的虚拟机组和主机组。完成后在任务列表中查看虚拟机的迁移情况。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/852b72670bce18e22e8c452d1a7761d8.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d8ffe4f1533d9c846344732b92e989c0.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ba4b035033ad8d03bc89c26beec2b20a.png" class="">
+
+<p>任务显示系统自动将虚拟机Linux_01从主机CNA01迁移到了主机CNA02上，即虚拟机Linux_01和Linux_02都运行在指定的主机上。</p>
+</li>
+<li><p>参考步骤10，删除规则组“Rule_03”。</p>
+<p><strong>思考：</strong>上述步骤中，在创建其他规则组前，为什么需要先删除前一个规则组？这3个规则组之间有何关系？</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="场景三：HA功能体验"><a href="#场景三：HA功能体验" class="headerlink" title="场景三：HA功能体验"></a>场景三：HA功能体验</h1><h2 id="场景描述-2"><a href="#场景描述-2" class="headerlink" title="场景描述"></a>场景描述</h2><p>HA是所有虚拟化技术最基础的一个特性，能保证物理主机故障后，业务所涉虚拟机自动迁移到其他物理主机上，从而实现业务不中断，提供客户体验感，本实验介绍华为虚拟化HA的配置过程，并在最后通过手动关闭一台物理主机来触发HA。</p>
+<h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><ol>
+<li><p>在FuisionCompute左侧导航栏，单击“资源池”，进入资源池页面。单击待操作的集群名称“ManagementCluster”，选择“配置”页签，选择“配置 &gt; HA配置”，单击页面右侧的“集群资源控制”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e9ad773d9d6e5223e1d04a18714df9db.png" class="">
+
+<ol>
+<li><p>点击“开启”后面的<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/a17cf6e42635e7a86746dd69eb9a1302.png" class="">，打开HA配置开关。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fc4c435ac4cbf26972d40da76a3e7a91.png" class="">
+
+<ol>
+<li><p>页面自动显示如下HA配置信息，主机故障处理策略选择“HA虚拟机”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/fcda9e72ad262fd1c6d3aa213a5db8ea.png" class="">
+
+<ol>
+<li><p>手动模拟主机CNA02故障。</p>
+<p>使用“PuTTY”登录CNA02，执行以下命令，对主机CNA02进行下电。（使用“gandalf”用户登录，密码为“**IaaS@OS-CLOUD9!<strong>”，登录后切换为“root”用户，密码为安装CNA时用户设置的密码，如“</strong>Cloud12#$**”）</p>
+<p>su – root</p>
+<p>poweroff</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/efe79c3bd0fabcb4cf4904590ebcb8c6.png" class="">
+
+<ol>
+<li><p>返回FusionCompute页面，单击页面下方的“近期任务”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6445d24607dd8d1768d67c4c2682d319.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/187098984ba994546577adafb5458b9d.png" class="">
+
+<p>任务显示，系统自动将主机CNA02上的虚拟机Linux_01和Linux_02从主机CNA02迁移到了CNA01上。</p>
+<ol>
+<li><p>在FusionCompute左侧导航栏，右键单击待操作的主机名称，选择“电源 &gt; 上电”，单击“确定”，对主机CNA02恢复上电。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ca159f98f0e85fc573261b14274b9e3a.png" class="">
+
+<p><strong>思考：</strong>虚拟机HA与虚拟机热迁移有什么区别？</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="场景四：安全组的作用"><a href="#场景四：安全组的作用" class="headerlink" title="场景四：安全组的作用"></a>场景四：安全组的作用</h1><h2 id="场景描述-3"><a href="#场景描述-3" class="headerlink" title="场景描述"></a>场景描述</h2><p>安全一直是IT行业的重要部分，安全组是一种保护虚拟机的特性，可以针对网段或地址段实现端口级的过滤，本实验以禁ping来感受安全组的功能。</p>
+<h2 id="实验步骤-1"><a href="#实验步骤-1" class="headerlink" title="实验步骤"></a>实验步骤</h2><ol>
+<li><p>使用Linux_01和Linux_02互ping，检查它们之间的网络是否正常。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/053dd75cf3c52b4edc4182ea728b6cde.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/814a0946f8e570931e140f1510493868.png" class="">
+
+<ol>
+<li><p>创建安全组。</p>
+<p>在“资源池”菜单中，选择“安全组”，然后点击“添加安全组”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/18df80a3e1e748e2be30e017c1c635ef.png" class="">
+
+<p>在弹出的页面中设置安全组的名称和描述，然后点击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/90531372a7c5f1967dedb32e48f6dc9c.png" class="">
+
+<ol>
+<li><p>创建安全组规则。</p>
+<p>为创建完的安全添加规则，本实验的要求是Linux_01能ping通Linux_02，而Linux_02无法ping通Linux_01，根据ICMP协议的流程，规则设置如下：</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/4e4ecd5ef816715fc291a3318f3d0a3d.png" class="">
+
+<ol>
+<li><p>将安全组绑定给Linux_01。</p>
+<p>选择“Linux_01”，点击“配置”，然后选择“网卡”，在地址为192.168.17.31的网卡对应的行点击“更多”，出现下拉菜单后，点击“配置安全组”。</p>
+<p>第一次配置需要将Linux_01关机。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7d21fbce89c1805a4ff84e97d992cee4.png" class="">
+
+<p>在弹出的页面中，点击“选择”，然后选择上一步骤中创建的安全组。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/6c13975172867dcc254f9ac75cc41c30.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/7a7c56a1c84ffbebf95819dc575073be.png" class="">
+
+<ol>
+<li><p>测试。</p>
+<p>重新登录两台虚拟机互ping，查看安全组是否生效。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/ce3a02a312b6a5e55af9f0dfbfa06d13.png" class="">
+
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e08d2dbb8daf71bae7aa1656a84a186c.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h1 id="场景五：常用运维操作"><a href="#场景五：常用运维操作" class="headerlink" title="场景五：常用运维操作"></a>场景五：常用运维操作</h1><h2 id="场景描述-4"><a href="#场景描述-4" class="headerlink" title="场景描述"></a>场景描述</h2><p>本实验介绍以下常用的运维操作：</p>
+<ol>
+<li>查看、屏蔽、清除告警信息</li>
+<li>为系统添加一个角色和一个用户，用户和角色相互对应</li>
+<li>配置密码策略</li>
+<li>License管理</li>
+<li>管理数据手动备份到FTP服务器</li>
+</ol>
+<h2 id="实验步骤-2"><a href="#实验步骤-2" class="headerlink" title="实验步骤"></a>实验步骤</h2><h3 id="查看、清除、屏蔽告警信息"><a href="#查看、清除、屏蔽告警信息" class="headerlink" title="查看、清除、屏蔽告警信息"></a>查看、清除、屏蔽告警信息</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择“监控”，进入监控页面。选择“告警 &gt; 告警列表”，进入告警列表页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e401ae971933545d459702e2213f74b0.png" class="">
+
+<p><strong>思考：</strong>在告警列表中，如何筛选出告警级别为“提示”，对象类型为“主机”的全部告警信息？</p>
+<ol>
+<li><p>在告警信息所在行，单击后面的“清除”，清除该条告警信息。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9ae8c9d8b95d14dc74d7024ba10c1679.png" class="">
+
+<ol>
+<li><p>选择“告警 &gt; 告警屏蔽”，进入告警屏蔽页面。单击“添加”，进入添加屏蔽告警页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/82dc6dbd666f377673e942efb786cdba.png" class="">
+
+<p><strong>思考：</strong>在添加屏蔽告警页面，尝试使用三种不同的方式，屏蔽“数据存储I&#x2F;O响应时延超过阈值”告警信息。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="添加角色和用户"><a href="#添加角色和用户" class="headerlink" title="添加角色和用户"></a>添加角色和用户</h3><ol>
+<li><p>在FusionCompute左侧导航栏，选择“系统管理”，进入系统管理页面。选择“权限管理 &gt; 角色管理”，单击“添加角色”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/42acabe0e0c84bc0722e85c12711715b.png" class="">
+
+<ol>
+<li><p>在添加角色页面，配置角色名称并勾选角色权限，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d1fa53343e3cf61bfc180c0f027946f9.png" class="">
+
+<p><strong>思考：</strong>添加一个角色Role_test，使该角色具有站点、集群、主机和虚拟机管理权限。</p>
+<ol>
+<li><p>选择“权限管理 &gt; 用户管理”，单击“添加用户”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/08458ecdbd6e0f99bf189fbd97bfacea.png" class="">
+
+<ol>
+<li><p>在添加用户页面，选择用户类型，配置用户名和密码，勾选从属角色以及其他基本信息，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f74c67977db4057d659b5e5f1294bc5b.png" class="">
+
+<p><strong>思考：</strong>添加一个本地用户，用户类型为“本地用户”，角色为步骤2中添加的角色。</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="配置密码策略"><a href="#配置密码策略" class="headerlink" title="配置密码策略"></a>配置密码策略</h3><ol>
+<li><p>选择“权限管理 &gt; 密码策略”，进入密码策略配置页面，单击下方的“修改”，修改密码策略。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/dac5e2588cde414d7f5853e5e4cfe69e.png" class="">
+
+<ol>
+<li><p>修改完成后，单击下方的“保存”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/91971428ebf30d7c36947aa9d0e5e7b0.png" class="">
+
+<p><strong>思考：</strong>配置密码策略，当登录密码输错2次后，系统将自动锁定10min。</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="License管理"><a href="#License管理" class="headerlink" title="License管理"></a>License管理</h3><ol>
+<li><p>选择“系统配置 &gt; License管理”，进入License管理页面。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/318cb08bada48cad1bbc86de87f47a8a.png" class="">
+
+<ol>
+<li><p>单击“加载License”，进入加载License页面，单击“获取ESN号码”，按页面提示导入License文件，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/9db96282e49a83836b2a6cfa59b453c2.png" class=""></li>
+</ol>
+</li>
+</ol>
+<h3 id="手动备份管理数据"><a href="#手动备份管理数据" class="headerlink" title="手动备份管理数据"></a>手动备份管理数据</h3><p>前提条件：已获取FTP服务器的IP地址，用户名和密码信息。</p>
+<ol>
+<li><p>选择“系统配置 &gt; 服务和管理节点”，进入服务和管理节点配置页面，单击右侧的“管理数据备份配置”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f083b6bb059a2187a9077b6ec96596d6.png" class="">
+
+<ol>
+<li><p>在管理数据备份配置页面，勾选“备份至第三方FTP服务器或主机”，协议类型选择“FTP”，配置如下信息（FTP），单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/d726a2d201302935695e7245cba09571.png" class="">
+
+<ol>
+<li><p>返回管理数据备份配置页面，单击“管理数据备份”，单击“确定”。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/f083b6bb059a2187a9077b6ec96596d6.png" class="">
+
+<ol>
+<li><p>进入FTPD 备份上传路径，查看手动备份的备份文件。</p>
+<img src="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/e99b3cabcc525225d29a535c3c0d5a9d.png" class=""></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/" title="HCIA-cloud-V4.0-实验手册">http://www.leo101018.xyz/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-实验手册/HCIA-cloud-V4.0-实验手册/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/HCIA-Cloud/" rel="tag"><i class="fa fa-tag"></i> HCIA-Cloud</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/15/Front/css/CSS3-03-04/CSS3-03-04-CSS%E5%9F%BA%E6%9C%AC%E9%80%89%E6%8B%A9%E5%99%A8&%E5%A4%96%E8%A7%82%E6%A0%B7%E5%BC%8F%E4%B8%8E%E5%BA%94%E7%94%A8/" rel="prev" title="CSS基本选择器&外观样式与应用">
+      <i class="fa fa-chevron-left"></i> CSS基本选择器&外观样式与应用
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">实验环境介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E7%BD%91%E8%AF%B4%E6%98%8E"><span class="nav-number">1.1.</span> <span class="nav-text">组网说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.2.</span> <span class="nav-text">设备介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E5%92%8C%E5%B7%A5%E5%85%B7"><span class="nav-number">1.3.</span> <span class="nav-text">软件和工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83%E7%BB%84%E7%BD%91%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.4.</span> <span class="nav-text">实验环境组网介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83"><span class="nav-number">1.5.</span> <span class="nav-text">交换机配置参考</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85FusionCompute"><span class="nav-number">2.</span> <span class="nav-text">安装FusionCompute</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E6%A0%87"><span class="nav-number">2.1.</span> <span class="nav-text">实验目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85CNA%EF%BC%8C%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85VRM"><span class="nav-number">2.2.</span> <span class="nav-text">手动安装CNA，工具安装VRM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E9%95%9C%E5%83%8F%E5%AE%89%E8%A3%85CNA"><span class="nav-number">2.2.1.</span> <span class="nav-text">使用镜像安装CNA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85VRM"><span class="nav-number">2.2.2.</span> <span class="nav-text">使用工具安装VRM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BB%E5%BD%95FusionCompute"><span class="nav-number">2.3.</span> <span class="nav-text">登录FusionCompute</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FusionCompute%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">FusionCompute资源配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">主机配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%B8%BB%E6%9C%BA"><span class="nav-number">3.1.1.</span> <span class="nav-text">添加主机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E5%8F%A3%E7%BB%91%E5%AE%9A"><span class="nav-number">3.1.2.</span> <span class="nav-text">网口绑定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">网络资源配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BADVS"><span class="nav-number">3.2.1.</span> <span class="nav-text">创建DVS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%B8%8A%E8%A1%8C%E9%93%BE%E8%B7%AF"><span class="nav-number">3.2.2.</span> <span class="nav-text">添加上行链路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0VLAN%E6%B1%A0"><span class="nav-number">3.2.3.</span> <span class="nav-text">添加VLAN池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%AB%AF%E5%8F%A3%E7%BB%84"><span class="nav-number">3.2.4.</span> <span class="nav-text">创建端口组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE"><span class="nav-number">3.3.</span> <span class="nav-text">存储资源配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%AD%98%E5%82%A8%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.3.1.</span> <span class="nav-text">添加存储接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%AD%98%E5%82%A8%E8%B5%84%E6%BA%90"><span class="nav-number">3.3.2.</span> <span class="nav-text">添加存储资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89%E6%89%AB%E6%8F%8F%E5%AD%98%E5%82%A8%E8%AE%BE%E5%A4%87"><span class="nav-number">3.3.3.</span> <span class="nav-text">（可选）扫描存储设备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">3.3.4.</span> <span class="nav-text">添加数据存储</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%88%9B%E5%BB%BA%E5%8F%8A%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">虚拟机创建及配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">4.1.</span> <span class="nav-text">创建虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A3%B8%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">4.1.1.</span> <span class="nav-text">创建裸虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%88%E4%BB%85%E4%BD%93%E9%AA%8C%EF%BC%89"><span class="nav-number">4.1.2.</span> <span class="nav-text">安装操作系统（仅体验）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">4.2.</span> <span class="nav-text">删除虚拟机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E5%B9%B6%E9%85%8D%E7%BD%AE%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">4.3.</span> <span class="nav-text">导入并配置虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">4.3.1.</span> <span class="nav-text">导入虚拟机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%82%E8%BD%BD%EF%BC%8C%E5%AE%89%E8%A3%85%E5%8F%8A%E5%8D%B8%E8%BD%BDTools"><span class="nav-number">4.3.2.</span> <span class="nav-text">挂载，安装及卸载Tools</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E9%83%A8%E7%BD%B2%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">4.4.</span> <span class="nav-text">模板部署虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A8%A1%E6%9D%BF"><span class="nav-number">4.4.1.</span> <span class="nav-text">制作虚拟机模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A8%A1%E6%9D%BF%E9%83%A8%E7%BD%B2%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">4.4.2.</span> <span class="nav-text">使用模板部署虚拟机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%A7%84%E6%A0%BC%E8%B0%83%E6%95%B4"><span class="nav-number">4.5.</span> <span class="nav-text">虚拟机规格调整</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU%E7%83%AD%E6%B7%BB%E5%8A%A0"><span class="nav-number">4.5.1.</span> <span class="nav-text">CPU热添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%83%AD%E6%B7%BB%E5%8A%A0"><span class="nav-number">4.5.2.</span> <span class="nav-text">内存热添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9"><span class="nav-number">4.5.3.</span> <span class="nav-text">磁盘扩容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%BD%91%E5%8D%A1"><span class="nav-number">4.5.4.</span> <span class="nav-text">添加网卡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%85%8D%E7%BD%AE%E5%AF%B9%E8%B1%A1%E6%9D%83%E9%99%90"><span class="nav-number">4.6.</span> <span class="nav-text">虚拟机配置对象权限</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%80%EF%BC%9A%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%A3%81%E7%9B%98%E5%BA%94%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">场景一：虚拟机磁盘应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0"><span class="nav-number">5.1.</span> <span class="nav-text">场景描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">操作流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-number">5.3.</span> <span class="nav-text">操作步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%A3%81%E7%9B%98"><span class="nav-number">5.3.1.</span> <span class="nav-text">创建磁盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E7%A3%81%E7%9B%98"><span class="nav-number">5.3.2.</span> <span class="nav-text">绑定磁盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">5.3.3.</span> <span class="nav-text">磁盘格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%83%AD%E8%BF%81%E7%A7%BB"><span class="nav-number">5.3.4.</span> <span class="nav-text">虚拟机热迁移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%BF%AB%E7%85%A7%E4%B8%8E%E6%81%A2%E5%A4%8D"><span class="nav-number">5.3.5.</span> <span class="nav-text">虚拟机快照与恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%EF%BC%9A%E9%9B%86%E7%BE%A4DRS%E8%A7%84%E5%88%99%E7%BB%84"><span class="nav-number">6.</span> <span class="nav-text">场景二：集群DRS规则组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0-1"><span class="nav-number">6.1.</span> <span class="nav-text">场景描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">6.2.</span> <span class="nav-text">操作步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%89%EF%BC%9AHA%E5%8A%9F%E8%83%BD%E4%BD%93%E9%AA%8C"><span class="nav-number">7.</span> <span class="nav-text">场景三：HA功能体验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0-2"><span class="nav-number">7.1.</span> <span class="nav-text">场景描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="nav-number">7.2.</span> <span class="nav-text">实验步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E5%9B%9B%EF%BC%9A%E5%AE%89%E5%85%A8%E7%BB%84%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">8.</span> <span class="nav-text">场景四：安全组的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0-3"><span class="nav-number">8.1.</span> <span class="nav-text">场景描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">8.2.</span> <span class="nav-text">实验步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%94%EF%BC%9A%E5%B8%B8%E7%94%A8%E8%BF%90%E7%BB%B4%E6%93%8D%E4%BD%9C"><span class="nav-number">9.</span> <span class="nav-text">场景五：常用运维操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E6%8F%8F%E8%BF%B0-4"><span class="nav-number">9.1.</span> <span class="nav-text">场景描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4-2"><span class="nav-number">9.2.</span> <span class="nav-text">实验步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E3%80%81%E6%B8%85%E9%99%A4%E3%80%81%E5%B1%8F%E8%94%BD%E5%91%8A%E8%AD%A6%E4%BF%A1%E6%81%AF"><span class="nav-number">9.2.1.</span> <span class="nav-text">查看、清除、屏蔽告警信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%A7%92%E8%89%B2%E5%92%8C%E7%94%A8%E6%88%B7"><span class="nav-number">9.2.2.</span> <span class="nav-text">添加角色和用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AF%86%E7%A0%81%E7%AD%96%E7%95%A5"><span class="nav-number">9.2.3.</span> <span class="nav-text">配置密码策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#License%E7%AE%A1%E7%90%86"><span class="nav-number">9.2.4.</span> <span class="nav-text">License管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%A4%87%E4%BB%BD%E7%AE%A1%E7%90%86%E6%95%B0%E6%8D%AE"><span class="nav-number">9.2.5.</span> <span class="nav-text">手动备份管理数据</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">323k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:53</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
