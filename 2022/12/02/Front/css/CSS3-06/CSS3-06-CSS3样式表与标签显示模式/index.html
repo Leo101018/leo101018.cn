@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="CSS3样式表与标签显示模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS3样式表与标签显示模式">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="CSS3样式表与标签显示模式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135143146.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135153071.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135203564.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135426389.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135447071.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135507418.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135728654.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135744011.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135755475.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135830463.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135844491.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135852866.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135928182.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140245392.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140302652.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140331361.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140345821.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140409387.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140422640.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140441864.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140454971.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140617223.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154630527.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154641376.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154732070.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154744369.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154754498.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154845169.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154904616.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154950723.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202155035832.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202155124981.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202172527807.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202172538146.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202172725511.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202172742102.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173018097.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173042364.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173057486.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173108803.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173134436.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173147599.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173219440.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173247479.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173332443.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173404876.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173444147.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173504894.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173518138.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173547985.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173620623.png">
+<meta property="article:published_time" content="2022-12-02T09:37:43.000Z">
+<meta property="article:modified_time" content="2022-12-02T09:38:56.400Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="css3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135143146.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if(''){
+          if (prompt('请输入密码') !== ''){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>CSS3样式表与标签显示模式 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">32</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS3样式表与标签显示模式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-02 17:37:43 / 修改时间：17:38:56" itemprop="dateCreated datePublished" datetime="2022-12-02T17:37:43+08:00">2022-12-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Front/" itemprop="url" rel="index"><span itemprop="name">Front</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Front/css3/" itemprop="url" rel="index"><span itemprop="name">css3</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+            <div class="post-description">CSS3样式表与标签显示模式</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="CSS3样式表与标签显示模式"><a href="#CSS3样式表与标签显示模式" class="headerlink" title="CSS3样式表与标签显示模式"></a>CSS3样式表与标签显示模式</h1><p><strong>引入CSS样式表（书写位置）</strong></p>
+<p>CSS可以写到那个位置？ 是不是一定写到html文件里面呢？</p>
+<p>样式表书写位置主要分为3种写法：</p>
+<p>行内样式（内联样式）</p>
+<p>内部样式（内嵌式）</p>
+<p>外部样式（外链式）</p>
+<h2 id="行内样式（内联样式）"><a href="#行内样式（内联样式）" class="headerlink" title="行内样式（内联样式）"></a>行内样式（内联样式）</h2><p>内联样式，又有人称行内样式、行间样式、内嵌样式。是通过标签的style属性来设置元素的样式，其基本语法格式如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">标签名</span> <span class="attr">style</span>=<span class="string">&quot;属性1:属性值1; 属性2:属性值2; 属性3:属性值3;&quot;</span>&gt;</span> 内容 <span class="tag">&lt;/<span class="name">标签名</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>语法中style是标签的属性，实际上任何HTML标签都拥有style属性，用来设置行内式。其中属性和值的书写规范与CSS样式规则相同，<strong>行内式只对其所在的标签及嵌套在其中的子标签起作用。</strong></p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135143146.png" class="" title="image-20221202135143146">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135153071.png" class="" title="image-20221202135153071">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135203564.png" class="" title="image-20221202135203564">
+
+<p>注意，多个css的属性之间使用分号;分隔。</p>
+<p>行内样式表，使用的不多。</p>
+<h2 id="内部样式（内嵌式）"><a href="#内部样式（内嵌式）" class="headerlink" title="内部样式（内嵌式）"></a>内部样式（内嵌式）</h2><p>内嵌式是将CSS代码集中写在HTML文档的head头部标签中，并且用style标签定义，其基本语法格式如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/CSS&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">  选择器 &#123;属性<span class="number">1</span>:属性值<span class="number">1</span>; 属性<span class="number">2</span>:属性值<span class="number">2</span>; 属性<span class="number">3</span>:属性值<span class="number">3</span>;&#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>语法中，style标签一般位于head标签中title标签之后，也可以把他放在HTML文档的任何地方。</strong></p>
+<p>type&#x3D;”text&#x2F;CSS” 在html5中可以省略， 写上也比较符合规范， 所以这个地方可以写也可以省略。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135426389.png" class="" title="image-20221202135426389">
+
+<p>这种写法就是内部样式表。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135447071.png" class="" title="image-20221202135447071">
+
+<p>内部样式表，出现在html页面内部的。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135507418.png" class="" title="image-20221202135507418">
+
+<p>这个style写在页面的任何位置都是可以的。只是约定，将其写在&lt;head&gt;&lt;&#x2F;head&gt;标签中而已。</p>
+<h2 id="外部样式（外链式）"><a href="#外部样式（外链式）" class="headerlink" title="外部样式（外链式）"></a>外部样式（外链式）</h2><p>外链式是将所有的样式放在一个或多个以.CSS为扩展名的外部样式表文件中，通过link标签将外部样式表文件链接到HTML文档中，其基本语法格式如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">&quot;CSS文件的路径&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/CSS&quot;</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意： link 是个单标签哦!!!</p>
+<p><strong>该语法中，link标签需要放在head头部标签中，并且必须指定link标签的三个属性，具体如下：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">href：定义所链接外部样式表文件的URL，可以是相对路径，也可以是绝对路径。</span><br><span class="line">type：定义所链接文档的类型，在这里需要指定为“text/CSS”，表示链接的外部文件为CSS样式表。</span><br><span class="line">rel：定义当前文档与被链接文档之间的关系，在这里需要指定为“stylesheet”，表示被链接的文档是一个样式表文件。</span><br></pre></td></tr></table></figure>
+
+<p>外部样式表是推荐使用的，将结构和样式分开存放。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135728654.png" class="" title="image-20221202135728654">
+
+<p>现在就是创建两个文件，一个只写html，一个只写css。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135744011.png" class="" title="image-20221202135744011">
+
+<p>html文件内容。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135755475.png" class="" title="image-20221202135755475">
+
+<p>css文件内容。</p>
+<p>css文件中只写css内容，不写html的内容。</p>
+<p>我们需要通过link标签，将外部css样式表，引入到html中来。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135830463.png" class="" title="image-20221202135830463">
+
+<p>rel和type都是固定的写法的。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135844491.png" class="" title="image-20221202135844491">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135852866.png" class="" title="image-20221202135852866">
+
+
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202135928182.png" class="" title="image-20221202135928182">
+
+<p>css还可以进行压缩的，后面再说。</p>
+<h2 id="块级标签显示模式（display）"><a href="#块级标签显示模式（display）" class="headerlink" title="块级标签显示模式（display）"></a>块级标签显示模式（display）</h2><p>我们网页的标签非常多，再不同地方会用到不同类型的标签，以便更好的完成我们的网页。</p>
+<p><strong>标签的类型(显示模式)</strong></p>
+<p><strong>HTML标签一般分为块标签和行内标签两种类型，它们也称块元素和行内元素。</strong></p>
+<p>具体如下：</p>
+<p><strong>块级元素(block-level)</strong></p>
+<p>每个块元素通常都会独自占据一整行或多整行，可以对其设置宽度、高度、对齐等属性，常用于网页布局和网页结构的搭建。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">常见的块元素有<span class="tag">&lt;<span class="name">h1</span>&gt;</span>~<span class="tag">&lt;<span class="name">h6</span>&gt;</span>、<span class="tag">&lt;<span class="name">p</span>&gt;</span>、<span class="tag">&lt;<span class="name">div</span>&gt;</span>、<span class="tag">&lt;<span class="name">ul</span>&gt;</span>、<span class="tag">&lt;<span class="name">ol</span>&gt;</span>、<span class="tag">&lt;<span class="name">li</span>&gt;</span>等，其中<span class="tag">&lt;<span class="name">div</span>&gt;</span>标签是最典型的块元素。</span><br></pre></td></tr></table></figure>
+
+<p>块级元素的特点：</p>
+<p>（1）总是从新行开始</p>
+<p>（2）高度，行高、外边距以及内边距都可以控制。</p>
+<p>（3）宽度默认是容器的100%</p>
+<p>（4）可以容纳内联元素和其他块元素。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140245392.png" class="" title="image-20221202140245392">
+
+<p>3个div是挨着写的。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140302652.png" class="" title="image-20221202140302652">
+
+<p>但是显示的时候，是3行进行显示。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140331361.png" class="" title="image-20221202140331361">
+
+<p>增加背景颜色，查看效果。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140345821.png" class="" title="image-20221202140345821">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140409387.png" class="" title="image-20221202140409387">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140422640.png" class="" title="image-20221202140422640">
+
+<p>这样看的更加明显。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140441864.png" class="" title="image-20221202140441864">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140454971.png" class="" title="image-20221202140454971">
+
+<p>注意，块元素是占整行的。虽然设置了宽高，但是仍然是占整行的，因为它是块元素。</p>
+<p>能设置高度，宽度，并且占整行的，符合这样的，就是块元素。</p>
+<p>块元素，一般是用来进行网页布局的。</p>
+<p>块元素默认的宽度是浏览器的100%，如果不写width的话。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202140617223.png" class="" title="image-20221202140617223">
+
+<p>块元素中可以容纳其他的块元素的。</p>
+<h2 id="行内标签显示模式（inline-level）"><a href="#行内标签显示模式（inline-level）" class="headerlink" title="行内标签显示模式（inline-level）"></a>行内标签显示模式（inline-level）</h2><p><strong>行内元素(inline-level)</strong></p>
+<p><strong>行内元素（内联元素）不占有独立的区域，仅仅靠自身的字体大小和图像尺寸来支撑结构，一般不可以设置宽度、高度、对齐等属性，常用于控制页面中文本的样式。</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">常见的行内元素有&lt;a&gt;、&lt;strong&gt;、&lt;b&gt;、&lt;em&gt;、&lt;i&gt;、&lt;del&gt;、&lt;s&gt;、&lt;ins&gt;、&lt;u&gt;、&lt;span&gt;等，其中&lt;span&gt;标签最典型的行内元素。</span><br></pre></td></tr></table></figure>
+
+<p>行内元素的特点：</p>
+<p>（1）和相邻行内元素在一行上。</p>
+<p>（2）高、宽无效，但水平方向的padding和margin可以设置，垂直方向的无效。</p>
+<p>（3）默认宽度就是它本身内容的宽度。</p>
+<p>（4）行内元素只能容纳文本或则其他行内元素。（a特殊）</p>
+<p>注意：</p>
+<p>1、只有 文字才 能组成段落 因此 p 里面不能放块级元素，同理还有这些标签h1,h2,h3,h4,h5,h6,dt，他们都是文字类块级标签，里面不能放其他块级元素。</p>
+<p>2、链接里面不能再放链接。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154630527.png" class="" title="image-20221202154630527">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154641376.png" class="" title="image-20221202154641376">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154732070.png" class="" title="image-20221202154732070">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154744369.png" class="" title="image-20221202154744369">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154754498.png" class="" title="image-20221202154754498">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154845169.png" class="" title="image-20221202154845169">
+
+<p>刷新，没有效果的，因此，行内元素的宽和高的设置是没有效果的。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154904616.png" class="" title="image-20221202154904616">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202154950723.png" class="" title="image-20221202154950723">
+
+<p>默认宽度就是它本身（行内元素）内容的宽度。</p>
+<p><strong>注意，行内元素中只能容纳文本和其他的行内元素的。但是a特殊，a中不能再放a了。</strong></p>
+<p><strong>另外，文字类的块级元素里面不能够再放块级元素了。例如，p，h类的里面不能够再放其他的块级元素了，只能放文本了。</strong></p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202155035832.png" class="" title="image-20221202155035832">
+
+<p>图中箭头处这样写都是错误的。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202155124981.png" class="" title="image-20221202155124981">
+
+<p>运行，可以看到，浏览器解析的时候，就解析乱了。</p>
+<h2 id="行内块标签显示模式（inline-block）"><a href="#行内块标签显示模式（inline-block）" class="headerlink" title="行内块标签显示模式（inline-block）"></a>行内块标签显示模式（inline-block）</h2><p><strong>块级元素和行内元素区别</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">块级元素的特点：</span><br><span class="line">（1）总是从新行开始</span><br><span class="line">（2）高度，行高、外边距以及内边距都可以控制。</span><br><span class="line">（3）宽度默认是容器的100<span class="comment">%</span></span><br><span class="line">（4）可以容纳内联元素和其他块元素。</span><br><span class="line">行内元素的特点：</span><br><span class="line">（1）和相邻行内元素在一行上。</span><br><span class="line">（2）高、宽无效，但水平方向的padding和margin可以设置，垂直方向的无效。</span><br><span class="line">（3）默认宽度就是它本身内容的宽度。</span><br><span class="line">（4）行内元素只能容纳文本或则其他行内元素。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>行内块元素（inline-block）</strong></p>
+<p>行内块，可以理解为是特殊的行内元素，它具有了类似块元素的特点了。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在行内元素中有几个特殊的标签——&lt;img /&gt;、&lt;input /&gt;、&lt;td&gt;，可以对它们设置宽高和对齐属性，有些资料可能会称它们为行内块元素。</span><br><span class="line"></span><br><span class="line">行内块元素的特点：</span><br><span class="line">（1）和相邻行内元素（行内块）在一行上,但是之间会有空白缝隙。</span><br><span class="line">（2）默认宽度就是它本身内容的宽度。</span><br><span class="line">（3）高度，行高、外边距以及内边距都可以控制。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202172527807.png" class="" title="image-20221202172527807">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202172538146.png" class="" title="image-20221202172538146">
+
+<p>行内元素。</p>
+<p>它是行内元素，但是又具有块级元素的特点。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202172725511.png" class="" title="image-20221202172725511">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202172742102.png" class="" title="image-20221202172742102">
+
+<p>可以看到，宽高都是可以调节的。</p>
+<p><strong>正常行内元素修改宽高是无效的，只有块级元素能够修改宽和高。但是这个行内元素就比较特殊，能够修改宽和高。</strong></p>
+<p><strong>因此，这个叫做行内块元素。记住3个，img，input，td。</strong></p>
+<h2 id="显示模式转换"><a href="#显示模式转换" class="headerlink" title="显示模式转换"></a>显示模式转换</h2><p><strong>标签显示模式转换 display</strong></p>
+<p>块转行内：display:inline;</p>
+<p>行内转块：display:block;</p>
+<p>块、行内元素转换为行内块： display: inline-block;</p>
+<p>此阶段，我们只需关心这三个，其他的是我们后面的工作。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173018097.png" class="" title="image-20221202173018097">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173042364.png" class="" title="image-20221202173042364">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173057486.png" class="" title="image-20221202173057486">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173108803.png" class="" title="image-20221202173108803">
+
+<p>块转行内。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173134436.png" class="" title="image-20221202173134436">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173147599.png" class="" title="image-20221202173147599">
+
+<p>行内设置宽高是无效的。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173219440.png" class="" title="image-20221202173219440">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173247479.png" class="" title="image-20221202173247479">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173332443.png" class="" title="image-20221202173332443">
+
+<p>标签是不变的，只是转为了块元素了，显示的样式发生了改变。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173404876.png" class="" title="image-20221202173404876">
+
+<p>a是行内元素的。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173444147.png" class="" title="image-20221202173444147">
+
+
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173504894.png" class="" title="image-20221202173504894">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173518138.png" class="" title="image-20221202173518138">
+
+<p>此时可以看到，宽高不起作用的。因为a是行内元素的。</p>
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173547985.png" class="" title="image-20221202173547985">
+
+<img src="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/image-20221202173620623.png" class="" title="image-20221202173620623">
+
+<p>可以看到，宽高生效了。</p>
+<p>转为了行内块，那么具有了块元素的特性，可以设置宽高了。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" title="CSS3样式表与标签显示模式">http://www.leo101018.xyz/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3样式表与标签显示模式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/css3/" rel="tag"><i class="fa fa-tag"></i> css3</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/02/Front/css/CSS3-05/CSS3-05-CSS3%E6%A1%88%E4%BE%8B/" rel="prev" title="CSS3案例">
+      <i class="fa fa-chevron-left"></i> CSS3案例
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">CSS3样式表与标签显示模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E6%A0%B7%E5%BC%8F%EF%BC%88%E5%86%85%E8%81%94%E6%A0%B7%E5%BC%8F%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">行内样式（内联样式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E6%A0%B7%E5%BC%8F%EF%BC%88%E5%86%85%E5%B5%8C%E5%BC%8F%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">内部样式（内嵌式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E6%A0%B7%E5%BC%8F%EF%BC%88%E5%A4%96%E9%93%BE%E5%BC%8F%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">外部样式（外链式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9D%97%E7%BA%A7%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F%EF%BC%88display%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">块级标签显示模式（display）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F%EF%BC%88inline-level%EF%BC%89"><span class="nav-number">1.5.</span> <span class="nav-text">行内标签显示模式（inline-level）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E5%9D%97%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F%EF%BC%88inline-block%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">行内块标签显示模式（inline-block）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.7.</span> <span class="nav-text">显示模式转换</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">337k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:07</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
