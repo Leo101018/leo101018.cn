@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Java入门简介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="Java入门简介">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image001.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image002.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image004.jpg">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image002-1664876304333-1.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/image-20221004173848525.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/image-20221004173904530.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image005.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/image-20221004174307304.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/image-20221004174351709.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image006.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image007.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image008.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image009.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image010.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image011.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image012.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image013.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image014.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image015.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image017.jpg">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image019.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image021.jpg">
+<meta property="article:published_time" content="2022-09-28T16:04:38.000Z">
+<meta property="article:modified_time" content="2022-10-27T04:41:23.089Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image001.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if(''){
+          if (prompt('请输入密码') !== ''){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-09-29 00:04:38" itemprop="dateCreated datePublished" datetime="2022-09-29T00:04:38+08:00">2022-09-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-27 12:41:23" itemprop="dateModified" datetime="2022-10-27T12:41:23+08:00">2022-10-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">Java入门简介</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行"><a href="#01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行" class="headerlink" title="01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行"></a>01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行</h1><h2 id="Java的发展历史"><a href="#Java的发展历史" class="headerlink" title="Java的发展历史"></a>Java的发展历史</h2><p>Java是一种面向对象的程序设计语言，由Sun Microsystems公司的James Gosling等人于20世纪90年代初开发。它最初被命名为Oak，用来开发消费类电子产品，解决诸如电话、电视机等家用电器的控制和通讯问题。后来随着互联网的发展，Sun看到了Oak在计算机网络上的广阔应用前景，于是改造了Oak，在1995年5月正式命名为”Java”，变化历程如下图1.1和1.2所示。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image001.png" class="">
+
+
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image002.png" class="" title="img">
+
+<h2 id="Java语言的版本"><a href="#Java语言的版本" class="headerlink" title="Java语言的版本"></a>Java语言的版本</h2><p><strong>JavaSE</strong></p>
+<p>　　 Java SE（Java Platform，Standard Edition）。Java SE 以前称为J2SE。它允许开发和部署在<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/79807.htm">桌面</a>、<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/899.htm">服务器</a>、嵌入式环境和实时环境中使用的Java <a target="_blank" rel="noopener" href="http://baike.baidu.com/view/330120.htm">应用程序</a>。Java SE 包含了支持Java Web 服务开发的类，并为Java Platform，Enterprise Edition（Java EE）提供基础。<br>    例子：类似QQ、扫雷、飞秋、凌波这样子的桌面应用。</p>
+<p><strong>Java EE</strong></p>
+<p>　　 Java EE（Java Platform，Enterprise Edition）。这个版本以前称为J2EE。企业版本帮助开发和部署可移植、健壮、可伸缩且安全的服务器端 Java 应用程序。Java EE 是在Java SE 的基础上构建的，它提供Web 服务、<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/3852154.htm">组件模型</a>、管理和通信API，可以用来实现企业级的面向服务<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/1188494.htm">体系结构</a>（service-oriented architecture，SOA）和Web 2.0 应用程序。 </p>
+<p><strong>Java ME</strong></p>
+<p>　　 Java ME（Java Platform，Micro Edition）。这个版本以前称为J2ME，也叫<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/412221.htm">K-JAVA</a>。Java ME 为在移动设备和嵌入式设备（比如手机、PDA、电视<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/16791.htm">机顶盒</a>和打印机）上运行的应用程序提供一个健壮且灵活的环境。Java ME 包括灵活的用户界面、健壮的安全模型、许多内置的网络协议以及对可以<a target="_blank" rel="noopener" href="http://baike.baidu.com/view/31294.htm">动态</a>下载的连网和离线应用程序的丰富支持。基于Java ME 规范的应用程序只需编写一次，就可以用于许多设备，而且可以利用每个设备的本机功能。</p>
+<h2 id="Java的特点"><a href="#Java的特点" class="headerlink" title="Java的特点"></a>Java的特点</h2><p><strong>1.跨平台</strong></p>
+<p>何谓平台：即一套特定的硬件再加上运行其上的操作系统，即硬件＋软件。</p>
+<p>Java编译器将Java源程序编译成一种与体系结构无关的中间文件格式，称为字节码。只要有Java运行系统的机器都能执行这种中间代码。从而使同一版本的应用程序可以运行在不同的平台上。</p>
+<p>怎样理解平台无关性呢？JVM (java Virtual Machine)起到了主要作用。JVM是运行在平台之上的程序，它能够虚拟出一台目标机，所有字节码就是在虚拟出的目标机上运行。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image004.jpg" class="" title="img">
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image002-1664876304333-1.png" class="" title="img">
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/image-20221004173848525.png" class="" title="image-20221004173848525">
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/image-20221004173904530.png" class="" title="image-20221004173904530">
+
+<p>110是Windows上的指令。</p>
+<p>101是linux上的指令。</p>
+<p><strong>Java跨平台</strong></p>
+<p>“write once run anywhere”</p>
+<p>Java的跨平台是相对于其他编程语言而言的，通过Java语言编写的应用程序在不同的系统平台上都可以运行。一般的高级语言如果要在不同的平台上运行，至少需要编译成不同的目标代码。在windows编译的c语言程序，在linux下是不能运行的，想要在linux下运行，那么就需要将c语言程序源码在linux平台上重新编译成linux平台的目标代码才行。当然在linux下编译的c语言程序在windows下也是不能运行的。<strong>而Java语言在不同平台上运行时不需要重新编译。</strong></p>
+<p>Java跨平台的原理：Java的跨平台是通过Java虚拟机（JVM）来实现的。</p>
+<p><strong>2.半编译半解释</strong></p>
+<p>源程序先编译成字节码，Java解释器(运行系统)能直接对Java字节码进行解释执行。链接程序通常比编译程序所需资源少，Java的编译和解释执行过程如下图1.4所示。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image005.png" class="" title="img">
+
+<p><strong>3.简单</strong></p>
+<p>Java是个精简的系统，无需强大的硬件环境便可以很好地运行。Java的风格和语法类似于C++，因此，C++程序员可以很快就掌握Java编程技术。Java摒弃了C++中容易引发程序错误的地方，如多重继承、运算符重载、指针和内存管理等，Java语言具有支持多线程、自动垃圾收集和采用引用等特性。Java提供了丰富的类库，方便用户迅速掌握Java。</p>
+<p><strong>4.面向对象</strong></p>
+<p>对象可以是人们研究的任何实体，小到一个原子大到整个宇宙，均可看作对象，它不仅能表示具体的事物，还能表示抽象的规则、概念等。对象之间通过消息相互作用，用公式表示，面向对象编程语言可以表示为：程序&#x3D;对象+消息。现实世界中的对象均有属性和行为，映射到计算机程序上，属性就表示对象的数据（用来表示对象的状态），行为就表示对象的方法（用来处理数据或同外界交互）。</p>
+<p>所有面向对象编程语言都支持三个概念：封装、继承和多态，Java也不例外。</p>
+<p>面向对象可以说是Java最基本的特性。Java语言的设计完全是面向对象的，它不支持类似C语言那样的面向过程的程序设计技术。所有的Java程序和applet均是对象，Java支持静态和动态风格的代码继承及重用。</p>
+<p><strong>5.分布式</strong></p>
+<p>Java包括一个支持HTTP和FTP等基于TCP&#x2F;IP协议的子库。因此，Java应用程序可凭借URL打开并访问网络上的对象，就像访问本地文件一样简单方便。Java的分布性为实现在分布环境尤其是Internet下实现动态内容提供了技术途径。</p>
+<p><strong>6.健壮</strong></p>
+<p>Java提供了自动垃圾收集机制来进行内存管理，并检测程序对内存的访问，确定合法并不会引起任何问题后，才允许访问。</p>
+<p>Java还提供了异常处理机制用来检查编译及运行时可能出现的问题，Java在编译和运行程序时要对可能出现的异常进行检查；同时，Java在编译时还可捕获类型声明中的许多常见错误，帮助程序员消除错误，防止系统崩溃。</p>
+<p><strong>7、安全</strong></p>
+<p>作为网络语言，安全是非常重要的。Java的安全性可从两个方面得到保证。一方面，在Java语言里，像指针和释放内存等C++功能被删除，避免了非法内存操作。另一方面，当Java用来创建浏览器时，语言功能和一类浏览器本身提供的功能结合起来，使它更安全。Java语言在你的机器上执行前，要经过很多次的测试。它经过代码校验，检查代码段的格式，检测指针操作，试图改变一个对象的类型。另外，Java拥有多个层次的互锁保护措施，能有效地防止病毒的入侵和破坏行为的发生。Java不支持指针，避免了由于指针操作所引起的错误和非法入侵。同时，Java在运行应用程序时，严格检查其访问数据的权限，保证数据的可靠性。</p>
+<p><strong>8.多线程</strong></p>
+<p>线程有时也称小进程，是一个大进程里分出来的小的独立运行的基本单位。Java提供的多线程功能使得在一个程序里可同时执行多个小任务，即同时进行不同的操作或处理不同的事件。多线程带来的更大的好处是具有更好的网上交互性能和实时控制性能，尤其是实现多媒体功能。</p>
+<h2 id="Java开发环境的搭建"><a href="#Java开发环境的搭建" class="headerlink" title="Java开发环境的搭建"></a>Java开发环境的搭建</h2><p>Java运行环境就是JRE (Java Runtime Environment），是由Sun所研发的，是一个软件, JRE可以让计算机系统执行Java应用程序，它是运行JAVA程序所必须的环境的集合，JRE的内部有一个JAVA虚拟机（Java Virtual Machine，JVM）以及一些标准的类库（Class Library），如果你只需要运行Java程序,下载并安装它即可。</p>
+<p>如果你要自行开发 Java软件，请下载JDK。在JDK中附带有JRE。最新版本下载地址<a target="_blank" rel="noopener" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html%E3%80%82">http://www.oracle.com/technetwork/java/javase/downloads/index.html。</a></p>
+<p>java的环境的搭建：</p>
+<p>​    </p>
+<p>​    <strong>jre: java运行环境。 jre &#x3D; java虚拟机 + 核心类库(辅助java虚拟机运行的文件)</strong></p>
+<p>​    </p>
+<p>​    <strong>jdk： java开发工具集  jdk &#x3D; jre + java开发工具。</strong></p>
+<p>java开发工具，例如，javac编译工具，java解释器执行工具。</p>
+<p>如果只是软件使用者，那么安装jre即可，提供运行环境。</p>
+<p>如果是软件开发者，那么就需要安装jdk。因为需要开发工具。</p>
+<p>JRE Java Runtime Environment Java运行环境。包括Java虚拟机(JVM Java Virtual Machine)和Java程序所需的核心类库等，如果想要运行一个开发好的Java程序，计算机中只需要安装JRE即可。</p>
+<p>JDK 是整个Java的核心，包括了Java运行环境、Java工具和Java基础类库。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/image-20221004174307304.png" class="" title="image-20221004174307304">
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/image-20221004174351709.png" class="" title="image-20221004174351709">
+
+
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image006.png" class="" title="img">
+
+<h2 id="第一个Java程序"><a href="#第一个Java程序" class="headerlink" title="第一个Java程序"></a>第一个Java程序</h2><img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image007.png" class="" title="img">
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image008.png" class="" title="img">
+
+<h2 id="Java程序运行的原理"><a href="#Java程序运行的原理" class="headerlink" title="Java程序运行的原理"></a>Java程序运行的原理</h2><p>Java程序运行在Java虚拟机上，Java虚拟机就是指JVM (Java Virtual Machine) ，这是一个虚构出来的计算机，通过在实际的计算机上仿真模拟各种计算机功能来实现的。Java虚拟机有自己完善的硬件架构,如处理器、堆栈、寄存器等,还具有相应的指令系统，编辑、编译及运行Java程序的过程如图1.13所示。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image009.png" class="" title="img">
+
+<p><strong>图1.13编辑、编译及运行Java程序的过程</strong></p>
+<p>一个运行时的Java虚拟机实例的天职就是：负责运行一个Java程序。Java虚拟机的主要任务是装载class文件并且解释执行其中的字节码。当启动一个Java程序时，一个虚拟机实例也就诞生了。当该程序关闭退出，这个虚拟机实例也就随之消亡。如果同一台计算机上同时运行三个Java程序，将得到三个Java虚拟机实例。每个Java程序都运行于它自己的Java虚拟机实例中，如下图1.14所示。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image010.png" class="" title="img">
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image011.png" class="" title="img">
+
+<p><strong>图 运行时过程</strong></p>
+<p>编译源文件：java源代码被java编译器编译（Compile)。如果这时产生错误，我们称为编译错误。如果没有错误，则生成字节码（byte code）。</p>
+<p>运行字节码：这里，java字节码被装载到java虚拟机中，解释成本地代码再运行。如果此时产生错误，我们称之为运行时错误（Runtime）。</p>
+<h2 id="注释的使用"><a href="#注释的使用" class="headerlink" title="注释的使用"></a>注释的使用</h2><p>Java 的注释是被Javac忽略的部分，Java中的注释包含下面三种。</p>
+<p>1．单行注释</p>
+<p>&#x2F;&#x2F; 单行注释</p>
+<p>2．多行注释</p>
+<p>&#x2F;* 多行注释 *&#x2F;</p>
+<p>3．文档注释</p>
+<p>&#x2F;** 文档注释 *&#x2F;</p>
+<p>Java的注释如下图1.17所示。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image012.png" class="" title="img">
+
+<p>Java中的修饰符如下图1.19所示，其中public用来修饰类，也可以修饰方法，static用来修饰main方法，void是main方法的返回值类型，表示此方法没有返回值。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image013.png" class="" title="img">
+
+<h2 id="类和主方法"><a href="#类和主方法" class="headerlink" title="类和主方法"></a>类和主方法</h2><p>Java中的类和主方法的结构图下图1.20所示，主方法在类的内部，类里包含方法。</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image014.png" class="" title="img">
+
+<hr>
+<p>Java跨平台性是通过JVM（Java虚拟机）来实现的。</p>
+<p>JVM是不具有跨平台性的，针对不同的平台分别设计了对应的JVM。通过不同平台的JVM来实现了Java程序的跨平台性。也就是通过JVM的不跨平台性来支持Java程序的跨平台性。</p>
+<p>Java代码的执行：</p>
+<p>编译：Java源码通过javac命令编译成class字节码文件。</p>
+<p>解释执行：class字节码文件通过java命令解释执行。</p>
+<p>Java源码-&gt;编译-&gt;class字节码文件-&gt;解释器解释执行</p>
+<p>注意，class字节码文件是与特定硬件平台无关的中间代码，从而实现了在不同平台上的JVM上的解释执行，实现跨平台性。</p>
+<p> Java字节码的两种执行方式：</p>
+<p>即时编译：解释器（JVM）将字节码编译成对应硬件平台的机器码（二进制指令），然后再在该平台上直接执行该机器码，速度快，效率高。</p>
+<p>解释执行：解释器每次解释并执行字节码中的一小段代码，从而实现字节码的执行。</p>
+<p> Java程序执行与C&#x2F;C++程序执行对比：</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image015.png" class="" title="img">
+
+<p>JVM相当于80x86计算机。</p>
+<p>JVM中的Java解释器相当于80x86 CPU。</p>
+<p>在80x86 CPU上运行的是C&#x2F;C++源码编译之后的机器码，在JVM解释器上运行的是Java源码编译之后的字节码。</p>
+<p>当前不是所有平台都提供了JVM的，因此，Java代码只能在已经实现了JVM软件的并且安装了JVM软件的平台上运行。</p>
+<p>javac命令就是java编译器。</p>
+<p>java命令就是java解释器。利用解释器去装载字节码的时候，会自动的启动jvm虚拟机。使字节码在jvm内部运行。</p>
+<p>Java源文件编译过程：</p>
+<p>Java应用程序的开发周期包括编译、下载、解释和执行几个部分。Java编译程序将Java源程序翻译为JVM可执行代码—字节码。这一编译过程同C&#x2F;C++的编译有些不同。当C编译器编译生成一个对象的代码时，该代码是为在某一特定硬件平台运行而产生的。因此，在编译过程中，编译程序通过查表将所有对符号的引用转换为特定的内存偏移量，以保证程序运行。Java编译器却不将对变量和方法的引用编译为数值引用，也不确定程序执行过程中的内存布局，而是将这些符号引用信息保留在字节码中，由解释器在运行过程中创建内存布局，然后再通过查表来确定一个方法所在的地址。这样就有效的保证了Java的可移植性和安全性。</p>
+<p>解释器解释执行分为3步：</p>
+<p>代码的装入、代码的校验、代码的执行。</p>
+<p>运行JVM字节码的工作是由解释器来完成的。解释执行过程分三步进行：代码的装入、代码的校验和代码的执行。装入代码的工作由“类装载器”（class loader）完成。类装载器负责装入运行一个程序需要的所有代码，这也包括程序代码中的类所继承的类和被其调用的类。当类装载器装入一个类时，该类被放在自己的名字空间中。除了通过符号引用自己名字空间以外的类，类之间没有其他办法可以影响其它类。在本台计算机上的所有类都在同一地址空间内，而所有从外部引进的类，都有一个自己独立的名字空间。这使得本地类通过共享相同的名字空间获得较高的运行效率，同时又保证它们与从外部引进的类不会相互影响。当装入了运行程序需要的所有类后，解释器便可确定整个可执行程序的内存布局。解释器为符号引用同特定的地址空间建立对应关系及查询表。通过在这一阶段确定代码的内存布局，Java很好地解决了由超类改变而使子类崩溃的问题，同时也防止了代码对地址的非法访问。</p>
+<p>随后，被装入的代码由字节码校验器进行检查。校验器可发现操作数栈溢出，非法数据类型转换等多种错误。通过校验后，代码便开始执行了。</p>
+<p>Java基础类库，都内置在jdk中。</p>
+<p>demo目录是提供的一些例子程序。</p>
+<p> lib目录就是提供的一些基础类库。</p>
+<p> jre目录就是运行时环境。</p>
+<p><strong>linux&#x2F;unix</strong>下，换行是一个字符来表示的，ascII表示就是10。</p>
+<p><strong>windows</strong>下，换行是两个字符来表示，实际是回车+换行，ascII表示就是13和10。来表示一个回车+换行。</p>
+<p><strong>Java</strong>中所有功能都需要通过类来完成，也就是说Java中最小组织单位就是类。</p>
+<p><strong>JDK</strong>、JRE、JVM关系示意图</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image017.jpg" class="" title="img">
+
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image019.png" class="" title="https:&#x2F;&#x2F;img2020.cnblogs.com&#x2F;blog&#x2F;2170368&#x2F;202010&#x2F;2170368-20201013143113378-1314191418.png">
+
+<p>JRE (Java Runtime Environment) ：是Java程序的运行时环境，包含 JVM 和运行时所需要的 核心类库 。<br> JDK (Java Development Kit)：是Java程序开发工具包，包含 JRE 和开发人员使用的工具。<br> 我们想要运行一个已有的Java程序，那么只需安装 JRE 即可。<br> 我们想要开发一个全新的Java程序，那么必须安装 JDK 。</p>
+<p>三者关系： JDK &gt; JRE &gt; JVM</p>
+<img src="/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/clip_image021.jpg" class="" title="img">
+
+<p>Java程序的执行过程</p>
+<p>所有的Java代码，其后缀都是以java结尾，Java程序的执行过程分为两步：</p>
+<p>\1. 编译</p>
+<p>\2. 执行</p>
+<p>Class文件是字节码文件，程序最终执行的就是这个字节码（bytecode）文件。</p>
+<p>编译命令：java Hello.java</p>
+<p>执行命令：java Hello（注意，Test后面没有.class）</p>
+<p><strong>注意，加载的是类，而不是class字节码文件。执行的流程就是首先根据java命令后面的要加载的类的名字来找到对应的名字的class文件，然后JVM会将class文件加载到内存的方法区中，然后将class文件解开，就会找到里面对应的那个类，然后就可以加载这个类进行运行。</strong></p>
+<p>Java是跨平台的语言，真正执行的不是二进制代码，而是字节码。</p>
+<p>JVM（Java Virtual Machine，Java虚拟机）</p>
+<p>Java是跨平台的，而JVM不是跨平台的（JVM是由C语言编写的）</p>
+<p>Java之所以能够做到跨平台，本质原因在于JVM不是跨平台的。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C/" title="01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行">http://www.leo101018.xyz/2022/09/29/Java/JavaSE/01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行/01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/04/Windows/Service/windows%E9%85%8D%E7%BD%AE%E4%B8%BAopenssh%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%AF%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/windows%E9%85%8D%E7%BD%AE%E4%B8%BAopenssh%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8F%AF%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" rel="next" title="windows配置为openssh服务端可远程登录">
+      windows配置为openssh服务端可远程登录 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#01-JavaSE%E5%85%A5%E9%97%A8%E3%80%81JDK%E7%9A%84%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%81%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F%E3%80%81Java%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%BC%96%E8%AF%91%E4%B8%8E%E6%89%A7%E8%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">01-JavaSE入门、JDK的下载与安装、第一个Java程序、Java程序的编译与执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%9A%84%E5%8F%91%E5%B1%95%E5%8E%86%E5%8F%B2"><span class="nav-number">1.1.</span> <span class="nav-text">Java的发展历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%88%E6%9C%AC"><span class="nav-number">1.2.</span> <span class="nav-text">Java语言的版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">Java的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E7%9A%84%E6%90%AD%E5%BB%BA"><span class="nav-number">1.4.</span> <span class="nav-text">Java开发环境的搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AAJava%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.5.</span> <span class="nav-text">第一个Java程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%A8%8B%E5%BA%8F%E8%BF%90%E8%A1%8C%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.6.</span> <span class="nav-text">Java程序运行的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.7.</span> <span class="nav-text">注释的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%92%8C%E4%B8%BB%E6%96%B9%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">类和主方法</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">334k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

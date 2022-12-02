@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="利用物理机上kvm中创建vm，然后在vm中部署FusionCompute实验环境，并且可以在CNA中正确创建vm，即使用了嵌套虚拟化方式，很多网友说FusionCompute不支持嵌套虚拟化，实际通过实验证明，可以支持。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用kvm构建FusionCompute实验环境">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="利用物理机上kvm中创建vm，然后在vm中部署FusionCompute实验环境，并且可以在CNA中正确创建vm，即使用了嵌套虚拟化方式，很多网友说FusionCompute不支持嵌套虚拟化，实际通过实验证明，可以支持。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/b9fbfa560d04352f9231908ab12e9954.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8f23debcadaf3ea27fc15fda65509ea2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c4a8329c7e9e37ea3be1821e2e8458fc.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/0d2979549c02db37276953fe6643eca3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/df3d74829d25ebdb91dd4b94a70932c8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d66cb0c1d862286b554e21ea7b361d72.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c2770eb34a87503ef075d2c205c53b23.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3ac67dff02773333c7b37b103c768cc3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/46040d8007968b309a293a516bf10372.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/862e773dc76abb100cb4fcaa42511541.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8050b40d7cdf0ae66f493493d42a439c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c3c8253007b1308ddef62f966b7d56f1.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6e68490a5ebddd38e01c4d0033a60a58.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7e21775aa68b4f87117590ef7779e0b6.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c6a331144799b136173839bc71a1101c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/45c55a4bf6eb254140597c8f51b9bd74.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e50c9dba49898acf0d3a09bf140cb573.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/07796298430eb472387f0ded73e4cfa3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/30e954af7060e817a5644851d0766efb.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/63a5f88101a2e669013530089b2245ef.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/03beb8a448082829cd311bec08df9a39.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/f79ea321f8faa707a8827dc1efecb39d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/f1f5854c79cb27ba5d93e991b5c63793.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a15a23d6e708631357ecf020b57b0ffb.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c75499ea3ae37b0b90246fcceaf83102.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c0480ca187844fe57cc3676a77cd8513.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d40458c51298f7c953a26b46eb31960b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8e87954678113fbdc273a9c9a76209cf.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/56a2303cf4767365cc3ec27f4416ed2e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7dda85f6c870c4c050db44f7fa7f1e25.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e3604af7c4b57619359d36dd5876178e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/084029e5d29a771bd0b17679791e4b93.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a52a977aed91d0c205be981f20c6cbec.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/1adb2837a2dc559df0bc9aedf755608a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7072c9d77c9df18b1ab71ecf8366f138.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/ad11f90f58cc5d99fa7825547e9d094e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/451f6053e58f720faab7c58cbdb25c87.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7333eadab77c9b03e5eaca153668f671.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6b330f16a2438f3ee49b5b683ef8a5bf.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/971bcd7f5c551ba7fa9016ac8c4638a3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/ed25d4e77ee3ffbc16f026cc0027ac95.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/156ac230142ed5d0bfa10f5599e5d0f5.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e35d0b6828b84648a7c112fa1bee9bef.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e5aae2500bfe00c5bf2f5dbf37404f68.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/422c96fb21e085ed6aa70bd11676e243.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6c3c0550d10545747586567a855585b3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/163fdd29dd132b59251ff2981d7a3436.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e03ed1b2e418dd9e8134b4553f7b145e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/060f98d52840104aee9038a7396996a2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/dfbe884cc56d2751b9a196f2c999713d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/45955618e539ca5d1d875a37c44cf42c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/4fd814e9afaf5d8530d1b06eb9fa2170.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/66d0f2ecab8d16a859a45f8b54f39c4a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/bb3f5945bd406d0ff2a8a3f62cf5a07e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/edb3db17341a32c16456855fe9813bfc.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/fbfca739bbc3d10ac3636746061131be.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/fbd55412cbfcc6ef2e52eca441353ddd.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/546e1503ee156f6aa2df8ccf4c42dc65.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/509bd8ba43f2e7537dead4618362a309.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/cc4b6e8af3a02351bf5511c67b599d42.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e2a012bc74b83f7dc7d3b06472f3d7f0.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5f77bb3b33ee885221b26b0ccfa27792.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/f01827997a4f4ac6f94388d344aff450.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3d1884e3e15493a27fb6e51ea610e6c7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/b14ba321f426ced2646d4a7fbe7749ad.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/fa5afde7bd09ac342c175f66a2c591f1.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/77232751cb81e69e0290654c197d08f2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e18692f8b19afb1b3a59f287c589be05.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/77bcdd60292f47a18b5512a369edc736.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3073296bddd9b2a1eee75fd69f7c7f07.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/aac5df18c3977a135be7cf4055f2ee5e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/ef63da0f9efebe4f91396fae6d69523b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8229cd07ee38bc3ca8d42e1ffb8c9a35.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3331991046b2df90ee078e9c0c31bb68.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/9db45784d29460e1ee917471f6c2f359.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/350c46b69873996dcb70c7a62a7204fb.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a290b96420cd29024a56a8943392faa8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/32da5eba2143fa4d017f7a02b28d8bea.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/dca41aaa05e6c783779a5e8a19d1e038.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/9bbcbd5757b2cd2b81890d51cf809fa7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/aa156a7c0e6adb71b4f5a2990f915ca8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/dd5e799d910afb4fbf3efe263b5cb964.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/0520dfd41f32bc43c65aa142491c365e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/1c8648f4f3be6e80bbb0bbdba58e9cc5.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/762c0230bda063791708e25cc847d1ea.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5c7a9ed234d9e1d853504fdf09d3aea7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3e2fe2d4988de98259938209cf10cb75.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3ecaa8d5aa86ab15c646a67247205b5b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/deae22bbe9fa475f7c76b01241481fc9.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/ac88842f8dfbc86c8d35ad1fa336f6ef.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/f37ece368ad92b879282a5b7184c497e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/33404450d0c79042122b17e855f8b59a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/2845fc7321afb7b09f890c0e47eeba75.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6ea9a9357e16fbebab0154118ee327e5.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/1710db872d1aec84dfb36d5bf1822466.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/22be8a9d1d39ee4c3a47f1d5cfbeec66.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/493ef64f8478c2fa193039f41753e21e.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d6a608ab26c7c8d2d9e4be5364f2e2da.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/22924fe5ea1dd9b137d64e7fe3fb123c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/39a54d84be826ea66f546cd51dca149d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/9be45bd06f718e146e7f170f220fe948.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/0b33a646b56ac2519c60f4ff32e5a6c4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/03b7e899667a30ea4cc72ecff41e904a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/fdf43f898b24deec15ec546bb94e39e4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6413e8489105618ac798bb6857df1fc2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/bd39af154663bb74fc9f1f675b4b9a32.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/41b23165b26e6eaa7876e4864c5e873d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/206ad41db376005e36987963cb79a4e3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/003b9a8b0644d102768037fef6378516.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/78e09c7a791d9dbe6266d47b17abe22b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d106c663e48734db9990210dd27f976d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/4cf20c807820c0ea1d851051c51a8af5.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/76a1e2f0d66e336f9c438830045b4d4b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/cb09bee2fc1d808969c91d071ac1887b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/1ebe164d8681af244c01641f57968e29.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/472a40b68041175950512cac0666825a.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/324b3289943305ae8751e73a8addbd3f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/067337827268465c7207daa2073ad757.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/04fd036d5cda42f0bae7a2f6e0a81655.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e87db5b7304354e035441c6dad680931.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c883b5b79d5f111d34a7a3e29bc32bb3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/91e7a00ed297c074eb0173f0f70b3355.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8c751fafb9d4c06b213e5a4be43dc9fc.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/eca33a27429492a018a454ea008042c7.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/70863810f1ba39a56fed51ef839ad57b.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7c9d7d478b3fdeca4cf0ca89ea86abe2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/be36beeacf6add237d17a49dfb117b43.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5bf3a4118e07f0372bbeb5e9a4b51949.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7591cc994d84d8162f4fb0a51c414c2d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c8aadfebbb5abc2b8d52a64531956bf3.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d1e25b761454c7d05c00782fc7987e7c.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5384271ee72b100e57116be014748fe8.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a9b92c93e3d839ca4a2e185591817b9d.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a20fe9737dce6249901beb04270d2e01.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/0b05c9c2960af06ba1df7921f74436ae.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/4f699afd9b83e2ab505a0d9e86997b60.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5c6fc7d6c70c4116636373c8086c7128.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/13afbde930536ef319cacbb2d199ca3f.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e0a6e99e3cb77fa3d835deb49bcd0141.png">
+<meta property="article:published_time" content="2022-11-27T04:40:48.000Z">
+<meta property="article:modified_time" content="2022-11-27T04:42:19.542Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="HCIA-Cloud">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/b9fbfa560d04352f9231908ab12e9954.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if('19491001'){
+          if (prompt('请输入密码') !== '19491001'){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>利用kvm构建FusionCompute实验环境 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用kvm构建FusionCompute实验环境
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-11-27 12:40:48 / 修改时间：12:42:19" itemprop="dateCreated datePublished" datetime="2022-11-27T12:40:48+08:00">2022-11-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HuaWei/" itemprop="url" rel="index"><span itemprop="name">HuaWei</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HuaWei/cloud/" itemprop="url" rel="index"><span itemprop="name">cloud</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HuaWei/cloud/HCIA/" itemprop="url" rel="index"><span itemprop="name">HCIA</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+            <div class="post-description">利用物理机上kvm中创建vm，然后在vm中部署FusionCompute实验环境，并且可以在CNA中正确创建vm，即使用了嵌套虚拟化方式，很多网友说FusionCompute不支持嵌套虚拟化，实际通过实验证明，可以支持。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="kvm的vm中部署FusionCompute过程"><a href="#kvm的vm中部署FusionCompute过程" class="headerlink" title="kvm的vm中部署FusionCompute过程"></a>kvm的vm中部署FusionCompute过程</h1><p>架构决定了该处理器的新旧程度，比如Intel的第二代酷睿i系列架构为Sandy Bridge，第三代架构为Ivy Bridge，第四代架构为Haswell和Crystallwell。</p>
+<p>一般预设的硬体是较旧的 pc-i440fx 晶片， 但是新的应该使用 q35 比较好！</p>
+<p><strong>物理机：10.15.2.71，系统为rocky Linux 8.7版本</strong></p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/b9fbfa560d04352f9231908ab12e9954.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(2).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8f23debcadaf3ea27fc15fda65509ea2.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(3).png">
+
+<p><strong>安装kvm环境：</strong></p>
+<p><strong>yum install qemu-kvm libvirt virt-install virt-manager virt-viewer dejavu-lgc-sans-fonts -y</strong></p>
+<p>Package Architecture Version Repository Size</p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>Installing:</p>
+<p>dejavu-lgc-sans-fonts noarch 2.35-7.el8 appstream 1.1 M</p>
+<p>libvirt x86_64 8.0.0-10.module+el8.7.0+1084+97b81f61 appstream 64 k</p>
+<p>virt-install noarch 3.2.0-4.el8 appstream 80 k</p>
+<p>virt-manager noarch 3.2.0-4.el8 appstream 620 k</p>
+<p>virt-viewer x86_64 9.0-12.el8 appstream 425 k</p>
+<p>Installing dependencies:</p>
+<p>libgovirt x86_64 0.3.7-4.el8 appstream 85 k</p>
+<p>libvirt-client x86_64 8.0.0-10.module+el8.7.0+1084+97b81f61 appstream 413 k</p>
+<p>libvirt-daemon-config-nwfilter x86_64 8.0.0-10.module+el8.7.0+1084+97b81f61 appstream 72 k</p>
+<p>python3-argcomplete noarch 1.9.3-6.el8 appstream 59 k</p>
+<p>python3-libvirt x86_64 8.0.0-2.module+el8.7.0+1084+97b81f61 appstream 331 k</p>
+<p>virt-manager-common noarch 3.2.0-4.el8 appstream 1.0 M</p>
+<p>Transaction Summary</p>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<p>rocky-Linux 8.7 默认就开启了嵌套虚拟化状态：</p>
+<p>cat &#x2F;sys&#x2F;module&#x2F;kvm_intel&#x2F;parameters&#x2F;nested</p>
+<p>[root@10-15-2-71 ~]# cat &#x2F;sys&#x2F;module&#x2F;kvm_intel&#x2F;parameters&#x2F;nested</p>
+<p>1</p>
+<p>[root@10-15-2-71 ~]#</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c4a8329c7e9e37ea3be1821e2e8458fc.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(4).png">
+
+<h2 id="CNA"><a href="#CNA" class="headerlink" title="CNA"></a>CNA</h2><p><strong>部署vm，安装CNA：</strong></p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/0d2979549c02db37276953fe6643eca3.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image.png">
+
+<p><strong>[root@10-15-2-71 CNA01]# qemu-img create -f qcow2 CNA01-01.qcow2 200G</strong></p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/df3d74829d25ebdb91dd4b94a70932c8.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(1).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d66cb0c1d862286b554e21ea7b361d72.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(5).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c2770eb34a87503ef075d2c205c53b23.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(6).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3ac67dff02773333c7b37b103c768cc3.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(7).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/46040d8007968b309a293a516bf10372.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(8).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/862e773dc76abb100cb4fcaa42511541.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(9).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8050b40d7cdf0ae66f493493d42a439c.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(10).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c3c8253007b1308ddef62f966b7d56f1.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(11).png">
+
+<p>将主板芯片组改成Q35，这个是比较新的芯片组。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6e68490a5ebddd38e01c4d0033a60a58.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(12).png">
+
+<p>CPU选择直通host的CPU。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7e21775aa68b4f87117590ef7779e0b6.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(13).png">
+
+<p>系统盘我们选择virtIO总线，不作为本地存储硬盘。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c6a331144799b136173839bc71a1101c.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(14).png">
+
+<p>网卡这里选择e1000，不要选择virtIO型号，否则VRM无法添加CNA主机。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/45c55a4bf6eb254140597c8f51b9bd74.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(15).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e50c9dba49898acf0d3a09bf140cb573.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(16).png">
+
+<p>增加一块硬盘，作为CNA的本地存储。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/07796298430eb472387f0ded73e4cfa3.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(17).png">
+
+<p>使用SATA总线类型。不要使用SCSI或者virtIO总线类型，否则VRM中扫描本地硬盘存储的时候，扫描不到本地硬盘。</p>
+<p>然后编辑vm的xml配置文件，增加bios支持。</p>
+<p>[root@10-15-2-71 CNA01]# virsh list –all</p>
+<p>Id Name State</p>
+<p>-——————————</p>
+<p>3 win10 running</p>
+<p>5 centos7.9_01 running</p>
+<p>- CNA01 shut off</p>
+<p>[root@10-15-2-71 CNA01]# virsh edit CNA01</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/30e954af7060e817a5644851d0766efb.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/63a5f88101a2e669013530089b2245ef.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/03beb8a448082829cd311bec08df9a39.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<p>点击开始安装。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/f79ea321f8faa707a8827dc1efecb39d.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<p>原因是光驱使用的是IDE模式的，而Q35主板芯片组不支持IDE模式。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/f1f5854c79cb27ba5d93e991b5c63793.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a15a23d6e708631357ecf020b57b0ffb.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<p>这里改成SATA总线类型。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c75499ea3ae37b0b90246fcceaf83102.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(24).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c0480ca187844fe57cc3676a77cd8513.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(25).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d40458c51298f7c953a26b46eb31960b.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(26).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8e87954678113fbdc273a9c9a76209cf.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(27).png">
+
+<p>sda是SATA总线类型的硬盘。</p>
+<p>vda是virtIO总线类型的硬盘</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/56a2303cf4767365cc3ec27f4416ed2e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(28).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7dda85f6c870c4c050db44f7fa7f1e25.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(29).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e3604af7c4b57619359d36dd5876178e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(30).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/084029e5d29a771bd0b17679791e4b93.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(31).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a52a977aed91d0c205be981f20c6cbec.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(32).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/1adb2837a2dc559df0bc9aedf755608a.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(33).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7072c9d77c9df18b1ab71ecf8366f138.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(34).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/ad11f90f58cc5d99fa7825547e9d094e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(35).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/451f6053e58f720faab7c58cbdb25c87.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(36).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7333eadab77c9b03e5eaca153668f671.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(37).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6b330f16a2438f3ee49b5b683ef8a5bf.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(38).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/971bcd7f5c551ba7fa9016ac8c4638a3.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(39).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/ed25d4e77ee3ffbc16f026cc0027ac95.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(40).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/156ac230142ed5d0bfa10f5599e5d0f5.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(41).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e35d0b6828b84648a7c112fa1bee9bef.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(42).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e5aae2500bfe00c5bf2f5dbf37404f68.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(43).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/422c96fb21e085ed6aa70bd11676e243.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(44).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6c3c0550d10545747586567a855585b3.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(45).png">
+
+<p>bios信息。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/163fdd29dd132b59251ff2981d7a3436.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(46).png">
+
+<p>系统信息。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e03ed1b2e418dd9e8134b4553f7b145e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(47).png">
+
+<p>主板信息。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/060f98d52840104aee9038a7396996a2.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(48).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/dfbe884cc56d2751b9a196f2c999713d.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(49).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/45955618e539ca5d1d875a37c44cf42c.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(50).png">
+
+<p>处理器芯片。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/4fd814e9afaf5d8530d1b06eb9fa2170.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(51).png">
+
+<p>由于cpu采用的是直通模式，所以，这里看到的是物理宿主机host上的cpu信息。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/66d0f2ecab8d16a859a45f8b54f39c4a.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(52).png">
+
+<h2 id="VRM"><a href="#VRM" class="headerlink" title="VRM"></a>VRM</h2><p><strong>部署vm，安装VRM</strong></p>
+<p><strong>[root@10-15-2-71 VRM]# qemu-img create -f qcow2 VRM-01.qcow2 200G</strong></p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/bb3f5945bd406d0ff2a8a3f62cf5a07e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(53).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/edb3db17341a32c16456855fe9813bfc.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(54).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/fbfca739bbc3d10ac3636746061131be.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(55).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/fbd55412cbfcc6ef2e52eca441353ddd.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(56).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/546e1503ee156f6aa2df8ccf4c42dc65.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(57).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/509bd8ba43f2e7537dead4618362a309.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(58).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/cc4b6e8af3a02351bf5511c67b599d42.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(59).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e2a012bc74b83f7dc7d3b06472f3d7f0.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(60).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5f77bb3b33ee885221b26b0ccfa27792.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(61).png">
+
+<p>同理，Q35芯片组不支持IDE，因此，需要改成SATA模式。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/f01827997a4f4ac6f94388d344aff450.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(62).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3d1884e3e15493a27fb6e51ea610e6c7.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(63).png">
+
+<p>使得在xml界面中可以直接编辑保存。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/b14ba321f426ced2646d4a7fbe7749ad.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(64).png">
+
+<p>点击开始安装，过程同CNA模式。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/fa5afde7bd09ac342c175f66a2c591f1.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(65).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/77232751cb81e69e0290654c197d08f2.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(66).png">
+
+<p>宿主物理机host配置端口转发，以便远程可以访问：</p>
+<p>iptables -t nat -A PREROUTING -p tcp –dport 443 -j DNAT –to-destination 192.168.122.119:8443</p>
+<p>iptables -t nat -A POSTROUTING -p tcp -d 192.168.122.119 –dport 8443 -j SNAT –to-source 192.168.122.1</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e18692f8b19afb1b3a59f287c589be05.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(67).png">
+
+<p>增加SNAT使得物理机上的kvm虚机可以通过nat上网。</p>
+<p>iptables -t nat -A POSTROUTING -s 192.168.122.0&#x2F;24 -j MASQUERADE</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/77bcdd60292f47a18b5512a369edc736.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(68).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3073296bddd9b2a1eee75fd69f7c7f07.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(69).png">
+
+<p>admin默认口令：IaaS@PORTAL-CLOUD8!</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/aac5df18c3977a135be7cf4055f2ee5e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(70).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/ef63da0f9efebe4f91396fae6d69523b.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(71).png">
+
+<p>可以看到，添加CNA的时候，就是在对应CNA上创建ovs网桥。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8229cd07ee38bc3ca8d42e1ffb8c9a35.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(72).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3331991046b2df90ee078e9c0c31bb68.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(73).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/9db45784d29460e1ee917471f6c2f359.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(74).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/350c46b69873996dcb70c7a62a7204fb.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(75).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a290b96420cd29024a56a8943392faa8.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(76).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/32da5eba2143fa4d017f7a02b28d8bea.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(77).png">
+
+<p>注意，这里要能够看到cpu，bios，主板等这些信息，否则说明当前环境不支持嵌套虚拟化，那么就没有办法创建vm了。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/dca41aaa05e6c783779a5e8a19d1e038.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(78).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/9bbcbd5757b2cd2b81890d51cf809fa7.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(79).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/aa156a7c0e6adb71b4f5a2990f915ca8.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(80).png">
+
+<p>扫描本地存储设备。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/dd5e799d910afb4fbf3efe263b5cb964.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(81).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/0520dfd41f32bc43c65aa142491c365e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(82).png">
+
+<p>之前增加的SATA总线硬盘。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/1c8648f4f3be6e80bbb0bbdba58e9cc5.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(83).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/762c0230bda063791708e25cc847d1ea.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(84).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5c7a9ed234d9e1d853504fdf09d3aea7.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(85).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3e2fe2d4988de98259938209cf10cb75.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(86).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/3ecaa8d5aa86ab15c646a67247205b5b.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(87).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/deae22bbe9fa475f7c76b01241481fc9.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(88).png">
+
+<p>vlan0，就是无标签数据包，即数据包不打vlan tag，因此，相当于是桥接了。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/ac88842f8dfbc86c8d35ad1fa336f6ef.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(89).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/f37ece368ad92b879282a5b7184c497e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(90).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/33404450d0c79042122b17e855f8b59a.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(91).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/2845fc7321afb7b09f890c0e47eeba75.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(92).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6ea9a9357e16fbebab0154118ee327e5.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(93).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/1710db872d1aec84dfb36d5bf1822466.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(94).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/22be8a9d1d39ee4c3a47f1d5cfbeec66.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(95).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/493ef64f8478c2fa193039f41753e21e.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(96).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d6a608ab26c7c8d2d9e4be5364f2e2da.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/22924fe5ea1dd9b137d64e7fe3fb123c.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(98).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/39a54d84be826ea66f546cd51dca149d.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(99).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/9be45bd06f718e146e7f170f220fe948.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(100).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/0b33a646b56ac2519c60f4ff32e5a6c4.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(101).png">
+
+<p>上传ISO镜像到本地存储。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/03b7e899667a30ea4cc72ecff41e904a.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(102).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/fdf43f898b24deec15ec546bb94e39e4.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/6413e8489105618ac798bb6857df1fc2.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/bd39af154663bb74fc9f1f675b4b9a32.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(105).png">
+
+<p>上传文件过程是首先存放在.uploads目录中，临时文件，待完全上传之后，会放入在.userfiles文件夹中。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/41b23165b26e6eaa7876e4864c5e873d.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(106).png">
+
+<p>在这里也可以进行上传。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/206ad41db376005e36987963cb79a4e3.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(107).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/003b9a8b0644d102768037fef6378516.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(108).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/78e09c7a791d9dbe6266d47b17abe22b.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(109).png">
+
+<p>正常安装系统即可。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d106c663e48734db9990210dd27f976d.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/4cf20c807820c0ea1d851051c51a8af5.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/76a1e2f0d66e336f9c438830045b4d4b.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<p>网络使用的是nat方式。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/cb09bee2fc1d808969c91d071ac1887b.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(113).png">
+
+<p>因为使用的是vlan0方式。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/1ebe164d8681af244c01641f57968e29.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/472a40b68041175950512cac0666825a.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/324b3289943305ae8751e73a8addbd3f.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(116).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/067337827268465c7207daa2073ad757.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(117).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/04fd036d5cda42f0bae7a2f6e0a81655.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e87db5b7304354e035441c6dad680931.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<p>tap即是vm的接口。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c883b5b79d5f111d34a7a3e29bc32bb3.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/91e7a00ed297c074eb0173f0f70b3355.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<p>192.168.122.0是物理机的nat网段，因此，有dhcp，并且能够进行snat，物理机上的iptables配置了。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/8c751fafb9d4c06b213e5a4be43dc9fc.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(122).png">
+
+<p>因此，vm中的ip为122段dhcp分配，网关为122.1，即物理机上的nat网关。</p>
+<p>因为我们使用的是vlan0，因此，vm和CNA之间就是桥接了，即没有vlan tag。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/eca33a27429492a018a454ea008042c7.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/70863810f1ba39a56fed51ef839ad57b.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7c9d7d478b3fdeca4cf0ca89ea86abe2.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/be36beeacf6add237d17a49dfb117b43.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(126).png">
+
+<p>现在CNA中建立的vm可以上外网。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5bf3a4118e07f0372bbeb5e9a4b51949.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(127).png">
+
+<p>安装bzip2工具包，目的是安装vm-tools时解压bzip压缩包。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/7591cc994d84d8162f4fb0a51c414c2d.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(128).png">
+
+<p>目前没有安装Tools工具，因此，对于vm的一些监控信息和查看的信息，都无法准确查看，因此，要安装Tools工具。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/c8aadfebbb5abc2b8d52a64531956bf3.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(129).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/d1e25b761454c7d05c00782fc7987e7c.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(130).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5384271ee72b100e57116be014748fe8.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(131).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a9b92c93e3d839ca4a2e185591817b9d.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(132).png">
+
+<p>reboot重启。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/a20fe9737dce6249901beb04270d2e01.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(133).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/0b05c9c2960af06ba1df7921f74436ae.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(134).png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/4f699afd9b83e2ab505a0d9e86997b60.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(135).png">
+
+<p>vm安装了tools之后，相关vm的监控信息就可以看到了。</p>
+<p>可以在物理机host上做端口转发，使得可以远程连接到CNA中的vm。</p>
+<p><strong>iptables -t nat -A PREROUTING -p tcp –dport 22044 -j DNAT –to-destination 192.168.122.122:22</strong></p>
+<p><strong>iptables -t nat -A POSTROUTING -p tcp -d 192.168.122.122 –dport 22 -j SNAT –to-source 192.168.122.1</strong></p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/5c6fc7d6c70c4116636373c8086c7128.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/13afbde930536ef319cacbb2d199ca3f.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\enhtmlclip\\Image(137).png">
+
+<p>此时就连接到了CNA中的vm了。</p>
+<img src="/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/e0a6e99e3cb77fa3d835deb49bcd0141.png" class="" title="C:\\Users\\ADMINI\~1\\AppData\\Local\\Temp\\Image.png">
+
+<p>vm中下载安装一些软件，可以看到网络有流量了。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/%E5%88%A9%E7%94%A8kvm%E6%9E%84%E5%BB%BAFusionCompute%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83/" title="利用kvm构建FusionCompute实验环境">http://www.leo101018.xyz/2022/11/27/HuaWei/cloud/HCIA/02/利用kvm构建FusionCompute实验环境/利用kvm构建FusionCompute实验环境/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/HCIA-Cloud/" rel="tag"><i class="fa fa-tag"></i> HCIA-Cloud</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/11/18/HuaWei/cloud/HCIA/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/HCIA-cloud-V4.0-%E5%AE%9E%E9%AA%8C%E6%89%8B%E5%86%8C/" rel="prev" title="HCIA-cloud-V4.0-实验手册">
+      <i class="fa fa-chevron-left"></i> HCIA-cloud-V4.0-实验手册
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/11/27/HuaWei/cloud/HCIA/02/HCIA-Cloud-02/HCIA-Cloud-02/" rel="next" title="HCIA-Cloud-02">
+      HCIA-Cloud-02 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kvm%E7%9A%84vm%E4%B8%AD%E9%83%A8%E7%BD%B2FusionCompute%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">kvm的vm中部署FusionCompute过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CNA"><span class="nav-number">1.1.</span> <span class="nav-text">CNA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#VRM"><span class="nav-number">1.2.</span> <span class="nav-text">VRM</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">334k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

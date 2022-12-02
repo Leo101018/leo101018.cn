@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="标识符、常量（字面量）、变量、类型、运算符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="04-标识符、常量（字面量）、变量和数据类型、运算符">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="标识符、常量（字面量）、变量、类型、运算符">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004214518848.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004214805746.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004215024906.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004215140584.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004215515107.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004220048802.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004220409808.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004220730005.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004221957987.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004222512443.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004222613069.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004234949377.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004235010409.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004223055828.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004223327366.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004233905882.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004234246121.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004234426297.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004225305700.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004225941405.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004225958659.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230012172.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230310108.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230544013.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230716894.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230949690.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004233201050.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004233454906.png">
+<meta property="article:published_time" content="2022-10-04T15:59:02.000Z">
+<meta property="article:modified_time" content="2022-10-27T04:43:08.107Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="JavaSE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004214518848.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if(''){
+          if (prompt('请输入密码') !== ''){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>04-标识符、常量（字面量）、变量和数据类型、运算符 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          04-标识符、常量（字面量）、变量和数据类型、运算符
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-04 23:59:02" itemprop="dateCreated datePublished" datetime="2022-10-04T23:59:02+08:00">2022-10-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-27 12:43:08" itemprop="dateModified" datetime="2022-10-27T12:43:08+08:00">2022-10-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/JavaSE/" itemprop="url" rel="index"><span itemprop="name">JavaSE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+            <div class="post-description">标识符、常量（字面量）、变量、类型、运算符</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="04-标识符、常量（字面量）、变量和数据类型、运算符"><a href="#04-标识符、常量（字面量）、变量和数据类型、运算符" class="headerlink" title="04-标识符、常量（字面量）、变量和数据类型、运算符"></a>04-标识符、常量（字面量）、变量和数据类型、运算符</h1><h2 id="Java程序结构"><a href="#Java程序结构" class="headerlink" title="Java程序结构"></a>Java程序结构</h2><img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004214518848.png" class="" title="image-20221004214518848">
+
+
+
+<p>其中数据类型确定要存储在内存中的数据的类型；变量是存储数据的基本单元；运算符是一个符号，用于操作一个或多个参数以得出结果；程序是按顺序执行的，控制流语句允许改变此顺序。</p>
+<h2 id="标识符、关键字和保留字"><a href="#标识符、关键字和保留字" class="headerlink" title="标识符、关键字和保留字"></a>标识符、关键字和保留字</h2><p>在Java语言中，通过标识符来表示一些元素的名字，比如变量名、类名、方法名和包名等。Java中的标识符要符合下面的规则：</p>
+<ol>
+<li>标识符必须以字母、下划线（_）、数字或美元（$）组成；</li>
+<li>标识符必须由字母、下划线（_）或美元（$）开头，不能由数字开头；</li>
+<li>标识符不能是关键字或者保留字；</li>
+<li>标识符中不能有空格;</li>
+<li>标识符没有长度限制。</li>
+</ol>
+<p>例如，A_123，$abc，length都是合法的标识符，而1a，s+g就是非法的标识符，各种不同的元素命名规则如下图</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004214805746.png" class="" title="image-20221004214805746">
+
+<p>提示：</p>
+<ol>
+<li>Java区分大小写，因此area和Area是两个不同的标识符；</li>
+<li>为提高程序的可读性，建议使用有意义的命名标识符，如area，length等。</li>
+</ol>
+<p>命名规范： 软性建议<br>类名规范：首字母大写，后面每个单词首字母大写（大驼峰式）。<br>方法名规范： 首字母小写，后面每个单词首字母大写（小驼峰式）。<br>变量名规范：全部小写。</p>
+<p> <strong>关键字和保留字</strong><br>下表是Java中的关键字和保留字，关键字是对Java的编译器有特殊的意义，他们用来表示一种数据类型，或者表示程序的结构等；保留字是为Java预留的关键字，虽然现在没有作为关键字，但在以后的升级版本中有可能作为关键字，关键字和保留字如下表所示。</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004215024906.png" class="" title="image-20221004215024906">
+
+
+
+<h2 id="常量（字面量）"><a href="#常量（字面量）" class="headerlink" title="常量（字面量）"></a>常量（字面量）</h2><p><strong>常量（字面量）：也叫做字面量</strong>，我们可以直观看到的值，是指在Java程序中固定不变的数据。</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004215140584.png" class="" title="image-20221004215140584">
+
+
+
+<h2 id="常量（使用final声明的常变量）"><a href="#常量（使用final声明的常变量）" class="headerlink" title="常量（使用final声明的常变量）"></a>常量（使用final声明的常变量）</h2><p>常量<br>在程序中往往会存在变量值不需要变化的情况，比如表示圆周率的变量，比如表示黄金分割点的变量，那么<strong>这些值不变的变量就叫常量</strong>。<br>在Java中，<strong>常量用关键字final来表示（在后面章节会详细讲解）</strong>，它也是有数据类型的，语法如下：<br><strong>final数据类型 常量名 &#x3D; 初始值;</strong><br>提示：</p>
+<ol>
+<li><p><strong>常量在声明的时候必须初始化；</strong></p>
+</li>
+<li><p><strong>常量在初始化后值不能再更改，否则会引起错误。</strong><br> 例如：<br> final double PI &#x3D; 3.14;</p>
+</li>
+</ol>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>变量（variable）是用来存储数据的一块存储区域，在程序运行中它的值可以发生变化。变量可以存放一种数据类型的值，Java程序在运行加载时会根据变量的不同数据类型来分配不同的内存空间，变量的数据类型在声明时指定。<br>变量是指在程序的运行过程中随时可以发生变化的量，作用是：<br>1．变量是程序中数据的临时存放场所<br>2．保存程序运行时用户输入的数据<br>3．特定的运算结果等</p>
+<p><strong>变量的声明</strong><br>一个变量只有在声明后才有效，声明的作用就是确定该变量要存储的数据类型。声明变量的语法格式如下：<br>数据类型 变量名;<br>如果要同时声明多个相同数据类型的变量，可以如下写：<br>数据类型 变量名1,变量名2;<br>代码举例如下：<br>int number, max;</p>
+<p>注意，变量必须要先声明，后使用。</p>
+<p><strong>在局部作用域（例如函数体内）内声明的变量必须进行初始化才能够使用，否则就是一个随机值，不能够直接使用，编译会提示未初始化的变量错误。</strong></p>
+<p>变量在声明后，不能直接访问，只有被赋值的变量才能够被访问，否则就会出现运行错误。</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004215515107.png" class="" title="image-20221004215515107">
+
+<p><strong>局部变量必须进行初始化。</strong></p>
+<p><strong>变量的赋值</strong><br><strong>第一次给变量赋值叫”初始化”。</strong>使用等号”&#x3D;”来进行赋值，语法如下：<br>变量名 &#x3D; 数据值;<br>例如：<br>int number;<br>number &#x3D; 1000;<br>也可以把变量的声明和初始化合用一个语句实现出来，例如上面两行代码就可以改写成一行代码：<br>int number &#x3D; 1000;<br>每个已经声明了数据类型的存储变量只能存储对应类型的数据。如下代码是正确的：<br>int ii &#x3D; 100;<br>double pi &#x3D; 3.14;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">VariableDemo</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">( String args[])</span> &#123;</span><br><span class="line">        <span class="type">double</span> salary; <span class="comment">//声明变量</span></span><br><span class="line">        salary = <span class="number">1500.00</span>; <span class="comment">//变量赋初值</span></span><br><span class="line">        System.out.println(salary); <span class="comment">//变量的访问</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004220048802.png" class="" title="image-20221004220048802">
+
+<p>注意，Java中的变量如图，就是这个内存区域中存储的是5，这个内存区域就是变量a，不同于Python中的变量是一种指向的关系。</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>在Java中，数据类型分为两大类：<br><strong>基本数据类型：8种基本数据类型</strong><br>● 字符型<br>● 布尔型<br>● 数值型<br>  ○ 整型<br>  ○ 浮点型<br><strong>引用数据类型：存储地址的引用</strong><br>● 类<br>● 接口<br>● 数组</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004220409808.png" class="" title="image-20221004220409808">
+
+<p>有的说法，java的数据类型中的复合数据类型，实际上就是引用数据类型，就是类，接口，数组，这些。</p>
+<p>Java的数据类型分为两大类：<br>基本数据类型：包括 整数 、 浮点数 、 字符 、 布尔 。<br>引用数据类型：包括 类 、 数组 、 接口 。</p>
+<p>基本数据类型：</p>
+<p>　　整数型 byte short int long<br>　　浮点型 float double<br>　　字符型 char<br>　　布尔型 boolean</p>
+<p>引用数据类型：</p>
+<p>　　字符串、数组、类、接口、Lambda</p>
+<p>注意事项：<br>\1. <strong>字符串不是基本类型，而是引用类型。</strong><br>\2. <strong>浮点型可能只是一个近似值，并非精确的值。</strong><br>\3. <strong>数据范围与字节数不一定相关，例如float数据范围比long更加广泛，但是float是4字节，long是8字节。</strong><br>\4. <strong>浮点数当中默认类型是double。如果一定要使用float类型，需要加上一个后缀F。</strong><br>　<strong>如果是整数，默认为int类型，如果一定要使用long类型，需要加上一个后缀L。推荐使用大写字母后缀。</strong></p>
+<p>每个数据类型都有取值范围，编译器会对每种数据类型分配相应大小的存储空间。下面我们来详细介绍一下这8种基本数据类型。</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004220730005.png" class="" title="image-20221004220730005">
+
+<p><strong>Java中的默认类型：整数类型是 int ，声明long型后面需加上l或者L，否则会出错。浮点类型数据默认是 double 。</strong></p>
+<h3 id="整形"><a href="#整形" class="headerlink" title="整形"></a>整形</h3><table>
+<thead>
+<tr>
+<th>byte</th>
+<th>字节型</th>
+<th>1个字节（8位二进制）</th>
+<th>-128 到 127</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th>short</th>
+<th align="left">短整型</th>
+<th>2个字节（16位二进制）</th>
+<th>-2^15 到 2^15-1</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th>int</th>
+<th>整型</th>
+<th>4个字节（32位二进制）</th>
+<th>-2^31到 2^31-1</th>
+</tr>
+</thead>
+</table>
+<table>
+<thead>
+<tr>
+<th>long</th>
+<th>长整型</th>
+<th>8个字节（64位二进制）</th>
+<th>-2^63到 2^63-1</th>
+</tr>
+</thead>
+</table>
+<p><strong>Java中整型的四种表示形式</strong><br>十进制整数：0 ~ 9，注：第一位不能是0</p>
+<p>十六进制数：0 ~ 9 A ~ F, 注：必须以0x或0X开头<br>例如： 0X8A 0x12</p>
+<p>八进制整数：0 ~ 7，注：必须以0开头<br>例如： 0123 012</p>
+<p>二进制整数：0~1，注：必须以0B开头（在java1.7及以上版本可用）<br>例如： 0B1010</p>
+<p>例 在java中与语句int a &#x3D; 97;等效的声明语句是_____<br>A.int a &#x3D; 0X0061;<br>B.int a &#x3D; 0X61;<br>C.int a &#x3D; 0141;<br>D.int a &#x3D; 97.0;<br>答案：ABC</p>
+<h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><p>与整数类型相似，Java浮点数类型有固定的表示范围和字段长度，不受平台影响，浮点数据类型</p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>占空间大小</strong></th>
+<th><strong>值域</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>float</td>
+<td>单精度浮点型</td>
+<td>4个字节，精度约7位</td>
+<td>-3.403E38 ~ 3.403E38</td>
+</tr>
+<tr>
+<td>double</td>
+<td>双精度浮点型</td>
+<td>8个字节，精度约为17位</td>
+<td>-1.798E308 ~ 1.798E308</td>
+</tr>
+</tbody></table>
+<p>Java浮点数类型有两种表示形式，分别是十进制形式和科学计数法形式，具体表示方式如下：</p>
+<p>十进制数形式，例如：3.14 314.0 .314</p>
+<p>科学计数法形式，如：3.14e2 3.14E-1</p>
+<p><strong>Java浮点型常量默认为double型，如要声明一个常量为float型，则需在数字后面加f或F，</strong>如:<br>double d &#x3D; 12345.6<br><strong>float f &#x3D; 12.3F</strong></p>
+<p><strong>提示：</strong></p>
+<ol>
+<li><strong>带小数的数据默认是double型而非float型的；</strong></li>
+<li>定义float型数据需要后面紧跟”f”或”F”来表示，比如float f &#x3D; 2.1f；</li>
+<li>定义长整型数据，可以后面紧跟”l”或”L”来表示。</li>
+</ol>
+<h3 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h3><p>字符数据类型用于<strong>存放单个字符，每个字符占用2个字节（16位二进制）的内存空间</strong>。一个字符型数据由单引号括起来，使用”char”关键字来说明数据类型，语法如下：</p>
+<p>char letter &#x3D; ‘a’;</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004221957987.png" class="" title="image-20221004221957987">
+
+
+
+<p>字符类型是一个16位无符号整数，Java中字符类型的值是对应字符的编码, 是unicode编码，其中，英文部分的值与ascII编码一致。char是定长编码, 所有的字符都是16位。例如：</p>
+<p>‘A’ 对应的编码是0x0041</p>
+<p>‘中’对用的编码是 0x4e2d</p>
+<p>char类型在编码中: ‘0’<del>‘9’, ‘a’</del>‘z’, ‘A’~’Z’都是连续编码的，’0’与’\u0000’不是同一个字符，字符编码的最小值为0, 最大值是65535 ，也就是2^16-1，使用时要注意字符字面量使用单引号为定界符号。</p>
+<p><strong>提示：</strong></p>
+<ol>
+<li>字符型只表示一个字符，不能表示多个字符，比如’abc’是错的；</li>
+<li>字符型只能用单引号（’）括起来，用双引号（”）括起来的不是字符，而是字符串（String），比如”a”表示的不是char型字符而是String型字符串。</li>
+</ol>
+<p>Java还允许使用转义字符来表示特殊字符。转义字符用斜杠”\“打头，后面跟一个字符。</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>转义字符</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>退格键</td>
+<td>\b</td>
+<td>表示一次退格</td>
+</tr>
+<tr>
+<td>Tab键</td>
+<td>\t</td>
+<td>表示一个Tab空格</td>
+</tr>
+<tr>
+<td>换行符</td>
+<td>\n</td>
+<td>表示换行</td>
+</tr>
+<tr>
+<td>回车键</td>
+<td>\r</td>
+<td>表示回车</td>
+</tr>
+<tr>
+<td>斜杠</td>
+<td>\\</td>
+<td>表示斜杠</td>
+</tr>
+<tr>
+<td>单引号</td>
+<td>\‘</td>
+<td>表示单引号</td>
+</tr>
+<tr>
+<td>双引号</td>
+<td>\“</td>
+<td>表示双引号</td>
+</tr>
+</tbody></table>
+<p>转义字符用在一些特殊字符的表示上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EscapeCharDemo</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    System.out.println(<span class="string">&quot;escape\bchar&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;escape\tchar&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;escape\rchar&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;escape\nchar&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;\\我在斜线里\\&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;\&#x27;我在单引号里\&#x27;&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;我没有单引号&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;\&quot;我在双引号里\&quot;&quot;</span>);</span><br><span class="line">    System.out.println(<span class="string">&quot;我没有双引号&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004222512443.png" class="" title="image-20221004222512443">
+
+
+
+<p><strong>其中\b, \r，在java命令行中能够看到效果：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;escape\bchar&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;escape\tchar&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;escape\rchar&quot;</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;escape\nchar&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004222613069.png" class="" title="image-20221004222613069">
+
+
+
+<p><strong>ASCII码表</strong></p>
+<p>对于字符来说，存储的时候，会转为对应的ascII码来进行存储的。<br>因此，字符在计算机中的表示都是以整数来进行表示的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">  <span class="comment">//字符类型变量</span></span><br><span class="line">  <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">  <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">  <span class="comment">//字符类型和int类型计算</span></span><br><span class="line">  System.out.println(c+i);<span class="comment">//输出结果是98</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>ASCII（ American Standard Code for Information Interchange 美国标准信息交换码）。</strong></p>
+<p>在char类型和int类型计算的过程中，char类型的字符先查询编码表，得到97，再和1求和，结果为98。</p>
+<p>实际就是char类型提升为了int类型（自动类型转换）。char类型内存2个字节，int类型内存4个字节。</p>
+<p><strong>ASCII码表</strong></p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004234949377.png" class="" title="image-20221004234949377">
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004235010409.png" class="" title="image-20221004235010409">
+
+
+
+<p>java中1.3这种认为是double类型的，因此，1.3f这样表示1.3是float类型的。<br>c中非0即为真，因此可以while（1）这样，但是java中不行，java只能while（true）这样。</p>
+<h3 id="布尔类型"><a href="#布尔类型" class="headerlink" title="布尔类型"></a>布尔类型</h3><p>布尔数据类型由关键字boolean来表示，<strong>布尔型数据的值域只有两个值：true和false</strong>。例如，下面两行代码：</p>
+<p>boolean isOK &#x3D; true;</p>
+<p>boolean isFirst &#x3D; false;</p>
+<p><strong>提示：</strong></p>
+<ol>
+<li><strong>true和false都是小写，True、TRUE、False、FALSE都不是布尔型数据的值</strong>；</li>
+<li><strong>布尔型数据不能用数字0和1来表示真假，只能用true和false；</strong></li>
+<li><strong>布尔型数据默认值是false。</strong></li>
+</ol>
+<p><strong>例2.5 布尔数据类型</strong></p>
+<p>boolean flag;</p>
+<p>flag &#x3D; true;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Variable</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="comment">//定义字节型变量</span></span><br><span class="line">        <span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">        System.out.println(b);</span><br><span class="line">        <span class="comment">//定义短整型变量</span></span><br><span class="line">        <span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">1000</span>;</span><br><span class="line">        System.out.println(s);</span><br><span class="line">        <span class="comment">//定义整型变量</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">123456</span>;</span><br><span class="line">        System.out.println(i);</span><br><span class="line">        <span class="comment">//定义长整型变量</span></span><br><span class="line">        <span class="type">long</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">12345678900L</span>;</span><br><span class="line">        System.out.println(l);</span><br><span class="line">        <span class="comment">//定义单精度浮点型变量</span></span><br><span class="line">        <span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">5.5F</span>;</span><br><span class="line">        System.out.println(f);</span><br><span class="line">        <span class="comment">//定义双精度浮点型变量</span></span><br><span class="line">        <span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">8.5</span>;</span><br><span class="line">        System.out.println(d);</span><br><span class="line">        <span class="comment">//定义布尔型变量</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">bool</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        System.out.println(bool);</span><br><span class="line">        <span class="comment">//定义字符型变量</span></span><br><span class="line">        <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&#x27;A&#x27;</span>;</span><br><span class="line">        System.out.println(c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>long类型：建议数据后加L表示。<br>ﬂoat类型：建议数据后加F表示。</p>
+<p>注意事项：</p>
+<p>变量名称：在同一个大括号范围内，变量的名字不可以相同。否者会报重复定义的错误。<br>变量赋值：定义的变量，不赋值不能使用。</p>
+<p>变量要先定义后使用。</p>
+<p>每条语句最后要加分号;否则语法错误。</p>
+<h2 id="数据类型转换"><a href="#数据类型转换" class="headerlink" title="数据类型转换"></a>数据类型转换</h2><p>Java是强类型语言，要求赋值或传递时数据类型必须匹配，我们可以利用Java提供的数据类型的转换来消除这种错误。</p>
+<p>Java程序中要求参与的计算的数据，必须要保证数据类型的一致性，如果数据类型不一致将发生类型的转换。</p>
+<p><strong>Java提供了两种数据类型的转换方式：自动转换和强制转换</strong></p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004223055828.png" class="" title="image-20221004223055828">
+
+
+
+<h3 id="自动数据类型转换"><a href="#自动数据类型转换" class="headerlink" title="自动数据类型转换"></a>自动数据类型转换</h3><p>自动数据类型转换也称之为隐式类型转换，我们在数值数据类型中了解到，不同类型的数据会占用不同大小的存储空间，那么<strong>数据类型自</strong></p>
+<p><strong>动转换的原则就是</strong>：<strong>小空间的数据类型可以自动转换成大空间的数据类型</strong>，<strong>也就是说低精度的数据可以升级成高精度的数据</strong>，反之不行，</p>
+<p>我们可以理解成高精度的数据转换成低精度的数据会失去数据的精度，所以不能这样转换。数据类型的自动转换顺序如下图</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004223327366.png" class="" title="image-20221004223327366">
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">    <span class="comment">// byte x = b + i; // 报错</span></span><br><span class="line">    <span class="comment">//int类型和byte类型运算，结果是int类型</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> b + i;</span><br><span class="line">    System.out.println(j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运算结果，变量的类型将是 int 类型，这就是出现了数据类型的自动类型转换现象。</p>
+<p>byte 类型内存占有1个字节，在和 int 类型运算时会提升为 int 类型 ，自动补充3个字节，因此计算后的结果还是 int 类型。</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004233905882.png" class="" title="image-20221004233905882">
+
+
+
+<p>同理，当一个 int 类型变量和一个 double 变量运算时， int 类型将会自动提升为 double 类型进行运算。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">2.5</span>;</span><br><span class="line">    <span class="comment">//int类型和double类型运算，结果是double类型</span></span><br><span class="line">    <span class="comment">//int类型会提升为double类型</span></span><br><span class="line">    <span class="type">double</span> <span class="variable">e</span> <span class="operator">=</span> d+i;</span><br><span class="line">    System.out.println(e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>转换规则：</p>
+<p>范围小的类型向范围大的类型提升， byte、short、char 运算时直接提升为 int 。</p>
+<p>byte、short、char‐‐&gt;int‐‐&gt;long‐‐&gt;float‐‐&gt;double</p>
+<h3 id="强制数据类型转换"><a href="#强制数据类型转换" class="headerlink" title="强制数据类型转换"></a>强制数据类型转换</h3><p>将 1.5 赋值到 int 类型变量会发生什么？产生编译失败，肯定无法赋值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1.5</span>; <span class="comment">// 错误</span></span><br></pre></td></tr></table></figure>
+
+<p>double 类型内存8个字节， int 类型内存4个字节。 1.5 是 double 类型，取值范围大于 int 。</p>
+<p>想要赋值成功，只有通过强制类型转换，将 double 类型强制转换成 int 类型才能赋值。</p>
+<p>自动转换是Java自动执行的，而强制转换需要我们自己手动执行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// double类型数据强制转成int类型，直接去掉小数点。</span></span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">1.5</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>强制数据类型转换也称之为显式类型转换，既然有些数据类型不能互相自动进行转换，那么Java提供了强制转换的方法，强制转换的语法就是用圆括号括起你要转换成的目的数据类型：</p>
+<p>变量&#x3D;（目标类型）值;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span> a;</span><br><span class="line"><span class="type">int</span> b;</span><br><span class="line">a = (<span class="type">byte</span>) b;</span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> (<span class="type">int</span>)<span class="number">2.8</span>;</span><br><span class="line"><span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> (<span class="type">float</span>)<span class="number">5.2</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当一个 short 类型与 1 相加，我们知道会类型提升，但是还想给结果赋值给short类型变量，就需要强制转换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">     <span class="comment">//short类型变量，内存中2个字节</span></span><br><span class="line">     <span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">     <span class="comment">/*</span></span><br><span class="line"><span class="comment">       出现编译失败</span></span><br><span class="line"><span class="comment">       s和1做运算的时候，1是int类型，s会被提升为int类型</span></span><br><span class="line"><span class="comment">       s+1后的结果是int类型，将结果在赋值会short类型时发生错误</span></span><br><span class="line"><span class="comment">       short内存2个字节，int类型4个字节</span></span><br><span class="line"><span class="comment">       必须将int强制转成short才能完成赋值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     s = s + <span class="number">1</span>；<span class="comment">//编译失败</span></span><br><span class="line">     s = (<span class="type">short</span>)(s+<span class="number">1</span>);<span class="comment">//编译成功</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004234246121.png" class="" title="image-20221004234246121">
+
+<p><strong>注意：</strong></p>
+<p>　　浮点转成整数，直接取消小数点，可能造成数据损失精度。<br>　　int 强制转成 short 砍掉2个字节，可能造成数据丢失。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义s为short范围内最大值</span></span><br><span class="line"><span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">32767</span>;</span><br><span class="line"><span class="comment">// 运算后，强制转换，砍掉2个字节后会出现不确定的结果</span></span><br><span class="line">s = (<span class="type">short</span>)(s + <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004234426297.png" class="" title="image-20221004234426297">
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span> b;</span><br><span class="line">b = <span class="number">3</span>;</span><br><span class="line">b = b*<span class="number">3</span>;java会自动做类型提升，将b自动提升为<span class="type">int</span>，因此，会发生错误。</span><br><span class="line">b = （<span class="type">byte</span>）b*<span class="number">3</span>;这样，但是还是报错，因为强制类型转换比乘法优先级高。</span><br><span class="line">b = （<span class="type">byte</span>）（b*<span class="number">3</span>）;应该这样。</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TestConvert</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String arg[])</span> &#123;</span><br><span class="line">    <span class="comment">/*自动类型转换*/</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">12</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">45</span>;</span><br><span class="line">    <span class="type">double</span> <span class="variable">d1</span> <span class="operator">=</span> (i1 + i2) * <span class="number">1.0</span>;<span class="comment">//系统将转换为double型运算</span></span><br><span class="line">    System.out.println(d1);</span><br><span class="line">    <span class="comment">/*自动类型转换*/</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">f3</span> <span class="operator">=</span> <span class="number">12.3f</span>;<span class="comment">//必须加f</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">l1</span> <span class="operator">=</span> <span class="number">12300</span>;</span><br><span class="line">    <span class="type">long</span> <span class="variable">l2</span> <span class="operator">=</span> <span class="number">300000000000L</span>;<span class="comment">//必须加l</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> l1 + l2 + f3;<span class="comment">//系统将转换为float型计算</span></span><br><span class="line">    System.out.println(f);</span><br><span class="line">    <span class="type">byte</span> m1=<span class="number">1</span>;</span><br><span class="line">    <span class="type">byte</span> m2=<span class="number">3</span>;</span><br><span class="line">    <span class="type">byte</span> <span class="variable">m</span> <span class="operator">=</span> (<span class="type">byte</span>)(m1+m2);<span class="comment">//byte类型参与运算会自动转换为int类型，然后再进行运算，结果为int，因此，需要强转为byte赋值</span></span><br><span class="line">    <span class="comment">/*强制类型转换*/</span></span><br><span class="line">    <span class="type">long</span> <span class="variable">l</span> <span class="operator">=</span> (<span class="type">long</span>)f;<span class="comment">//强制转换会舍去小数部分（不是四舍五入）</span></span><br><span class="line">    System.out.println(l);</span><br><span class="line">    <span class="comment">/*强制类型转换*/</span></span><br><span class="line">    <span class="type">byte</span> <span class="variable">b1</span> <span class="operator">=</span> <span class="number">67</span>;</span><br><span class="line">    <span class="type">byte</span> <span class="variable">b2</span> <span class="operator">=</span> <span class="number">89</span>;</span><br><span class="line">    <span class="type">byte</span> <span class="variable">b3</span> <span class="operator">=</span> (<span class="type">byte</span>)(b1 + b2);<span class="comment">//系统将转换为int型运算，需要强制转换符</span></span><br><span class="line">    System.out.println(b3);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004225305700.png" class="" title="image-20221004225305700">
+
+<p>67+89&#x3D;156</p>
+<p>156-127&#x3D;28</p>
+<p>byte范围是-128~127，因此，当超过了范围之后就会溢出，然后又会从最小的开始了。因此，128就是-128,129就是-127，以此类推，156就是-100。</p>
+<p><strong>提示：</strong></p>
+<ol>
+<li><strong>boolean型数据不能和其他基本数据类型进行转换；</strong></li>
+<li><strong>char型和int型数据可以互换；</strong></li>
+<li><strong>byte、short、char之间不会相互转换，它们三者在计算时首先会转换为int类型；</strong></li>
+<li>在强制类型转换过程中，源类型的值可能大于目标类型，因此可能造成精度降低或溢出，使用时需注意。</li>
+</ol>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="算术运算符和表达式"><a href="#算术运算符和表达式" class="headerlink" title="算术运算符和表达式"></a>算术运算符和表达式</h3><p>算术运算是一种常见的运算，主要是对数值型数据进行加减乘除等运算</p>
+<table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>备注</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加运算符</td>
+<td></td>
+</tr>
+<tr>
+<td>-</td>
+<td>减运算符</td>
+<td></td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘运算符</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>除运算符</td>
+<td>若是两个整数相除，只保留整数部分</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模（取余）运算符</td>
+<td><strong>被除数为正数结果都为正，被除数为负数结果都为负</strong></td>
+</tr>
+<tr>
+<td>++</td>
+<td>自增</td>
+<td>++变量名：变量在参与其他操作前先将自己加1; 变量名++：先用原来的值参与其他操作后，再将自己加1</td>
+</tr>
+<tr>
+<td>–</td>
+<td>自减</td>
+<td>算法同++</td>
+</tr>
+<tr>
+<td>+</td>
+<td>字符串连接</td>
+<td>当操作数中只要有一个是String类型，系统会自动将另一个操作数转换成字符串类型，然后进行连接</td>
+</tr>
+</tbody></table>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004225941405.png" class="" title="image-20221004225941405">
+
+<p>被除数为正，结果为正。不看除数正负</p>
+<p>被除数为负，结果为负。不看除数正负</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004225958659.png" class="" title="image-20221004225958659">
+
+<p>由于被除数是5.0，因此，2会自动类型转换为double，然后进行计算，因此，结果为double的。</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230012172.png" class="" title="image-20221004230012172">
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SelfplusOperatorDemo1</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span> i++;</span><br><span class="line">    System.out.println(a + <span class="string">&quot;, &quot;</span> + i);<span class="comment">// 0,1</span></span><br><span class="line">    a = ++i;</span><br><span class="line">    System.out.println(a + <span class="string">&quot;, &quot;</span> + i);<span class="comment">// 2,2</span></span><br><span class="line">    i = i++;</span><br><span class="line">    System.out.println(i);<span class="comment">// 2</span></span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line">    System.out.println(i++ % <span class="number">3</span>);<span class="comment">// 0</span></span><br><span class="line">    System.out.println(i++ % <span class="number">3</span>);<span class="comment">// 1</span></span><br><span class="line">    System.out.println(i++ % <span class="number">3</span>);<span class="comment">// 2</span></span><br><span class="line">    System.out.println(i++ % <span class="number">3</span>);<span class="comment">// 0</span></span><br><span class="line">    System.out.println(i++ % <span class="number">3</span>);<span class="comment">// 1</span></span><br><span class="line">    System.out.println(i++ % <span class="number">3</span>);<span class="comment">// 2</span></span><br><span class="line">    System.out.println(i++ % <span class="number">3</span>);<span class="comment">// 0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230310108.png" class="" title="image-20221004230310108">
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SelfplusOperatorDemo2</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x1</span> <span class="operator">=</span> <span class="number">3</span>, y1 = <span class="number">5</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">x2</span> <span class="operator">=</span> <span class="number">3</span>, y2 = <span class="number">5</span>;</span><br><span class="line">    <span class="type">int</span> r1, r2;</span><br><span class="line">    r1 = x1++ + x1*y1;</span><br><span class="line">    r2 = ++x2 + x2*y2;</span><br><span class="line">    System.out.println(<span class="string">&quot;x1=&quot;</span>+x1+<span class="string">&quot; y1=&quot;</span>+y1+<span class="string">&quot; r1=&quot;</span>+r1);</span><br><span class="line">    System.out.println(<span class="string">&quot;x2=&quot;</span>+x2+<span class="string">&quot; y2=&quot;</span>+y2+<span class="string">&quot; r2=&quot;</span>+r2);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230544013.png" class="" title="image-20221004230544013">
+
+<p>注意，+运算符是左结合性，也就是从左向右运算的。</p>
+<h3 id="字符串和运算符"><a href="#字符串和运算符" class="headerlink" title="字符串和运算符"></a>字符串和运算符</h3><p>字符串连接运算符使用”+”运算符，但此时与算术运算符中的加法运算符”+”的意义是不同的。字符串连接运算符，能够将多个字符串合并到一起生成一个新的字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">StringDemo</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String args[])</span>&#123;</span><br><span class="line">    <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">    <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">100</span>;</span><br><span class="line">    <span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">2.15f</span>;</span><br><span class="line">    <span class="type">double</span> <span class="variable">d</span> <span class="operator">=</span> <span class="number">5.7</span>;</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">    System.out.println(<span class="string">&quot;c=&quot;</span> + c);</span><br><span class="line">    System.out.println(<span class="string">&quot;s=&quot;</span> + s);</span><br><span class="line">    System.out.println(<span class="string">&quot;i=&quot;</span> + i);</span><br><span class="line">    System.out.println(<span class="string">&quot;f=&quot;</span> + f);</span><br><span class="line">    System.out.println(<span class="string">&quot;d=&quot;</span> + d);</span><br><span class="line">    System.out.println(<span class="string">&quot;b=&quot;</span> + b);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230716894.png" class="" title="image-20221004230716894">
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="type">char</span> c=<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">		<span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">		<span class="type">int</span> i=<span class="number">100</span>;</span><br><span class="line">		<span class="type">float</span> f=<span class="number">2.5f</span>;</span><br><span class="line">		</span><br><span class="line">		System.out.println(i+f+c+s);</span><br><span class="line">		</span><br><span class="line">		System.out.println(i+f+s+c);</span><br><span class="line">		</span><br><span class="line">		System.out.println(c+s+i+f);</span><br><span class="line">		</span><br><span class="line">		System.out.println(c+s+(i+f));</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004230949690.png" class="" title="image-20221004230949690">
+
+
+
+<h3 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h3><table>
+<thead>
+<tr>
+<th><strong>运算符</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>例子</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x3D;</td>
+<td>赋值运算符</td>
+<td>i&#x3D;8</td>
+<td>8赋值给i</td>
+</tr>
+<tr>
+<td>+&#x3D;</td>
+<td>加简捷赋值运算符</td>
+<td>i+&#x3D;8</td>
+<td>同i&#x3D;i+8</td>
+</tr>
+<tr>
+<td>-&#x3D;</td>
+<td>减简捷赋值运算符</td>
+<td>i-&#x3D;8</td>
+<td>同i&#x3D;i-8</td>
+</tr>
+<tr>
+<td>*&#x3D;</td>
+<td>乘简捷赋值运算符</td>
+<td>i*&#x3D;8</td>
+<td>同i&#x3D;i*8</td>
+</tr>
+<tr>
+<td>&#x2F;&#x3D;</td>
+<td>除简捷赋值运算符</td>
+<td>i&#x2F;&#x3D;8</td>
+<td>同i&#x3D;i&#x2F;8</td>
+</tr>
+<tr>
+<td>%&#x3D;</td>
+<td>取模简捷赋值运算符</td>
+<td>i%&#x3D;8</td>
+<td>同i&#x3D;i%8</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">		i+=<span class="number">8</span>;<span class="comment">//18</span></span><br><span class="line">		System.out.println(<span class="string">&quot;i=&quot;</span>+i);</span><br><span class="line">		</span><br><span class="line">		i-=<span class="number">8</span>;<span class="comment">//10</span></span><br><span class="line">		System.out.println(<span class="string">&quot;i=&quot;</span>+i);</span><br><span class="line">	</span><br><span class="line">		i*=<span class="number">8</span>;<span class="comment">//	80</span></span><br><span class="line">		System.out.println(<span class="string">&quot;i=&quot;</span>+i);</span><br><span class="line">		</span><br><span class="line">		i/=<span class="number">8</span>;<span class="comment">//10</span></span><br><span class="line">		System.out.println(<span class="string">&quot;i=&quot;</span>+i);</span><br><span class="line">		</span><br><span class="line">		i%=<span class="number">8</span>;<span class="comment">//2</span></span><br><span class="line">		System.out.println(<span class="string">&quot;i=&quot;</span>+i);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>注意，在java中的基本数据类型的赋值而言是将变量值放到变量的内存单元中去，然后该内存单元命名为变量名。不同于python中的变量值与变量名绑定的含义。</strong></p>
+<p><strong>python中变量值与变量名绑定，更像是java中的引用类型的变量值与变量名的关系，变量中存储的是引用类型值的内存地址或者叫做引用地址。</strong></p>
+<h3 id="关系运算符和表达式"><a href="#关系运算符和表达式" class="headerlink" title="关系运算符和表达式"></a>关系运算符和表达式</h3><p><strong>关系运算又叫比较运算</strong>，用来对两个操作数进行大小、等于的关系比较，</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>名称</th>
+<th>样例</th>
+<th>结果说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&gt;</td>
+<td>大于</td>
+<td>1&gt;2</td>
+<td>false</td>
+</tr>
+<tr>
+<td>&gt;&#x3D;</td>
+<td>大于等于</td>
+<td>1&gt;&#x3D;2</td>
+<td>false</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>小于</td>
+<td>1&lt;2</td>
+<td>true</td>
+</tr>
+<tr>
+<td>&lt;&#x3D;</td>
+<td>小于等于</td>
+<td>1&lt;&#x3D;2</td>
+<td>true</td>
+</tr>
+<tr>
+<td>&#x3D;&#x3D;</td>
+<td>等于</td>
+<td>1&#x3D;&#x3D;2</td>
+<td>false</td>
+</tr>
+<tr>
+<td>!&#x3D;</td>
+<td>不等于</td>
+<td>1!&#x3D;2</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<p>比较运算符，是两个数据之间进行比较的运算，运算结果都是布尔值 true 或者 false 。</p>
+<p>注意，比较运算符最终的运算结果为布尔值的。</p>
+<p><strong>关系表达式用于进行关系比较，关系表达式的值都是布尔型的</strong>，例如下面代码：</p>
+<p>int i &#x3D; 10;</p>
+<p>int j &#x3D; 16;</p>
+<p>boolean smalli &#x3D; i&lt;j;</p>
+<p>boolean equal &#x3D; i&#x3D;&#x3D;j;</p>
+<p>boolean bigi &#x3D; i&gt;j;</p>
+<p><strong>提示：</strong></p>
+<ol>
+<li>关系表达式的结果都是布尔值，true或false；</li>
+<li>比较相等的是双等号”&#x3D;&#x3D;”，不是一个等号”&#x3D;”，一个等号”&#x3D;”只能用来赋值。</li>
+</ol>
+<h3 id="逻辑运算符和表达式"><a href="#逻辑运算符和表达式" class="headerlink" title="逻辑运算符和表达式"></a>逻辑运算符和表达式</h3><p>逻辑运算又叫布尔运算，包括四个运算符，分别是&amp;&amp;、||、！和^，用来进行与、或、非和异或的逻辑运算。</p>
+<p><strong>逻辑运算的操作数和结果都是布尔类型的值。</strong></p>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th><strong>运算符</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>运算规则</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&amp;&amp;</td>
+<td>与运算符</td>
+<td>逻辑与</td>
+<td>运算符左右两端的操作数都为true，表达式结果才为true，其它情况表达式结果为false</td>
+</tr>
+<tr>
+<td>| |</td>
+<td>或运算符</td>
+<td>逻辑或</td>
+<td>运算符左右两端的操作数都为false，表达式结果才为false，其它情况表达式结果为true</td>
+</tr>
+<tr>
+<td>!</td>
+<td>非运算符</td>
+<td>逻辑取反</td>
+<td>操作数为true，结果为false；操作数为false，结果为true</td>
+</tr>
+<tr>
+<td>^</td>
+<td>异或运算符</td>
+<td>逻辑异或</td>
+<td>运算符左右两端的操作数，相同结果为false，不同结果为true</td>
+</tr>
+</tbody></table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="type">boolean</span> <span class="variable">x</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">y</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">		</span><br><span class="line">		System.out.println(x&amp;&amp;y);<span class="comment">//false</span></span><br><span class="line">		System.out.println(x||y);<span class="comment">//true</span></span><br><span class="line">		System.out.println(!x);<span class="comment">//false</span></span><br><span class="line">		System.out.println(x^y);<span class="comment">//亦或，相同为假，不同为真				</span></span><br><span class="line">	 &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>逻辑运算符，是用来连接两个布尔类型结果的运算符，运算结果都是布尔值 true 或者 false</strong></p>
+<p>注意，在python中，运算结果不一定是ture或者false的。要看两边的内容，例如，11 || False，那么结果是11，不是布尔值的，因为，python中，非0的11表示了True。</p>
+<p>而在java中，逻辑运算符两侧必须是布尔类型的值才行。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test01</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="number">55</span>&gt;<span class="number">13</span> || <span class="literal">false</span>); <span class="comment">//结果为true</span></span><br><span class="line"><span class="comment">//        System.out.println(55 || 0); error ||两侧数据类型错误</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>短路与vs非短路与</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//短路与&amp;&amp; vs 非短路与&amp;</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span><span class="number">10</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span><span class="number">20</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span><span class="number">30</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//boolean flag = a&gt;b &amp;&amp; ++b&gt;c;//左边为假，右边短路了</span></span><br><span class="line">		<span class="comment">//System.out.println(flag);//false</span></span><br><span class="line">		<span class="comment">//System.out.println(b);//20</span></span><br><span class="line">		</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> a&gt;b &amp; ++b&gt;c;<span class="comment">//右边不短路</span></span><br><span class="line">		System.out.println(flag);<span class="comment">//false</span></span><br><span class="line">		System.out.println(b);<span class="comment">//21			</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>短路或 vs 非短路或</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">//短路或|| vs 非短路|		</span></span><br><span class="line">		<span class="type">int</span> <span class="variable">a</span> <span class="operator">=</span><span class="number">10</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">b</span> <span class="operator">=</span><span class="number">20</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">c</span> <span class="operator">=</span><span class="number">30</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//boolean flag = a&lt;b||++b&gt;c;//左边为真，右边短路了</span></span><br><span class="line">		<span class="comment">//System.out.println(flag);//true</span></span><br><span class="line">		<span class="comment">//System.out.println(b);//20</span></span><br><span class="line">		</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> a&lt;b|++b&gt;c;<span class="comment">//右边不短路</span></span><br><span class="line">		System.out.println(flag);<span class="comment">//true</span></span><br><span class="line">		System.out.println(b);<span class="comment">//21	</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符"></a>三目运算符</h3><p>三目条件运算符的语法为：</p>
+<p><strong>表达式1 ? 表达式2 : 表达式3</strong></p>
+<p>int a&#x3D;3, b&#x3D;6;</p>
+<p>int x &#x3D; a&gt;b? a:b;</p>
+<p>那么计算结果就是x&#x3D;6。</p>
+<p><strong>在三目条件运算中，表达式1和表达式2的值可以是任意一种基本数据类型。</strong></p>
+<p><strong>数据类型 变量名 &#x3D; 布尔类型表达式？结果1：结果2</strong></p>
+<p><strong>三元运算符计算方式：</strong><br>　　布尔类型表达式结果是true，三元运算符整体结果为结果1，赋值给变量。<br>　　布尔类型表达式结果是false，三元运算符整体结果为结果2，赋值给变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="comment">// 三目条件运算符		</span></span><br><span class="line">		<span class="type">int</span> a=<span class="number">10</span>;</span><br><span class="line">		<span class="type">int</span> b=<span class="number">20</span>;</span><br><span class="line">		</span><br><span class="line">		<span class="type">boolean</span> <span class="variable">flag</span> <span class="operator">=</span> a&lt;b?<span class="literal">true</span>:<span class="literal">false</span>;	</span><br><span class="line">		<span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> a&lt;b?<span class="string">&#x27;真&#x27;</span>:<span class="string">&#x27;假&#x27;</span>;	</span><br><span class="line">		<span class="type">String</span> <span class="variable">ret</span> <span class="operator">=</span> a&lt;b?<span class="string">&quot;正确&quot;</span>:<span class="string">&quot;错误&quot;</span>;</span><br><span class="line">		<span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> a&lt;b?<span class="number">1</span>:<span class="number">0</span>;		</span><br><span class="line">		<span class="type">double</span> <span class="variable">y</span> <span class="operator">=</span> a&lt;b?<span class="number">1.0</span>:<span class="number">2.0</span>;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004233201050.png" class="" title="image-20221004233201050">
+
+
+
+<h3 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h3><p>表达式通常由多个运算符组成。优先级的规则决定每个运算符在任何给定表达式中的计算顺序。表达式是按照从左到右运算符的优先级来进行运算的，正因为这种优先级的限制，才保证了每个表达式每次运算的结果都一样。</p>
+<p>按操作数多少划分优先级</p>
+<p>一元操作符 &gt; 二元操作符 &gt; 三元操作符</p>
+<p>按运算类型划分优先级</p>
+<p>算术运算符 &gt; 关系运算符 &gt; 逻辑运算符 &gt; 赋值运算符</p>
+<p>尽量多的使用括号，括号优先级别最高，使用括号也可保证在不确定优先级的情况下，更好地控制语句的执行顺序。</p>
+<img src="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/image-20221004233454906.png" class="" title="image-20221004233454906">
+
+
+
+<h2 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h2><p>表达式是符合一定语法规则的运算符和运算数的序列。按照使用的运算符和运算结果的不同可以分为：</p>
+<p>1.算术表达式</p>
+<p>例如：(x+y-12)*100</p>
+<p>2.关系表达式</p>
+<p>例如：x&gt;y， x&gt;&#x3D;y， x!&#x3D;y， x&#x3D;&#x3D;y</p>
+<p>3、逻辑表达式</p>
+<p>例如：x&amp;&amp;y， x||y||z， (!x)&amp;&amp;(!y)</p>
+<p>4、赋值表达式</p>
+<p>例如：x&#x3D;y， x+&#x3D;y</p>
+<p>关于表达式，有下面几个概念需要介绍。</p>
+<p>表达式的值：对表达式中操作数进行运算得到的结果称为表达式的值；</p>
+<p>表达式的类型：表达式值的数据类型即为表达式的类型；</p>
+<p>表达式的运算顺序：应按照运算符的优先级从高到低的顺序进行，优先级相同的运算符按照事先约定的结合方向进行</p>
+<p>表达式后面加上;，即为语句了。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/" title="04-标识符、常量（字面量）、变量和数据类型、运算符">http://www.leo101018.xyz/2022/10/04/Java/JavaSE/04-标识符、常量（字面量）、变量和数据类型、运算符/04-标识符、常量（字面量）、变量和数据类型、运算符/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/JavaSE/" rel="tag"><i class="fa fa-tag"></i> JavaSE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/04/Java/JavaSE/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/03-JavaHome&%E4%B8%B4%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F&classpath%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F/" rel="prev" title="03-JavaHome&临时环境变量&classpath环境变量">
+      <i class="fa fa-chevron-left"></i> 03-JavaHome&临时环境变量&classpath环境变量
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/" rel="next" title="Windows下mysql手动安装方式">
+      Windows下mysql手动安装方式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">04-标识符、常量（字面量）、变量和数据类型、运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">Java程序结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%85%B3%E9%94%AE%E5%AD%97%E5%92%8C%E4%BF%9D%E7%95%99%E5%AD%97"><span class="nav-number">1.2.</span> <span class="nav-text">标识符、关键字和保留字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">常量（字面量）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F%EF%BC%88%E4%BD%BF%E7%94%A8final%E5%A3%B0%E6%98%8E%E7%9A%84%E5%B8%B8%E5%8F%98%E9%87%8F%EF%BC%89"><span class="nav-number">1.4.</span> <span class="nav-text">常量（使用final声明的常变量）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F"><span class="nav-number">1.5.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.6.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%BD%A2"><span class="nav-number">1.6.1.</span> <span class="nav-text">整形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="nav-number">1.6.2.</span> <span class="nav-text">浮点型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.6.3.</span> <span class="nav-text">字符类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.6.4.</span> <span class="nav-text">布尔类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.7.</span> <span class="nav-text">数据类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.7.1.</span> <span class="nav-text">自动数据类型转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E5%88%B6%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.7.2.</span> <span class="nav-text">强制数据类型转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.8.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.8.1.</span> <span class="nav-text">算术运算符和表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.8.2.</span> <span class="nav-text">字符串和运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.8.3.</span> <span class="nav-text">赋值运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.8.4.</span> <span class="nav-text">关系运算符和表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6%E5%92%8C%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.8.5.</span> <span class="nav-text">逻辑运算符和表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.8.6.</span> <span class="nav-text">三目运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.8.7.</span> <span class="nav-text">运算符优先级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.9.</span> <span class="nav-text">表达式</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">334k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

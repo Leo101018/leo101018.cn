@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Windows下mysql手动安装">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows下mysql手动安装方式">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="Windows下mysql手动安装">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900250792-2.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900274221-4.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900317498-6.png">
+<meta property="article:published_time" content="2022-10-04T16:21:53.000Z">
+<meta property="article:modified_time" content="2022-10-27T04:36:37.804Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="MySQL-install">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if(''){
+          if (prompt('请输入密码') !== ''){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>Windows下mysql手动安装方式 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows下mysql手动安装方式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-10-05 00:21:53" itemprop="dateCreated datePublished" datetime="2022-10-05T00:21:53+08:00">2022-10-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-10-27 12:36:37" itemprop="dateModified" datetime="2022-10-27T12:36:37+08:00">2022-10-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/Install/" itemprop="url" rel="index"><span itemprop="name">Install</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">Windows下mysql手动安装</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Windows环境下mysql手动方式安装"><a href="#Windows环境下mysql手动方式安装" class="headerlink" title="Windows环境下mysql手动方式安装"></a>Windows环境下mysql手动方式安装</h1><p><a target="_blank" rel="noopener" href="https://mirrors.huaweicloud.com/mysql/Downloads/MySQL-6.0/">https://mirrors.huaweicloud.com/mysql/Downloads/MySQL-6.0/</a></p>
+<p>下载地址</p>
+<img src="/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image.png" class="" title="Image">
+
+<p>32位或者64位均可</p>
+<img src="/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900250792-2.png" class="" title="Image">
+
+<p>解压放在一个非中文目录下</p>
+<img src="/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900274221-4.png" class="" title="Image">
+
+<p>配置环境变量。</p>
+<p>将配置文件复制到目录中，并且名称必须是my.ini，否则就需要通过参数指定配置文件了。</p>
+<img src="/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Image-1664900317498-6.png" class="" title="Image">
+
+<p>my.ini文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[client]</span><br><span class="line">port=3306</span><br><span class="line">[mysql]</span><br><span class="line">default-character-set=gbk</span><br><span class="line">[mysqld]</span><br><span class="line">port=3306</span><br><span class="line">basedir=&quot;C:/App/mysql-6.0.11-alpha-win32&quot;</span><br><span class="line">datadir=&quot;C:/App/mysql-6.0.11-alpha-win32/data&quot;</span><br><span class="line">default-character-set=gbk</span><br><span class="line">default-storage-engine=INNODB</span><br><span class="line">sql-mode=&quot;STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&quot;</span><br><span class="line">max_connections=800</span><br><span class="line">query_cache_size=84M</span><br><span class="line">table_cache=1520</span><br><span class="line">tmp_table_size=30M</span><br><span class="line">thread_cache_size=38</span><br><span class="line">myisam_max_sort_file_size=100G</span><br><span class="line">myisam_sort_buffer_size=30M</span><br><span class="line">key_buffer_size=129M</span><br><span class="line">read_buffer_size=64K</span><br><span class="line">read_rnd_buffer_size=256K</span><br><span class="line">sort_buffer_size=256K</span><br><span class="line">innodb_additional_mem_pool_size=6M</span><br><span class="line">innodb_flush_log_at_trx_commit=1</span><br><span class="line">innodb_log_buffer_size=3M</span><br><span class="line">innodb_buffer_pool_size=250M</span><br><span class="line">innodb_log_file_size=50M</span><br><span class="line">innodb_thread_concurrency=10</span><br></pre></td></tr></table></figure>
+
+<p>注意，该配置文件是从图形界面方式安装的mysql之后，从其my.ini配置文件中提取出来的内容。</p>
+<p>之后，可以将mysql安装为Windows服务</p>
+<p>PS C:\Users\Administrator&gt; mysqld –install MySQL –defaults-file&#x3D;”C:\App\mysql-6.0.11-alpha-win32\my.ini”</p>
+<p>Service successfully installed.</p>
+<p>PS C:\Users\Administrator&gt;</p>
+<p>之后，就可以在services.msc中看到MySQL这个名字的Windows服务了。</p>
+<p>这里要注意，上面mysqld命令的参数顺序，不要颠倒了，否则不生效。</p>
+<p>PS C:\Users\Administrator&gt; mysqld –defaults-file&#x3D;”C:\App\mysql-6.0.11-alpha-win32\my.ini” –install MySQL</p>
+<p>PS C:\Users\Administrator&gt;</p>
+<p>这样就不行。</p>
+<p>如果想要安装的Windows服务，不是自动启动的，可以–install-manual参数。</p>
+<p>如果不想安装为Windows服务，想要直接在命令行下运行，并且看到实时输出，可以如下：</p>
+<p>mysqld –defaults-file&#x3D;”C:\App\mysql-6.0.11-alpha-win32\my.ini” –console 即可。</p>
+<p>删除MySQL服务</p>
+<p>mysqld –remove MySQL即可。</p>
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/Windows%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F/" title="Windows下mysql手动安装方式">http://www.leo101018.xyz/2022/10/05/MySQL/Install/Windows下mysql手动安装方式/Windows下mysql手动安装方式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/MySQL-install/" rel="tag"><i class="fa fa-tag"></i> MySQL-install</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/10/04/Java/JavaSE/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/04-%E6%A0%87%E8%AF%86%E7%AC%A6%E3%80%81%E5%B8%B8%E9%87%8F%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E3%80%81%E5%8F%98%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="prev" title="04-标识符、常量（字面量）、变量和数据类型、运算符">
+      <i class="fa fa-chevron-left"></i> 04-标识符、常量（字面量）、变量和数据类型、运算符
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/10/05/Java/JavaSE/05-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/05-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/" rel="next" title="05-流程控制语句">
+      05-流程控制语句 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Windows%E7%8E%AF%E5%A2%83%E4%B8%8Bmysql%E6%89%8B%E5%8A%A8%E6%96%B9%E5%BC%8F%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">Windows环境下mysql手动方式安装</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">334k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:04</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
