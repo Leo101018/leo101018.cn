@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/ayer.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/ayer.png">
+  <link rel="mask-icon" href="/images/ayer.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.leo101018.xyz","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="CSS3复合选择器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS3复合选择器">
+<meta property="og:url" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/index.html">
+<meta property="og:site_name" content="欢迎来到Leo的博客">
+<meta property="og:description" content="CSS3复合选择器">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180022867.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180150727.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180222206.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180240189.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180254074.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180305149.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180334637.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180516457.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180706836.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181200442.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181219436.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181231407.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181300609.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181606377.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181649055.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190006154.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190024145.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190051552.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190119386.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190219700.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190257200.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190326813.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190342708.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190359952.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190427345.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190602554.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190624357.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190715123.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190820816.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190910327.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190936299.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191009665.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191022815.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191051899.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191114259.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191144111.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191230397.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191243849.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191609332.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191709841.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191720101.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207121348787.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207121744446.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207121816689.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123557750.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123607058.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123655738.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123705087.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123734729.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123744883.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123821148.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123835017.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123847304.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123905020.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123923783.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130250769.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130259780.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130729062.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130742077.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130803312.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130925872.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130952582.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131204494.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131218726.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131236310.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131245725.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131310121.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131319074.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131335633.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131343722.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132026082.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132036040.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132126963.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132140629.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132158217.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132221353.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132239947.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132249328.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132321316.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132338255.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133621873.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133714099.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133728054.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133853558.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133904786.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133916830.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133950994.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207135425577.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207135457510.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207135915714.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207140015254.png">
+<meta property="og:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207140030698.png">
+<meta property="article:published_time" content="2022-12-07T07:59:43.000Z">
+<meta property="article:modified_time" content="2022-12-07T08:00:39.670Z">
+<meta property="article:author" content="Leo">
+<meta property="article:tag" content="css3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180022867.png">
+
+<link rel="canonical" href="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+  (function(){
+      if('19491001'){
+          if (prompt('请输入密码') !== '19491001'){
+              alert('密码错误');
+              history.back();
+          }
+      }
+  })();
+</script>
+
+  <title>CSS3复合选择器 | 欢迎来到Leo的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">欢迎来到Leo的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/guoqi.png">
+      <meta itemprop="name" content="Leo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="欢迎来到Leo的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS3复合选择器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-12-07 15:59:43 / 修改时间：16:00:39" itemprop="dateCreated datePublished" datetime="2022-12-07T15:59:43+08:00">2022-12-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Front/" itemprop="url" rel="index"><span itemprop="name">Front</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Front/css3/" itemprop="url" rel="index"><span itemprop="name">css3</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">CSS3复合选择器</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="CSS3复合选择器"><a href="#CSS3复合选择器" class="headerlink" title="CSS3复合选择器"></a>CSS3复合选择器</h1><p>以前说的都是基础类选择器，即都是单个选择器。</p>
+<p>复合选择器是由两个或多个基础选择器，通过不同的方式组合而成的,目的是为了可以选择更准确更精细的目标元素标签。</p>
+<h2 id="交集选择器"><a href="#交集选择器" class="headerlink" title="交集选择器"></a>交集选择器</h2><p>交集选择器由两个选择器构成。</p>
+<p>其中第一个为标签选择器（或者叫做元素选择器）。</p>
+<p>第二个为class选择器（也可以是id选择器，只是不提倡使用）。</p>
+<p>两个选择器之间不能有空格，如h3.special。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180022867.png" class="" title="image-20221202180022867">
+
+<p><strong>记忆技巧：</strong></p>
+<p>交集选择器 是 并且的意思。 既…又…的意思。两者都满足。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如：   p.one   选择的是： 类名为 .one 的 段落标签。</span><br></pre></td></tr></table></figure>
+
+<p>用的相对来说比较少，不太建议使用。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180150727.png" class="" title="image-20221202180150727">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180222206.png" class="" title="image-20221202180222206">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180240189.png" class="" title="image-20221202180240189">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180254074.png" class="" title="image-20221202180254074">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180305149.png" class="" title="image-20221202180305149">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180334637.png" class="" title="image-20221202180334637">
+
+<p>这就是交集选择器。</p>
+<p>首先是singer这个类选择器，同时又得是div标签。</p>
+<h2 id="并集选择器"><a href="#并集选择器" class="headerlink" title="并集选择器"></a>并集选择器</h2><p>并集选择器（也叫CSS选择器分组）是各个选择器通过<strong>逗号</strong>连接而成的，任何形式的选择器（包括标签选择器、class类选择器id选择器等，前面学习的所有基础选择器都可以一起来声明），都可以作为并集选择器的一部分。如果某些选择器定义的样式完全相同，或部分相同，就可以利用并集选择器为它们定义相同的CSS样式。</p>
+<p><strong>注意，并集选择器使用逗号分割。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180516457.png" class="" title="image-20221202180516457">
+
+<p>记忆技巧：</p>
+<p>并集选择器是 “和” 的意思，或者是说”或”的意思， 就是说，只要逗号隔开的，所有选择器都会执行后面样式。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">比如 .one, p , <span class="params">#</span>test &#123;color: <span class="params">#</span>F00;&#125; </span><br><span class="line">表示 .one 和 p 和 <span class="params">#</span>test 这三个选择器都会执行颜色为红色。 通常用于集体声明。</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202180706836.png" class="" title="image-20221202180706836">
+
+<p>以前的写法，麻烦。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181200442.png" class="" title="image-20221202181200442">
+
+<p>使用并集选择器。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181219436.png" class="" title="image-20221202181219436">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181231407.png" class="" title="image-20221202181231407">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181300609.png" class="" title="image-20221202181300609">
+
+
+
+<h2 id="后代选择器"><a href="#后代选择器" class="headerlink" title="后代选择器"></a>后代选择器</h2><p>后代选择器又称为<strong>包含选择器</strong>，用来选择元素或元素组的后代。</p>
+<p>其写法就是把外层标签写在前面，内层标签写在后面，<strong>中间用空格分隔</strong>。当标签发生嵌套时，内层标签就成为外层标签的后代。</p>
+<p>注意，后代选择器使用空格分隔。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181606377.png" class="" title="image-20221202181606377">
+
+<p>子孙后代都可以这么选择。 或者说，它能选择任何包含在内 的标签。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202181649055.png" class="" title="image-20221202181649055">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190006154.png" class="" title="image-20221202190006154">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190024145.png" class="" title="image-20221202190024145">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190051552.png" class="" title="image-20221202190051552">
+
+<p>这样写页面中所有的li标签都变成了红色了。不行</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190119386.png" class="" title="image-20221202190119386">
+
+<p>这里面li是ul的子，ul是div的子，li是div的孙。</p>
+<p>也可以看成ul是nav的子，li是nav的孙。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190219700.png" class="" title="image-20221202190219700">
+
+<p>我们可以这样子孙后代一级一级的来写。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190257200.png" class="" title="image-20221202190257200">
+
+<p>此时下面的ul由于不是div的子，因此，它不会有效果的。</p>
+<p>div ul li，说明div下面一定有一个ul，ul下面一定有li。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190326813.png" class="" title="image-20221202190326813">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190342708.png" class="" title="image-20221202190342708">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190359952.png" class="" title="image-20221202190359952">
+
+<p>但是如果这样，下面的也有div，那么就不能像上面那样来写样式了。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190427345.png" class="" title="image-20221202190427345">
+
+<p>此时就可以通过nav类选择器进行区分了。nav就是第一个div。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190602554.png" class="" title="image-20221202190602554">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190624357.png" class="" title="image-20221202190624357">
+
+<p><strong>另外，这个ul也是可以省略的。因为li肯定是在ul中的，而页面上又没有ol，因此，可以省略ul不写的。能够唯一定位到30,31,32行的li。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190715123.png" class="" title="image-20221202190715123">
+
+<p>后代选择器，就是嵌套的时候使用的。</p>
+<h2 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="子元素选择器"></a>子元素选择器</h2><p><strong>子元素选择器只能选择作为某元素子元素的元素。</strong></p>
+<p>其写法就是把父级标签写在前面，子级标签写在后面，中间跟一个 &gt; 进行连接，注意，符号左右两侧各保留一个空格。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190820816.png" class="" title="image-20221202190820816">
+
+<p>白话： 这里的子 指的是 亲儿子 不包含孙子 重孙子之类。</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如： .demo &gt; h3 &#123;color: red;&#125;   说明 h3 一定是demo 亲儿子。 demo 元素包含着h3。</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190910327.png" class="" title="image-20221202190910327">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202190936299.png" class="" title="image-20221202190936299">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191009665.png" class="" title="image-20221202191009665">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191022815.png" class="" title="image-20221202191022815">
+
+<p>这样写实现不了。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191051899.png" class="" title="image-20221202191051899">
+
+<p>这样写也不行，因为有两个ul的。都受影响的。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191114259.png" class="" title="image-20221202191114259">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191144111.png" class="" title="image-20221202191144111">
+
+<p>这个写法是后代选择器，这样下面的li都受影响了。</p>
+<p>因为最内层的li也是.item的后代。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191230397.png" class="" title="image-20221202191230397">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191243849.png" class="" title="image-20221202191243849">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191609332.png" class="" title="image-20221202191609332">
+
+<p>这样就是子元素选择器的写法。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191709841.png" class="" title="image-20221202191709841">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221202191720101.png" class="" title="image-20221202191720101">
+
+
+
+<p>这里实际有点问题：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>子元素选择器<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.item</span>&gt;<span class="selector-tag">li</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">color</span>: <span class="number">#0f0</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在使用的是子元素选择器。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207121348787.png" class="" title="image-20221207121348787">
+
+<p>实际效果就是下面的二级菜单也变了。</p>
+<p>因此，如果只想一级菜单变色，那么就先用后代选择器，然后再用子元素选择器覆盖一级标签。后面说权重的时候，再次思考。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>子元素选择器<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.item</span>&gt;<span class="selector-tag">li</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">color</span>: <span class="number">#0f0</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.item</span> <span class="selector-tag">li</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">color</span>: <span class="number">#f00</span>;红色</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207121744446.png" class="" title="image-20221207121744446">
+
+
+
+
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>子元素选择器<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.item</span> <span class="selector-tag">li</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">color</span>: <span class="number">#f00</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.item</span>&gt;<span class="selector-tag">li</span>&#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">color</span>: <span class="number">#0f0</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>一级菜单</span><br><span class="line">        <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">li</span>&gt;</span>二级菜单<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207121816689.png" class="" title="image-20221207121816689">
+
+
+
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 主导航栏 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;nav&quot;</span>&gt;</span>    </span><br><span class="line">		<span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司简介<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司产品<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">		    	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		    	<span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">		    		<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司邮箱<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    		<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司电话<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 侧导航栏 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;sitenav&quot;</span>&gt;</span>    </span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;site-l&quot;</span>&gt;</span>左侧侧导航栏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;site-r&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>1、链接 登录 的颜色为红色,同时主导航栏里面的所有的链接改为蓝色 (简单)</p>
+<p>2、主导航栏和侧导航栏里面文字都是14像素并且是微软雅黑。（中等)</p>
+<p>3、主导航栏里面的一级菜单链接文字颜色为绿色。（难)</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123557750.png" class="" title="image-20221207123557750">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123607058.png" class="" title="image-20221207123607058">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123655738.png" class="" title="image-20221207123655738">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123705087.png" class="" title="image-20221207123705087">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123734729.png" class="" title="image-20221207123734729">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123744883.png" class="" title="image-20221207123744883">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123821148.png" class="" title="image-20221207123821148">
+
+<p>使用并集选择器。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123835017.png" class="" title="image-20221207123835017">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123847304.png" class="" title="image-20221207123847304">
+
+<p>简写方式。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123905020.png" class="" title="image-20221207123905020">
+
+<p>使用子元素选择器。</p>
+<p>.nav ul这样写的话，是后代选择器，那么里面的两个ul都能够选择到。因为都是.nav的后代。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207123923783.png" class="" title="image-20221207123923783">
+
+
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 链接 登录 的颜色为红色,同时主导航栏里面的所有的链接改为蓝色     (简单) */</span></span></span><br><span class="line"><span class="language-css">			<span class="selector-class">.site-r</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">color</span>: red;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="selector-class">.nav</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="language-css">				<span class="attribute">color</span>: skyblue;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="comment">/* 主导航栏和侧导航栏里面文字都是14像素并且是微软雅黑。（中等) */</span></span></span><br><span class="line"><span class="language-css">			<span class="selector-class">.nav</span>, <span class="selector-class">.sitenav</span> &#123;</span></span><br><span class="line"><span class="language-css">				<span class="comment">/* font-size: 14px;</span></span></span><br><span class="line"><span class="comment"><span class="language-css">				font-family: &quot;microsoft yahei&quot;; */</span></span></span><br><span class="line"><span class="language-css">				<span class="attribute">font</span>: <span class="number">14px</span> <span class="string">&quot;microsoft yahei&quot;</span>;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">			<span class="comment">/* 主导航栏里面的一级菜单链接文字颜色为绿色 */</span></span></span><br><span class="line"><span class="language-css">			<span class="selector-class">.nav</span> &gt; <span class="selector-tag">ul</span> &gt; <span class="selector-tag">li</span> &gt; <span class="selector-tag">a</span> &#123;  </span></span><br><span class="line"><span class="language-css">				<span class="attribute">color</span>: green;</span></span><br><span class="line"><span class="language-css">			&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 主导航栏 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;nav&quot;</span>&gt;</span>    </span><br><span class="line">		<span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司简介<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司产品<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">		    	<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>联系我们<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">		    	<span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">		    		<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司邮箱<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    		<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>公司电话<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		    	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">		    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!-- 侧导航栏 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;sitenav&quot;</span>&gt;</span>    </span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;site-l&quot;</span>&gt;</span>左侧侧导航栏<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;site-r&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>登录<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h2><p>属性选择器：选取标签带有某些特殊属性的选择器 我们成为属性选择器</p>
+<p><strong>使用方式：标签[ ]</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 获取到 拥有 该属性的元素 */</span></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-attr">[class^=font]</span> &#123; <span class="comment">/*  class^=font 表示 font 在开始位置就行了 */</span></span><br><span class="line">			<span class="attribute">color</span>: pink;</span><br><span class="line">		&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-attr">[class$=footer]</span> &#123; <span class="comment">/*  class$=footer 表示 footer 在结束位置就行了 */</span></span><br><span class="line">			<span class="attribute">color</span>: skyblue;</span><br><span class="line">		&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-attr">[class*=tao]</span> &#123; <span class="comment">/* class*=tao  *=  表示tao 在任意位置都可以 */</span></span><br><span class="line">			<span class="attribute">color</span>: green;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">div</span> class=&quot;font12&quot;&gt;属性选择器&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;font12&quot;&gt;属性选择器&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;font24&quot;&gt;属性选择器&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;font24&quot;&gt;属性选择器&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;font24&quot;&gt;属性选择器&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;<span class="number">24</span>font&quot;&gt;属性选择器<span class="number">123</span>&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;sub-<span class="selector-tag">footer</span>&quot;&gt;属性选择器<span class="selector-tag">footer</span>&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;jd-<span class="selector-tag">footer</span>&quot;&gt;属性选择器<span class="selector-tag">footer</span>&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;news-tao-<span class="selector-tag">nav</span>&quot;&gt;属性选择器&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;news-tao-<span class="selector-tag">header</span>&quot;&gt;属性选择器&lt;/<span class="selector-tag">div</span>&gt;</span><br><span class="line">   &lt;<span class="selector-tag">div</span> class=&quot;tao-<span class="selector-tag">header</span>&quot;&gt;属性选择器&lt;/<span class="selector-tag">div</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130250769.png" class="" title="image-20221207130250769">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130259780.png" class="" title="image-20221207130259780">
+
+<p><strong>属性选择器使用中括号来表示。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130729062.png" class="" title="image-20221207130729062">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130742077.png" class="" title="image-20221207130742077">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130803312.png" class="" title="image-20221207130803312">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130925872.png" class="" title="image-20221207130925872">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207130952582.png" class="" title="image-20221207130952582">
+
+<p><strong>属性选择器：获取带有某个属性的标签。一般都是使用标签来限定。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131204494.png" class="" title="image-20221207131204494">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131218726.png" class="" title="image-20221207131218726">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131236310.png" class="" title="image-20221207131236310">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131245725.png" class="" title="image-20221207131245725">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131310121.png" class="" title="image-20221207131310121">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131319074.png" class="" title="image-20221207131319074">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131335633.png" class="" title="image-20221207131335633">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207131343722.png" class="" title="image-20221207131343722">
+
+
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">div</span><span class="selector-attr">[class^=font]</span> &#123; <span class="comment">/*  class^=font 表示 font 开始位置就行了 */</span></span></span><br><span class="line"><span class="language-css">			<span class="attribute">color</span>: pink;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">div</span><span class="selector-attr">[class$=footer]</span> &#123; <span class="comment">/*  class$=footer 表示 footer 结束位置就行了 */</span></span></span><br><span class="line"><span class="language-css">			<span class="attribute">color</span>: skyblue;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">div</span><span class="selector-attr">[class*=tao]</span> &#123; <span class="comment">/* class*=tao  *=  表示tao 在任意位置都可以 */</span></span></span><br><span class="line"><span class="language-css">			<span class="attribute">color</span>: green;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;font12&quot;</span>&gt;</span>属性选择器<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;font12&quot;</span>&gt;</span>属性选择器<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;font24&quot;</span>&gt;</span>属性选择器<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;font24&quot;</span>&gt;</span>属性选择器<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;font24&quot;</span>&gt;</span>属性选择器<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;24font&quot;</span>&gt;</span>属性选择器123<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;sub-footer&quot;</span>&gt;</span>属性选择器footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;jd-footer&quot;</span>&gt;</span>属性选择器footer<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;news-tao-nav&quot;</span>&gt;</span>属性选择器<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;news-tao-header&quot;</span>&gt;</span>属性选择器<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;tao-header&quot;</span>&gt;</span>属性选择器<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h2><ol>
+<li>E::first-letter文本的第一个单词或字（如中文、日文、韩文等）</li>
+<li>E::first-line 文本第一行；</li>
+<li>E::selection 可改变选中文本的样式；</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::first-letter</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">color</span>: hotpink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 首行特殊样式 */</span></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::first-line</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: skyblue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">::selection</span> &#123;</span><br><span class="line">  <span class="comment">/* font-size: 50px; */</span></span><br><span class="line">  <span class="attribute">color</span>: orange;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4、E::before和E::after</p>
+<p>在E元素内部的开始位置和结束位创建一个元素，该元素为行内元素，且必须要结合content属性使用。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>::befor &#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&quot;开始&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&quot;结束&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>E:after、E:before 在旧版本里是伪元素，CSS3的规范里“:”用来表示伪类，“::”用来表示伪元素，但是在高版本浏览器下E:after、E:before会被自动识别为E::after、E::before，这样做的目的是用来做兼容处理。</p>
+<p>E:after、E:before后面的练习中会反复用到，目前只需要有个大致了解</p>
+<p>“:” 与 “::” 区别在于区分伪类和伪元素</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132026082.png" class="" title="image-20221207132026082">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132036040.png" class="" title="image-20221207132036040">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132126963.png" class="" title="image-20221207132126963">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132140629.png" class="" title="image-20221207132140629">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132158217.png" class="" title="image-20221207132158217">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132221353.png" class="" title="image-20221207132221353">
+
+<p>选择到第一行。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132239947.png" class="" title="image-20221207132239947">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132249328.png" class="" title="image-20221207132249328">
+
+<p>当浏览器缩小的时候，可以看到是以浏览器的行为单位的。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132321316.png" class="" title="image-20221207132321316">
+
+<p>改变选中的文本的颜色。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207132338255.png" class="" title="image-20221207132338255">
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="comment">/* .demo 类选择器</span></span></span><br><span class="line"><span class="comment"><span class="language-css">		:first-child 伪类选择器</span></span></span><br><span class="line"><span class="comment"><span class="language-css">		::first-letter 伪元素选择器 */</span></span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">p</span><span class="selector-pseudo">::first-letter</span> &#123;   <span class="comment">/* 选择第一个字 */</span></span></span><br><span class="line"><span class="language-css">			<span class="attribute">color</span>: red;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">font-size</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">p</span><span class="selector-pseudo">::first-line</span> &#123;   <span class="comment">/* 选择第1行 */</span></span></span><br><span class="line"><span class="language-css">			<span class="attribute">color</span>: green;</span></span><br><span class="line"><span class="language-css">			</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">p</span><span class="selector-pseudo">::selection</span> &#123;  <span class="comment">/* 当我们选中文字的时候，可以变化的样式(只能是字体颜色与背景颜色) */</span></span></span><br><span class="line"><span class="language-css">			<span class="attribute">color</span>: pink;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">font-size</span>: <span class="number">50px</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: blue;</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   	<span class="tag">&lt;<span class="name">h1</span>&gt;</span>freestyle<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>英语词汇，一般指即兴的、随性的随意的发挥，例如HIPHOP说唱中的freestyle就是即兴说唱的意思。2017年6月，因吴亦凡屡次提起而火遍网络。</span><br><span class="line">    吴亦凡爆红的freestyle，其实是嘻哈选手的基本功，也是《中国有嘻哈》节目中的一个环节名称。</span><br><span class="line">发展经过编辑</span><br><span class="line">从吴亦凡口里说出来，freestyle就变得很魔性了，因为他见人都会问一句，你有freestyle吗？两个选手难以选择，还是这句，“你们有freestyle吗”？<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+<p>4、E::before和E::after</p>
+<p>在E元素内部的开始位置和结束位创建一个元素，该元素为行内元素，且必须要结合content属性使用。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>::befor &#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&quot;开始&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>:<span class="string">&quot;结束&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>E:after、E:before 在旧版本里是伪元素，CSS3的规范里“:”用来表示伪类，“::”用来表示伪元素，但是在高版本浏览器下E:after、E:before会被自动识别为E::after、E::before，这样做的目的是用来做兼容处理。</p>
+<p>E:after、E:before后面的练习中会反复用到，目前只需要有个大致了解</p>
+<p>“:” 与 “::” 区别在于区分伪类和伪元素</p>
+<p><strong>这两个伪元素选择器，后面用的非常多。</strong></p>
+<p><strong>这个两个选择器里面必须有content。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133621873.png" class="" title="image-20221207133621873">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133714099.png" class="" title="image-20221207133714099">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133728054.png" class="" title="image-20221207133728054">
+
+<p>注意，div是一个盒子，那么before是在盒子的内部的前面，注意是盒子的里面的前面，插入一个content内容。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133853558.png" class="" title="image-20221207133853558">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133904786.png" class="" title="image-20221207133904786">
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133916830.png" class="" title="image-20221207133916830">
+
+<p>after是在盒子内部的后面。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207133950994.png" class="" title="image-20221207133950994">
+
+<p>在后面会说这个作用的强大之处，例如，在一个盒子里面再放一个盒子，那么就可以使用这个来做。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span><span class="selector-pseudo">::before</span> &#123;   <span class="comment">/* before 和 after 在盒子div 的内部前面插入或者是内部后面插入 */</span></span></span><br><span class="line"><span class="language-css">        	<span class="attribute">content</span>: <span class="string">&quot;俺&quot;</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">div</span><span class="selector-pseudo">::after</span> &#123;</span></span><br><span class="line"><span class="language-css">        	<span class="attribute">content</span>: <span class="string">&quot;18岁&quot;</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>今年<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="CSS书写规范"><a href="#CSS书写规范" class="headerlink" title="CSS书写规范"></a>CSS书写规范</h2><h3 id="空格规范"><a href="#空格规范" class="headerlink" title="空格规范"></a><strong>空格规范</strong></h3><p>【强制】 选择器 与 { 之间必须包含空格。</p>
+<p>示例： .selector { }</p>
+<p>【强制】 属性名 与之后的 : 之间不允许包含空格， : 与 属性值 之间必须包含空格。</p>
+<p>示例：</p>
+<p>font-size: 12px;</p>
+<h3 id="选择器规范"><a href="#选择器规范" class="headerlink" title="选择器规范"></a>选择器规范</h3><p>【强制】 当一个 rule 包含多个 selector 时，每个选择器声明必须独占一行。</p>
+<p>示例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* good */</span></span><br><span class="line"><span class="selector-class">.post</span>,</span><br><span class="line"><span class="selector-class">.page</span>,</span><br><span class="line"><span class="selector-class">.comment</span> &#123;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* bad */</span></span><br><span class="line"><span class="selector-class">.post</span>, <span class="selector-class">.page</span>, <span class="selector-class">.comment</span> &#123;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">1.5</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【建议】 选择器的嵌套层级应不大于 3 级，位置靠后的限定条件应尽可能精确。</p>
+<p>示例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* good */</span></span><br><span class="line"><span class="selector-id">#username</span> <span class="selector-tag">input</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.comment</span> <span class="selector-class">.avatar</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* bad */</span></span><br><span class="line"><span class="selector-class">.page</span> <span class="selector-class">.header</span> <span class="selector-class">.login</span> <span class="selector-id">#username</span> <span class="selector-tag">input</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.comment</span> <span class="selector-tag">div</span> * &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="属性规范"><a href="#属性规范" class="headerlink" title="属性规范"></a>属性规范</h3><p>【强制】 属性定义必须另起一行。</p>
+<p>示例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* good */</span></span><br><span class="line"><span class="selector-class">.selector</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* bad */</span></span><br><span class="line"><span class="selector-class">.selector</span> &#123; <span class="attribute">margin</span>: <span class="number">0</span>; <span class="attribute">padding</span>: <span class="number">0</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>【强制】 属性定义后必须以分号结尾。</p>
+<p>示例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* good */</span></span><br><span class="line"><span class="selector-class">.selector</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* bad */</span></span><br><span class="line"><span class="selector-class">.selector</span> &#123;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207135425577.png" class="" title="image-20221207135425577">
+
+<p>这里要这样竖着写，我们看到页面上的是横着写的，原因是那里的css是经过压缩的了。方便网络传输。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207135457510.png" class="" title="image-20221207135457510">
+
+<p>一般不要这样写，我们知道li一定是在ul中的，同时页面中又没有ol，因此，可以不用写ul的。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207135915714.png" class="" title="image-20221207135915714">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207140015254.png" class="" title="image-20221207140015254">
+
+<p>注意分号。</p>
+<img src="/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/image-20221207140030698.png" class="" title="image-20221207140030698">
+
+
+
+<hr>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Leo
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8/" title="CSS3复合选择器">http://www.leo101018.xyz/2022/12/07/Front/css/CSS3-07/CSS3-07-CSS3复合选择器/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/css3/" rel="tag"><i class="fa fa-tag"></i> css3</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/02/Front/css/CSS3-06/CSS3-06-CSS3%E6%A0%B7%E5%BC%8F%E8%A1%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E6%98%BE%E7%A4%BA%E6%A8%A1%E5%BC%8F/" rel="prev" title="CSS3样式表与标签显示模式">
+      <i class="fa fa-chevron-left"></i> CSS3样式表与标签显示模式
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS3%E5%A4%8D%E5%90%88%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">CSS3复合选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%A4%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">交集选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.2.</span> <span class="nav-text">并集选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8E%E4%BB%A3%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">后代选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.4.</span> <span class="nav-text">子元素选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">1.5.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.6.</span> <span class="nav-text">属性选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-number">1.7.</span> <span class="nav-text">伪元素选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83"><span class="nav-number">1.8.</span> <span class="nav-text">CSS书写规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A9%BA%E6%A0%BC%E8%A7%84%E8%8C%83"><span class="nav-number">1.8.1.</span> <span class="nav-text">空格规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E8%A7%84%E8%8C%83"><span class="nav-number">1.8.2.</span> <span class="nav-text">选择器规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E8%A7%84%E8%8C%83"><span class="nav-number">1.8.3.</span> <span class="nav-text">属性规范</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Leo"
+      src="/images/guoqi.png">
+  <p class="site-author-name" itemprop="name">Leo</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">348k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">5:16</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
