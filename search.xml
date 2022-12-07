@@ -11741,4 +11741,566 @@
         <tag>css3</tag>
       </tags>
   </entry>
+  <entry>
+    <title>CSS3背景与应用</title>
+    <url>/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="CSS3背景与应用"><a href="#CSS3背景与应用" class="headerlink" title="CSS3背景与应用"></a>CSS3背景与应用</h1><p>CSS 可以添加背景颜色和背景图片，以及来进行图片设置。</p>
+<table>
+<thead>
+<tr>
+<th>background-color</th>
+<th>背景颜色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>background-image</td>
+<td>背景图片地址</td>
+</tr>
+<tr>
+<td>background-repeat</td>
+<td>是否平铺</td>
+</tr>
+<tr>
+<td>background-position</td>
+<td>背景位置</td>
+</tr>
+<tr>
+<td>background-attachment</td>
+<td>背景固定还是滚动</td>
+</tr>
+<tr>
+<td>背景的合写（复合属性）</td>
+<td></td>
+</tr>
+<tr>
+<td>background:背景颜色 背景图片地址 背景平铺 背景滚动 背景位置</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="背景图片-image"><a href="#背景图片-image" class="headerlink" title="背景图片(image)"></a>背景图片(image)</h2><p>语法： </p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background-image</span> : none | url (url) </span><br></pre></td></tr></table></figure>
+
+<p>参数： </p>
+<p>none : 　无背景图（默认的）<br>url : 　使用绝对或相对地址指定背景图像 </p>
+<p>background-image 属性允许指定一个图片展示在背景中（只有CSS3才可以多背景）可以和 background-color 连用。 如果图片不重复地话，图片覆盖不到地地方都会被背景色填充。 如果有背景图片平铺，则会覆盖背景颜色。</p>
+<p>小技巧：  我们提倡 背景图片后面的地址，url不要加引号。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207162042594.png" class="" title="image-20221207162042594">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207162109727.png" class="" title="image-20221207162109727">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207162122057.png" class="" title="image-20221207162122057">
+
+<p><strong>快捷键bgi+tab，会出现background-image这个属性的。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207162803170.png" class="" title="image-20221207162803170">
+
+<p>由于这个图没有300宽，因此，有一个平铺的效果。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163001261.png" class="" title="image-20221207163001261">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163011621.png" class="" title="image-20221207163011621">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163046126.png" class="" title="image-20221207163046126">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163137922.png" class="" title="image-20221207163137922">
+
+<p>可以看到，默认就是repeat，平铺的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163205023.png" class="" title="image-20221207163205023">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163216872.png" class="" title="image-20221207163216872">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163233295.png" class="" title="image-20221207163233295">
+
+<p>如图，盒子是外边框的大小，而图片是里面框的大小，因此，就平铺了。</p>
+<h2 id="背景平铺（repeat）"><a href="#背景平铺（repeat）" class="headerlink" title="背景平铺（repeat）"></a>背景平铺（repeat）</h2><p>语法： </p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background-repeat</span> : repeat | no-repeat | repeat-x | repeat-y </span><br></pre></td></tr></table></figure>
+
+<p>参数： </p>
+<p>repeat : 　背景图像在纵向和横向上平铺（默认的）</p>
+<p>no-repeat : 　背景图像不平铺</p>
+<p>repeat-x : 　背景图像在横向上平铺</p>
+<p>repeat-y : 　背景图像在纵向平铺 </p>
+<p>设置背景图片时，默认把图片在水平和垂直方向平铺以铺满整个元素。</p>
+<p>repeat-x : 　背景图像在横向上平铺  </p>
+<p>repeat-y : 　背景图像在纵向平铺 </p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163429921.png" class="" title="image-20221207163429921">
+
+<p>设置背景图片时，默认把图片在水平和垂直方向平铺以铺满整个元素。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163653816.png" class="" title="image-20221207163653816">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163722497.png" class="" title="image-20221207163722497">
+
+<p>默认是平铺的，这里改成no-repeat，不平铺。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163740127.png" class="" title="image-20221207163740127">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163752887.png" class="" title="image-20221207163752887">
+
+<p>repeat-x是横向平铺。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163817468.png" class="" title="image-20221207163817468">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163830536.png" class="" title="image-20221207163830536">
+
+<p>repeat-y，纵向平铺。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207163850599.png" class="" title="image-20221207163850599">
+
+<h2 id="背景位置-position"><a href="#背景位置-position" class="headerlink" title="背景位置(position)"></a>背景位置(position)</h2><p>语法： </p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background-position</span> : length || length</span><br><span class="line"></span><br><span class="line">background-position : position || position </span><br></pre></td></tr></table></figure>
+
+<p>参数： </p>
+<p>length : 　百分数 | 由浮点数字和单位标识符组成的长度值。请参阅长度单位<br>position : 　top | center | bottom | left | center | right </p>
+<p>说明： </p>
+<p>设置或检索对象的背景图像位置。必须先指定background-image属性。默认值为：(0% 0%)。<br>如果只指定了一个值，该值将用于横坐标。纵坐标将默认为50%。第二个值将用于纵坐标。</p>
+<p>注意：</p>
+<ol>
+<li>position 后面是x坐标和y坐标。 可以使用方位名词或者 精确单位。</li>
+<li>如果和精确单位和方位名字混合使用，则必须是x坐标在前，y坐标后面。比如 background-position: 15px top;   则 15px 一定是  x坐标   top是 y坐标。</li>
+</ol>
+<p>实际工作用的最多的，就是背景图片居中对齐了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164201727.png" class="" title="image-20221207164201727">
+
+<p>默认是left和top，就是左上角。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164303369.png" class="" title="image-20221207164303369">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164320056.png" class="" title="image-20221207164320056">
+
+<p>右上角。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164344828.png" class="" title="image-20221207164344828">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164417665.png" class="" title="image-20221207164417665">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164429631.png" class="" title="image-20221207164429631">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164457713.png" class="" title="image-20221207164457713">
+
+<p>就是属性值，bottom和right，这个谁在前，谁在后无所谓。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164603034.png" class="" title="image-20221207164603034">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164618894.png" class="" title="image-20221207164618894">
+
+<p>水平中间，垂直中间。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164634510.png" class="" title="image-20221207164634510">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164655486.png" class="" title="image-20221207164655486">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164704831.png" class="" title="image-20221207164704831">
+
+<p>只写一个方位名词，另外一个默认就是居中的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164804830.png" class="" title="image-20221207164804830">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164815293.png" class="" title="image-20221207164815293">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164826772.png" class="" title="image-20221207164826772">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164837216.png" class="" title="image-20221207164837216">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164911984.png" class="" title="image-20221207164911984">
+
+<p>网页中的坐标。</p>
+<p>我们也可以指定图片的精确坐标位置。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207164937865.png" class="" title="image-20221207164937865">
+
+<p>使用精确坐标。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207165000128.png" class="" title="image-20221207165000128">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207165141267.png" class="" title="image-20221207165141267">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207165152920.png" class="" title="image-20221207165152920">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207165207701.png" class="" title="image-20221207165207701">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207170732309.png" class="" title="image-20221207170732309">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207170751636.png" class="" title="image-20221207170751636">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207170802099.png" class="" title="image-20221207170802099">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207170822256.png" class="" title="image-20221207170822256">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207170832940.png" class="" title="image-20221207170832940">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207170853464.png" class="" title="image-20221207170853464">
+
+<p>如果使用纯方位名字的话，那么属性值的前后没有顺序的。</p>
+<p>对于精确定位和混搭，属性值都是有顺序的，前面是x，后面是y。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">width</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">height</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">images/l.jpg</span>);</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-repeat</span>: no-repeat;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* 1.利用方位名词 top bottom 来更改背景图片位置 */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">            <span class="comment">/*background-position: left top;   默认的是 左上角 */</span></span></span><br><span class="line"><span class="language-css">            <span class="comment">/*background-position: bottom right ;   方位名词没有顺序，谁在前都可以 */</span></span></span><br><span class="line"><span class="language-css">            <span class="comment">/* background-position: center center ;  */</span> </span></span><br><span class="line"><span class="language-css">            <span class="comment">/* background-position: left;   如果方位名词只写一个，另外一个默认为center */</span></span></span><br><span class="line"><span class="language-css">            <span class="comment">/*  background-position: 10px 30px; </span></span></span><br><span class="line"><span class="comment"><span class="language-css">             2. 精切单位 第一值一定是x坐标 第二个值一定是y坐标 */</span></span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">             <span class="comment">/* 3. 混搭 */</span></span></span><br><span class="line"><span class="language-css">            <span class="attribute">background-position</span>: center <span class="number">10px</span> ;</span></span><br><span class="line"><span class="language-css">            <span class="comment">/* center 10px  水平居中的 垂直是 10px </span></span></span><br><span class="line"><span class="comment"><span class="language-css">            10px center   水平10px  垂直是 居中 */</span></span></span><br><span class="line"><span class="language-css">           </span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    	</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="案例-魔兽背景图片"><a href="#案例-魔兽背景图片" class="headerlink" title="案例-魔兽背景图片"></a>案例-魔兽背景图片</h2><img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207171439097.png" class="" title="image-20221207171439097">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207171735914.png" class="" title="image-20221207171735914">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207171757310.png" class="" title="image-20221207171757310">
+
+<p>图片大小。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207171858955.png" class="" title="image-20221207171858955">
+
+<p>这就是图是外边这么大，但是浏览器确只有里面这么宽。默认是左上角对齐的，因此，就是图中显示的样子了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207171919838.png" class="" title="image-20221207171919838">
+
+<p>我们想要将图片居中对齐。注意蓝色框是图片。里面的是浏览器，也就是屏幕的宽和高。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207171950711.png" class="" title="image-20221207171950711">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207172013910.png" class="" title="image-20221207172013910">
+
+<p>这就和官网的页面几乎一致了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207172038141.png" class="" title="image-20221207172038141">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207172051609.png" class="" title="image-20221207172051609">
+
+<p>图往上走了。</p>
+<p>这就是大背景图的做法。</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">		<span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-color</span>: <span class="number">#000</span>;</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">images/ms.jpg</span>);</span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-repeat</span>: no-repeat;</span></span><br><span class="line"><span class="language-css">			<span class="comment">/* 背景图片的位置  水平居中  垂直靠上就可以了 */</span></span></span><br><span class="line"><span class="language-css">			<span class="attribute">background-position</span>: center -<span class="number">25px</span>;</span></span><br><span class="line"><span class="language-css">			</span></span><br><span class="line"><span class="language-css">		&#125;</span></span><br><span class="line"><span class="language-css">        </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>FW是Macromedia公司推出的结合photoshop和coreldraw的一款图形图像处理软件。与dreamweaver、flash称为网页三剑客。是网页设计的必备软件。</p>
+<h2 id="背景附着（固定）"><a href="#背景附着（固定）" class="headerlink" title="背景附着（固定）"></a>背景附着（固定）</h2><p>语法： </p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background-attachment</span> : scroll | fixed </span><br></pre></td></tr></table></figure>
+
+<p>参数： </p>
+<p>scroll : 　背景图像是随对象内容滚动<br>fixed : 　背景图像固定 </p>
+<p>说明： </p>
+<p>设置或检索背景图像是随对象内容滚动还是固定的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207172730974.png" class="" title="image-20221207172730974">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207172814605.png" class="" title="image-20221207172814605">
+
+<p>现在拉滚动条，图片就上去了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207172845274.png" class="" title="image-20221207172845274">
+
+<p>默认是scroll的，就是图片会上去。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207172909181.png" class="" title="image-20221207172909181">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207172941514.png" class="" title="image-20221207172941514">
+
+<p>此时拉动滚动条，只有文字会动，背景图片是不动的。</p>
+<p>这个就叫做背景固定。</p>
+<h2 id="背景简写"><a href="#背景简写" class="headerlink" title="背景简写"></a>背景简写</h2><p>background属性的值的书写顺序官方并没有强制标准的。为了可读性，建议大家如下写：</p>
+<p>background:背景颜色 背景图片地址 背景平铺 背景滚动 背景位置</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background</span>: transparent <span class="built_in">url</span>(<span class="string">image.jpg</span>) repeat-y  scroll <span class="number">50%</span> <span class="number">0</span> ;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207173743434.png" class="" title="image-20221207173743434">
+
+<p>背景位置，水平是center，垂直是100px。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207173935818.png" class="" title="image-20221207173935818">
+
+<p>注意，最后的center 100px这个背景位置是一体的，x，y坐标，他俩不能够分开的。然后其它的部分，位置顺序不是严格规定的。</p>
+<h2 id="背景透明-CSS3"><a href="#背景透明-CSS3" class="headerlink" title="背景透明(CSS3)"></a>背景透明(CSS3)</h2><p>CSS3支持背景半透明的写法语法格式是:</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.3</span>);</span><br></pre></td></tr></table></figure>
+
+<p> 最后一个参数是alpha 透明度  取值范围 0~1之间</p>
+<p> <strong>注意：  背景半透明是指盒子背景半透明， 盒子里面的内容不受影响。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207202144138.png" class="" title="image-20221207202144138">
+
+<p>这是之前的内容的颜色半透明。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207202221218.png" class="" title="image-20221207202221218">
+
+<p>如上，这是内容的半透明。</p>
+<p>我们的盒子，也是可以半透明的，也就是背景半透明的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203246788.png" class="" title="image-20221207203246788">
+
+<p>例如，这里就是半透明的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203322555.png" class="" title="image-20221207203322555">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203338102.png" class="" title="image-20221207203338102">
+
+<p>看着图有点偏，原因就是图很大。没有那么大的浏览器的。默认图是在左上角对齐的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203515530.png" class="" title="image-20221207203515530">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203534587.png" class="" title="image-20221207203534587">
+
+<p>此时图片就居中了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203635070.png" class="" title="image-20221207203635070">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203717194.png" class="" title="image-20221207203717194">
+
+<p>一个div盒子。</p>
+<p>现在想要这个盒子能够半透明的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203832141.png" class="" title="image-20221207203832141">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207203848772.png" class="" title="image-20221207203848772">
+
+<p>此时就是半透明的了。</p>
+<h2 id="背景缩放-CSS3"><a href="#背景缩放-CSS3" class="headerlink" title="背景缩放(CSS3)"></a>背景缩放(CSS3)</h2><p>通过background-size设置背景图片的尺寸，就像我们设置img的尺寸一样，在移动Web开发中做屏幕适配应用非常广泛。</p>
+<p>其参数设置如下：</p>
+<p>a) 可以设置长度单位(px)或百分比（设置百分比时，参照盒子的宽高）</p>
+<p><strong>b) 设置为cover时，会自动调整缩放比例，保证图片始终填充满背景区域，如有溢出部分则会被隐藏。我们平时用的cover 最多</strong></p>
+<p>c) 设置为contain会自动调整缩放比例，保证图片始终完整显示在背景区域。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;images/gyt.jpg&#x27;</span>);</span><br><span class="line"><span class="attribute">background-size</span>: <span class="number">300px</span> <span class="number">100px</span>;</span><br><span class="line"><span class="comment">/* background-size: contain; */</span></span><br><span class="line"><span class="comment">/* background-size: cover; */</span></span><br></pre></td></tr></table></figure>
+
+<p>我们知道，图片大小是固定的，那么图片作为盒子的背景图片的时候，能否跟着进行缩放呢？</p>
+<p>在css3新特性中是可以支持的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207204328567.png" class="" title="image-20221207204328567">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207204347197.png" class="" title="image-20221207204347197">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207204411447.png" class="" title="image-20221207204411447">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207204429916.png" class="" title="image-20221207204429916">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207204442941.png" class="" title="image-20221207204442941">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207204453736.png" class="" title="image-20221207204453736">
+
+
+
+<p>background-size，用来设置背景图片的尺寸。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207204512906.png" class="" title="image-20221207204512906">
+
+<p>img是插入图片，不是背景图片。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205014189.png" class="" title="image-20221207205014189">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205030673.png" class="" title="image-20221207205030673">
+
+<p>尽量不要宽和高一起改，因为不能很好的控制比例，因此，给定一个高或者宽即可，能够自动进行等比例缩放的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205125167.png" class="" title="image-20221207205125167">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205136300.png" class="" title="image-20221207205136300">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205202575.png" class="" title="image-20221207205202575">
+
+<p>还可以使用百分比的形式。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205224402.png" class="" title="image-20221207205224402">
+
+<p>因此，可以使用精确单位，也可以使用百分比的方式。</p>
+<p>前面的背景缩放，没有将div这个盒子充满。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205328363.png" class="" title="image-20221207205328363">
+
+<p>可以手动的指定背景图片的宽高，充满盒子。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205401476.png" class="" title="image-20221207205401476">
+
+<p>但是这样写，不方便，而且图片也失真了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205435260.png" class="" title="image-20221207205435260">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205445638.png" class="" title="image-20221207205445638">
+
+<p>可以看到图片也没有失去比例。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205754739.png" class="" title="image-20221207205754739">
+
+<p>缩放的方式是这样的，图片往下放大，高度和盒子一样高了，但是宽度还没有到，因此，继续等比例的放大。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205824512.png" class="" title="image-20221207205824512">
+
+<p>直到宽度和盒子一样大小为止。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207205858705.png" class="" title="image-20221207205858705">
+
+<p>由于是等比例缩放的，所以，此时下面多出来的部分就被隐藏了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207210130765.png" class="" title="image-20221207210130765">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207210156194.png" class="" title="image-20221207210156194">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207210228552.png" class="" title="image-20221207210228552">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207210306088.png" class="" title="image-20221207210306088">
+
+<p>图片正常比例显示，但是盒子有一部分漏出了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207210331420.png" class="" title="image-20221207210331420">
+
+<p>contain是这样，等比例放大，然后首先发现高度满足了盒子的高度了，此时图片就不会再进行缩放了。因此，宽度还没有满足盒子的宽度，因此，背景色就会漏出。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207210509229.png" class="" title="image-20221207210509229">
+
+<p>如果图片是这样的，那么就是首先宽度满足了盒子了，那么此时高度就不会再变了，图片不会再进行缩放了。此时低下背景色就会漏出了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207210544603.png" class="" title="image-20221207210544603">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207210559363.png" class="" title="image-20221207210559363">
+
+<p>我们平时使用cover较多。</p>
+<h2 id="多背景-CSS3"><a href="#多背景-CSS3" class="headerlink" title="多背景(CSS3)"></a>多背景(CSS3)</h2><p>以逗号分隔可以设置多背景，可用于自适应布局  做法就是 用逗号隔开就好了。</p>
+<ul>
+<li>一个元素可以设置多重背景图像。 </li>
+<li>每组属性间使用逗号分隔。 </li>
+<li>如果设置的多重背景图之间存在着交集（即存在着重叠关系），前面的背景图会覆盖在后面的背景图之上。</li>
+<li>为了避免背景色将图像盖住，背景色通常都定义在最后一组上，</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="attribute">background</span>:<span class="built_in">url</span>(<span class="string">test1.jpg</span>) no-repeat scroll <span class="number">10px</span> <span class="number">20px</span>/<span class="number">50px</span> <span class="number">60px</span>  ,</span><br><span class="line">	   	   <span class="built_in">url</span>(<span class="string">test1.jpg</span>) no-repeat scroll <span class="number">10px</span> <span class="number">20px</span>/<span class="number">70px</span> <span class="number">90px</span> ,</span><br><span class="line">	       <span class="built_in">url</span>(<span class="string">test1.jpg</span>) no-repeat scroll <span class="number">10px</span> <span class="number">20px</span>/<span class="number">110px</span> <span class="number">130px</span> c <span class="number">#aaa</span>;</span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207211753587.png" class="" title="image-20221207211753587">
+
+<p>我们是否可以在一个盒子上放置多张图片呢，如图，左上角放一张图片，右下角放一张图片。</p>
+<p>在css3中，是支持的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207211852966.png" class="" title="image-20221207211852966">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207211909400.png" class="" title="image-20221207211909400">
+
+<p>放置两张背景图片，此时盒子没有背景颜色呢，背景颜色是有讲究的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207211946125.png" class="" title="image-20221207211946125">
+
+<p>此时两张背景图片是有交集的。有重叠的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212013399.png" class="" title="image-20221207212013399">
+
+<p>前面的将后面的覆盖了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212150744.png" class="" title="image-20221207212150744">
+
+<p>现在背景颜色放在了第一组上。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212214123.png" class="" title="image-20221207212214123">
+
+<p><strong>背景图片都没有了。因此，要求，背景颜色，需要放在最后一组上。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212308121.png" class="" title="image-20221207212308121">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212323253.png" class="" title="image-20221207212323253">
+
+
+
+<h2 id="凹凸文字"><a href="#凹凸文字" class="headerlink" title="凹凸文字"></a>凹凸文字</h2><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">       <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">       	<span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span></span><br><span class="line"><span class="language-css">       &#125;</span></span><br><span class="line"><span class="language-css">	<span class="selector-tag">div</span> &#123;</span></span><br><span class="line"><span class="language-css">		<span class="attribute">color</span>: <span class="number">#ccc</span>;</span></span><br><span class="line"><span class="language-css">		<span class="attribute">font</span>: <span class="number">700</span> <span class="number">80px</span> <span class="string">&quot;微软雅黑&quot;</span>;</span></span><br><span class="line"><span class="language-css">	&#125;</span></span><br><span class="line"><span class="language-css">	<span class="selector-tag">div</span><span class="selector-pseudo">:first</span>-child &#123;</span></span><br><span class="line"><span class="language-css">		<span class="comment">/* text-shadow: 水平位置  垂直位置  模糊距离 阴影颜色; */</span></span></span><br><span class="line"><span class="language-css">		<span class="attribute">text-shadow</span>: <span class="number">1px</span> <span class="number">1px</span> <span class="number">1px</span> <span class="number">#000</span>, -<span class="number">1px</span> -<span class="number">1px</span> <span class="number">1px</span> <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">	&#125;</span></span><br><span class="line"><span class="language-css">	<span class="selector-tag">div</span><span class="selector-pseudo">:last-child</span> &#123;</span></span><br><span class="line"><span class="language-css">		<span class="comment">/* text-shadow: 水平位置  垂直位置  模糊距离 阴影颜色; */</span></span></span><br><span class="line"><span class="language-css">		<span class="attribute">text-shadow</span>: -<span class="number">1px</span> -<span class="number">1px</span> <span class="number">1px</span> <span class="number">#000</span>, <span class="number">1px</span> <span class="number">1px</span> <span class="number">1px</span> <span class="number">#fff</span>;</span></span><br><span class="line"><span class="language-css">	&#125;</span></span><br><span class="line"><span class="language-css"></span></span><br><span class="line"><span class="language-css">       </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span>&gt;</span>我是凸起的文字<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span>&gt;</span>我是凹下的文字<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212457626.png" class="" title="image-20221207212457626">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212716226.png" class="" title="image-20221207212716226">
+
+<p>文字阴影也是可以添加多个的。</p>
+<p>现在文字和背景颜色一样了，给文字添加凸起效果。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212740290.png" class="" title="image-20221207212740290">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212749380.png" class="" title="image-20221207212749380">
+
+<p>上面是亮光效果。下面是影子效果。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212905126.png" class="" title="image-20221207212905126">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212922098.png" class="" title="image-20221207212922098">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207212947156.png" class="" title="image-20221207212947156">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213005002.png" class="" title="image-20221207213005002">
+
+<p>此时文字看不到了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213146839.png" class="" title="image-20221207213146839">
+
+<p>用鼠标滑动，能够看到文字。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213220626.png" class="" title="image-20221207213220626">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213305844.png" class="" title="image-20221207213305844">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213318576.png" class="" title="image-20221207213318576">
+
+<p>文本的阴影，也是可以添加多个的，也是使用逗号分隔的。多阴影。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213412937.png" class="" title="image-20221207213412937">
+
+<p>上面是阴影是白色，下面阴影是黑色。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213428178.png" class="" title="image-20221207213428178">
+
+<p>这样更加具有立体感了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213454491.png" class="" title="image-20221207213454491">
+
+<p>上边，左边是白色的。右边下边是黑色的。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213537651.png" class="" title="image-20221207213537651">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207213555327.png" class="" title="image-20221207213555327">
+
+<p>凹下去的。</p>
+<p>这就是通过文字阴影来实现的。</p>
+<h2 id="导航栏案例-王者荣耀导航栏"><a href="#导航栏案例-王者荣耀导航栏" class="headerlink" title="导航栏案例-王者荣耀导航栏"></a>导航栏案例-王者荣耀导航栏</h2><img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214000749.png" class="" title="image-20221207214000749">
+
+<p>图中这个导航栏效果我们可以做。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214025310.png" class="" title="image-20221207214025310">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214042396.png" class="" title="image-20221207214042396">
+
+<p>鼠标放到链接上，要变换背景。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214107060.png" class="" title="image-20221207214107060">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214116502.png" class="" title="image-20221207214116502">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214128792.png" class="" title="image-20221207214128792">
+
+<p>宽，高，手工通过软件去量的。</p>
+<p>a是行内元素，对宽高没有效果的。</p>
+<p>因此，我们可以将其转为块级元素。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214201605.png" class="" title="image-20221207214201605">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214211672.png" class="" title="image-20221207214211672">
+
+<p>但是现在每个占一行了。</p>
+<p>因此，可以使用行内块元素。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214359663.png" class="" title="image-20221207214359663">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214409596.png" class="" title="image-20221207214409596">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214429018.png" class="" title="image-20221207214429018">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214449629.png" class="" title="image-20221207214449629">
+
+<p>我们可以让a的行高等于盒子的高度，这样文字就垂直居中了。</p>
+<p><strong>实际上是让文本内容的行高（行间距）等于a这个盒子的高。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214543320.png" class="" title="image-20221207214543320">
+
+<p>注意，使文字在盒子中垂直居中，前提是这个盒子里只有一行文本，如果是多行文本就不行了。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214704800.png" class="" title="image-20221207214704800">
+
+
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214729063.png" class="" title="image-20221207214729063">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207214758842.png" class="" title="image-20221207214758842">
+
+<p>这里面的下划线如何去掉呢？下面说明。</p>
+<p><strong>文本的装饰</strong></p>
+<p><strong>text-decoration   通常我们用于给链接修改装饰效果</strong></p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>none</td>
+<td>默认。定义标准的文本。</td>
+</tr>
+<tr>
+<td>underline</td>
+<td>定义文本下的一条线。下划线 也是我们链接自带的</td>
+</tr>
+<tr>
+<td>overline</td>
+<td>定义文本上的一条线。</td>
+</tr>
+<tr>
+<td>line-through</td>
+<td>定义穿过文本下的一条线。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>使用技巧</strong>：在一行内的盒子内，我们设定行高等于盒子的高度，就可以使文字垂直居中。</p>
+<p><strong>注意，只有链接的文本，默认是有下划线的，其他的文本默认都是none的，也就是标准文本没有线的。</strong></p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207215012282.png" class="" title="image-20221207215012282">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207215047960.png" class="" title="image-20221207215047960">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207215103848.png" class="" title="image-20221207215103848">
+
+<p>取消背景色。</p>
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207215119336.png" class="" title="image-20221207215119336">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207215133893.png" class="" title="image-20221207215133893">
+
+<img src="/2022/12/07/Front/css/CSS3-08/CSS3-08-CSS3%E8%83%8C%E6%99%AF%E4%B8%8E%E5%BA%94%E7%94%A8/image-20221207215159363.png" class="" title="image-20221207215159363">
+
+<p>此时鼠标放上去，就有背景了。</p>
+<hr>
+]]></content>
+      <categories>
+        <category>Front</category>
+        <category>css3</category>
+      </categories>
+      <tags>
+        <tag>css3</tag>
+      </tags>
+  </entry>
 </search>
